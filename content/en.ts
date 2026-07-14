@@ -152,24 +152,14 @@ export const en = {
     eyebrow: "AI Talent Education & Certification",
     title: { pre: "Build ", accent: "AI capability", post: " across\nyour organization" },
     lede: "Education programs combine structured online learning, regional offline instruction, and globally recognized certification.",
-    steps: [
+    certificates: [
       {
-        eyebrow: "Sow",
-        title: "Build AI foundations",
-        caption:
-          "Learn AI fundamentals through structured online courses designed for both business and technical professionals.",
+        src: "/images/education/cert-ai-associate.png",
+        alt: "BytePlus Academy — BytePlus AI Associate certification badge",
       },
       {
-        eyebrow: "Cultivate",
-        title: "Apply AI skills",
-        caption:
-          "Join instructor-led workshops, complete hands-on projects, and validate your skills through practical assessments.",
-      },
-      {
-        eyebrow: "Flourish",
-        title: "Earn BytePlus AI certification",
-        caption:
-          "Earn an industry-recognized certification that validates your practical AI engineering expertise.",
+        src: "/images/education/cert-cloud-essentials.png",
+        alt: "BytePlus Academy — BytePlus Cloud Essentials certification badge",
       },
     ],
   },
@@ -204,6 +194,17 @@ export const en = {
     },
     lede: "From Hong Kong headquarters to regional teams across Southeast Asia and beyond, we operate close to the markets we serve.",
     mapAlt: "Map of Asia highlighting the markets Basicware operates in",
+    locations: {
+      hongkong: { name: "Hong Kong", role: "Headquarters" },
+      indonesia: { name: "Indonesia", role: "Regional Development" },
+      vietnam: { name: "Vietnam", role: "Partner Management" },
+      malaysia: { name: "Malaysia", role: "Market Expansion" },
+      japan: { name: "Japan", role: "Enterprise Partnerships" },
+      nanjing: { name: "Nanjing", role: "China Operations" },
+      cambodia: { name: "Cambodia", role: "Emerging Markets" },
+      // TODO: confirm final copy for the Thailand role
+      thailand: { name: "Thailand", role: "Local Launch Point" },
+    },
   },
 
   cta: {

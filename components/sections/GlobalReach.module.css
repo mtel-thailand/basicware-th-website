@@ -31,6 +31,57 @@
   aspect-ratio: 51 / 80;
   transform-origin: bottom center;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  outline: none;
+}
+
+.pin:hover,
+.pin:focus-visible {
+  z-index: 2;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-black-a20);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-card-hover);
+  white-space: nowrap;
+  font-size: var(--text-body-sm-size);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition:
+    opacity var(--duration-base) ease,
+    transform var(--duration-base) var(--ease-out-expo),
+    visibility var(--duration-base);
+}
+
+.pin:hover .tooltip,
+.pin:focus-visible .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.tooltipName {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.tooltipRole {
+  color: var(--color-text-secondary);
+}
+
+.tooltipRole::before {
+  content: "·";
+  margin-right: 6px;
 }
 
 .pinCrop {
