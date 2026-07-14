@@ -1,0 +1,82 @@
+.section {
+  background: var(--color-bg-surface);
+  padding-block: var(--space-11) var(--space-8);
+}
+
+.section .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.mapWrap {
+  width: 100%;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1200 / 720;
+  border-radius: clamp(48px, 30vw, 360px);
+  overflow: hidden;
+}
+
+.mapImage {
+  object-fit: cover;
+}
+
+.pin {
+  position: absolute;
+  width: 4.25%;
+  aspect-ratio: 51 / 80;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.pinCrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  width: 70%;
+  aspect-ratio: 2 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(1, 101, 208, 0.35);
+  animation: ripple 3s ease-out infinite;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 0.6;
+    scale: 0.4;
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+    scale: 1.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .map {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+  }
+
+  .pin {
+    width: 6.5%;
+  }
+}

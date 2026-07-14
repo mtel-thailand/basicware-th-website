@@ -1,0 +1,302 @@
+.section {
+  background: var(--color-bg-surface);
+  padding-block: var(--space-10);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+}
+
+.panels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Scroll deck: each slot is sticky so panels pile up and cover each other */
+.panelsStacked {
+  gap: var(--space-8);
+}
+
+.panelsStacked .panelSlot {
+  position: sticky;
+}
+
+.panelsStacked .panel {
+  transform-origin: center top;
+  box-shadow: 0 -12px 48px rgba(1, 39, 91, 0.25);
+}
+
+.panelDim {
+  position: absolute;
+  inset: 0;
+  background: #01275b;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ---- Gradient panel ---- */
+
+.panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-9);
+  min-height: 500px;
+  padding: clamp(var(--space-6), 5vw, var(--space-10));
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    127deg,
+    var(--color-brand-cta-800) 5.76%,
+    #0067ff 69.66%,
+    rgba(0, 103, 255, 0.5) 103.68%
+  );
+  overflow: hidden;
+  color: var(--color-text-white);
+}
+
+.panelTexture {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.panelText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex: 0 0 400px;
+  align-self: stretch;
+}
+
+.panelHeading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.panelEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow-size);
+  font-weight: 500;
+  letter-spacing: var(--text-eyebrow-tracking);
+  text-transform: uppercase;
+}
+
+.panelEyebrow::before,
+.panelEyebrow::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--color-border-subtle);
+  opacity: 0.6;
+}
+
+.panelTitle {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-line);
+  letter-spacing: var(--text-h3-tracking);
+  max-width: 400px;
+}
+
+.statBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.stat {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-display-size);
+  line-height: 1;
+  letter-spacing: var(--text-display-tracking);
+}
+
+.statSmall {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-line);
+  letter-spacing: var(--text-h2-tracking);
+}
+
+.statLabel {
+  font-size: var(--text-body-lg-size);
+  letter-spacing: var(--text-body-lg-tracking);
+}
+
+.panelVisual {
+  position: relative;
+  flex: 0 1 720px;
+  align-self: center;
+}
+
+.mockup {
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+/* ---- Candidate stack (Hiring panel) ---- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.candidate {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+}
+
+/* Best match is biggest, trailing candidates shrink and tuck behind */
+.candidate:nth-child(1) {
+  width: min(540px, 100%);
+}
+
+.candidate:nth-child(2) {
+  width: min(480px, 94%);
+  margin-top: calc(-1 * var(--space-2));
+  opacity: 0.95;
+}
+
+.candidate:nth-child(3) {
+  width: min(420px, 88%);
+  margin-top: calc(-1 * var(--space-2));
+  opacity: 0.9;
+}
+
+.candidate:nth-child(4) {
+  width: min(360px, 82%);
+  margin-top: calc(-1 * var(--space-2));
+  opacity: 0.85;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.candidate:nth-child(3) .avatar,
+.candidate:nth-child(4) .avatar {
+  width: 52px;
+  height: 52px;
+}
+
+.candidateInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.candidateName {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-h5-size);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.candidate:nth-child(3) .candidateName,
+.candidate:nth-child(4) .candidateName {
+  font-size: var(--text-body-size);
+}
+
+.candidateRole {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-text-secondary);
+}
+
+.candidateLocation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: 2px;
+  font-size: var(--text-caption-size);
+  color: var(--color-text-secondary);
+}
+
+.matchBadge {
+  align-self: flex-end;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body-sm-size);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1100px) {
+  .panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .panelText {
+    flex-basis: auto;
+    gap: var(--space-5);
+    align-self: auto;
+  }
+
+  .panelVisual {
+    flex-basis: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mockup {
+    max-height: none;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 600px) {
+  .panel {
+    min-height: 0;
+    padding: var(--space-5);
+  }
+
+  .candidateName {
+    font-size: var(--text-body-size);
+  }
+
+  .matchBadge {
+    font-size: var(--text-caption-size);
+    padding-inline: var(--space-2);
+  }
+}

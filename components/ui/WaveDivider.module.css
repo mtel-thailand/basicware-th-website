@@ -1,0 +1,16 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  z-index: 2;
+}
+
+.wrap svg {
+  display: block;
+  width: 100%;
+  height: clamp(48px, 8vw, 120px);
+}
+
+.flip {
+  transform: scaleY(-1);
+}

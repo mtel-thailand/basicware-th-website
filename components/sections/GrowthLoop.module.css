@@ -1,0 +1,193 @@
+.section {
+  background: var(--color-bg-page);
+  padding-block: var(--space-10);
+}
+
+.section .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-9);
+}
+
+.stage {
+  position: relative;
+}
+
+.arc {
+  position: absolute;
+  inset: 40px 0 auto 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ---- Cards on the arc ---- */
+
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* Arc offsets: outer cards sit lower, center card highest */
+.cardSlot:nth-child(1),
+.cardSlot:nth-child(5) {
+  margin-top: 123px;
+}
+
+.cardSlot:nth-child(2),
+.cardSlot:nth-child(4) {
+  margin-top: 41px;
+}
+
+.cardSlot {
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(44, 43, 127, 0.1);
+  overflow: hidden;
+  transition: box-shadow var(--duration-base) ease;
+}
+
+.cardActive {
+  box-shadow: 0 16px 48px rgba(1, 101, 208, 0.22);
+}
+
+/* Timer bar showing how long until the loop advances */
+.cardProgress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-brand-cta);
+  transform-origin: left;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.number {
+  color: var(--color-text-secondary);
+}
+
+.stepTitle {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-line);
+  letter-spacing: var(--text-h3-tracking);
+  color: var(--color-accent-light);
+}
+
+.caption {
+  color: var(--color-text-secondary);
+}
+
+.illustration {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.illustration img {
+  object-fit: contain;
+}
+
+/* ---- Footer: lede + loop indicator ---- */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+  text-align: center;
+}
+
+.lede {
+  max-width: 544px;
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-line);
+  color: var(--color-text-secondary);
+}
+
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow-size);
+  font-weight: 500;
+  letter-spacing: var(--text-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1200px) {
+  .cardSlot:nth-child(1),
+  .cardSlot:nth-child(5) {
+    margin-top: 90px;
+  }
+
+  .cardSlot:nth-child(2),
+  .cardSlot:nth-child(4) {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .arc {
+    display: none;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  .cardSlot:nth-child(n) {
+    margin-top: 0;
+  }
+
+  /* Gentle stagger keeps the organic feel */
+  .cardSlot:nth-child(even) {
+    transform: translateY(24px);
+  }
+
+  .cardSlot:nth-child(5) {
+    grid-column: 1 / -1;
+    max-width: 320px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+
+  .cardSlot:nth-child(even) {
+    transform: none;
+  }
+
+  .cardSlot:nth-child(5) {
+    max-width: none;
+  }
+}

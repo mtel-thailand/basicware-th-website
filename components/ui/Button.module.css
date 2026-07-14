@@ -1,0 +1,44 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 48px;
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-cta);
+  color: var(--color-text-white);
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out-expo);
+  will-change: transform;
+}
+
+.button:hover {
+  background: #0157b3;
+  box-shadow: 0 8px 24px rgba(1, 101, 208, 0.35);
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+.arrow {
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+.onPhoto {
+  background: var(--color-white-a80);
+  color: var(--color-text-primary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.onPhoto:hover {
+  background: var(--color-bg-surface);
+  box-shadow: 0 8px 24px rgba(17, 17, 16, 0.18);
+}

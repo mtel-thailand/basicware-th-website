@@ -1,0 +1,142 @@
+.hero {
+  position: relative;
+  min-height: clamp(640px, 100svh, 1000px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  inset: -12% 0 0 0;
+  z-index: 0;
+}
+
+.bgInner {
+  position: absolute;
+  inset: 0;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center top;
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-11) var(--container-pad) var(--space-9);
+  text-align: center;
+}
+
+.glowWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Soft glow behind the headline for readability over the photo */
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1454px, 120vw);
+  height: 120%;
+  background: radial-gradient(
+    ellipse 50% 50% at center,
+    rgba(90, 130, 190, 0.55) 0%,
+    rgba(90, 130, 190, 0.25) 45%,
+    transparent 72%
+  );
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.chip {
+  position: relative;
+  padding: 7px 14px;
+  border: 1px solid rgba(245, 245, 243, 0.7);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow-size);
+  font-weight: 500;
+  line-height: var(--text-eyebrow-line);
+  letter-spacing: var(--text-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--color-text-white);
+}
+
+.headline {
+  position: relative;
+  color: var(--color-text-white);
+  font-size: var(--text-display-size);
+  line-height: var(--text-display-line);
+  letter-spacing: var(--text-display-tracking);
+  text-shadow: 0 2px 24px rgba(1, 39, 91, 0.3);
+}
+
+.line {
+  display: block;
+}
+
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.growth {
+  display: inline-flex;
+  align-items: center;
+}
+
+.glyph {
+  display: inline-flex;
+  width: 0.76em;
+  height: 0.76em;
+  margin-inline: 0.02em;
+}
+
+.glyph img {
+  width: 100%;
+  height: 100%;
+}
+
+.wave {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: max(88svh, 560px);
+  }
+
+  .content {
+    padding-bottom: var(--space-7);
+  }
+}

@@ -1,0 +1,210 @@
+.section {
+  background: var(--color-bg-surface);
+  padding-block: var(--space-7) var(--space-10);
+}
+
+.section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-7);
+}
+
+/* ---- Prompt card ---- */
+
+.promptWrap {
+  width: min(800px, 100%);
+}
+
+.promptCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  padding: 25px;
+  background: var(--color-bg-page);
+  border: 1.5px solid var(--color-border-default);
+  border-radius: 12px;
+}
+
+.promptText {
+  min-height: calc(2em * var(--text-body-line));
+  color: var(--color-text-primary);
+  white-space: pre-wrap;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--color-brand-cta);
+  animation: blink 0.9s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.promptActions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.modelSelect {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 48px;
+  padding-inline: 13px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-black-a10);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-size);
+  transition: border-color var(--duration-fast) ease;
+}
+
+.modelSelect:hover {
+  border-color: var(--color-border-strong);
+}
+
+.generate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 48px;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-cta);
+  color: var(--color-text-white);
+  font-weight: 600;
+  font-size: var(--text-body-size);
+}
+
+/* ---- Connectors ---- */
+
+.connectors {
+  width: min(1200px, 100%);
+  margin-block: calc(-1 * var(--space-5)) calc(-1 * var(--space-5));
+}
+
+.connectors svg {
+  width: 100%;
+  height: 72px;
+}
+
+/* ---- Result cards ---- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  width: min(1200px, 100%);
+}
+
+.cardWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    transform var(--duration-base) var(--ease-out-expo),
+    box-shadow var(--duration-base) ease;
+}
+
+.cardWrap:hover .card {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.cardImage {
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out-expo);
+}
+
+.cardWrap:hover .cardImage {
+  transform: scale(1.05);
+}
+
+.copyCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+  padding: var(--space-5);
+}
+
+.quote {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  border-radius: 12px;
+  background: var(--color-bg-brand-subtle);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-body-sm-size);
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-accent-light);
+}
+
+.copyCaption {
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-line);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.cardLabel {
+  font-size: var(--text-body-lg-size);
+  letter-spacing: var(--text-body-lg-tracking);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+
+  .connectors {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  .promptActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modelSelect,
+  .generate {
+    justify-content: center;
+  }
+}
