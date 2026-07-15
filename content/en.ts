@@ -104,6 +104,148 @@ export const en = {
         match: "40% Match",
       },
     ],
+    /* Match-report card revealed when the top candidate is clicked */
+    resumeMatch: {
+      cardTitle: "Resume Match by AI Assistant",
+      viewHint: "View match report",
+      backLabel: "Back to shortlist",
+      score: 95,
+      scoreTotal: "/100",
+      overallLabel: "Overall Match",
+      overallVerdict: "Strong Match",
+      criteriaTitle: "Criteria Summary",
+      criteria: <{ label: string; value: string; tone: "green" | "yellow" | "red" }[]>[
+        { label: "Experience", value: "80/100", tone: "green" },
+        { label: "Skill", value: "97/100", tone: "green" },
+        { label: "Education", value: "50/100", tone: "yellow" },
+      ],
+      riskTitle: "Risk Assessment",
+      risks: <{ label: string; value: string; tone: "green" | "yellow" | "red" }[]>[
+        { label: "Green: Highlights", value: "4", tone: "green" },
+        { label: "Yellow: Validation items", value: "2", tone: "yellow" },
+        { label: "Red: High-risk items", value: "1", tone: "red" },
+      ],
+    },
+    /* Five-step campaign pipeline looping in the Marketing Assistant panel */
+    marketingFlow: {
+      steps: [
+        { name: "CDP", caption: "Unify & segment" },
+        { name: "DataFinder", caption: "Find intent" },
+        { name: "AIGC", caption: "Generate creative" },
+        { name: "GMP", caption: "Deliver campaign" },
+        { name: "A/B Test", caption: "Optimize" },
+      ],
+      results: <
+        {
+          label: string;
+          value: string;
+          tone: "blue" | "green";
+          badge?: string;
+          caption?: string;
+        }[]
+      >[
+        { label: "Variant A", value: "3.1%", tone: "blue" },
+        { label: "Variant B", value: "4.7%", tone: "green", badge: "Win" },
+        { label: "Sales Growth", value: "+24%", tone: "blue", caption: "vs. control" },
+      ],
+    },
+    /* Storyboard-to-video demo looping in the Product Video panel */
+    videoFlow: {
+      fileName: "final_cut.mp4",
+      generating: "Generating video…",
+      duration: "00:15",
+      shots: [
+        { title: "Product Hero" },
+        { title: "Texture Macro" },
+        { title: "Application" },
+        { title: "Skin Glow Result" },
+        { title: "Lifestyle Moment" },
+        { title: "Packshot + CTA" },
+      ],
+    },
+    /* Spreadsheet-drop-to-dashboard demo looping in the Financial Analysis panel */
+    financeFlow: {
+      dropTitle: "Drop your spreadsheet",
+      dropHint: "Excel or Google Sheets",
+      /* The dropped file alternates between these two each loop cycle */
+      files: <{ name: string; meta: string; kind: "excel" | "sheets" }[]>[
+        { name: "sales_q2_2026.xlsx", meta: "12,480 rows", kind: "excel" },
+        { name: "P&L — FY2026", meta: "Google Sheets", kind: "sheets" },
+      ],
+      analyzing: "Analyzing 12,480 rows…",
+      dashboardTitle: "Q2 Financial Overview",
+      generatedBadge: "Auto-generated",
+      kpis: [
+        { label: "Revenue", value: "฿24.8M", delta: "+18.2%" },
+        { label: "Net Margin", value: "31.4%", delta: "+4.2 pts" },
+      ],
+      barTitle: "Revenue by month (฿M)",
+      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      /* Monthly revenue in ฿M — last value matches the Revenue KPI */
+      barValues: [12.4, 14.1, 13.2, 16.8, 19.5, 24.8],
+      heatTitle: "Margin by region",
+      regions: ["Bangkok", "Chiang Mai", "Phuket", "Khon Kaen"],
+      /* Margin heat 0–1 per region × month, mapped onto a single blue ramp */
+      heatValues: [
+        [0.55, 0.62, 0.58, 0.72, 0.85, 1.0],
+        [0.3, 0.34, 0.42, 0.4, 0.52, 0.6],
+        [0.42, 0.38, 0.5, 0.62, 0.7, 0.82],
+        [0.18, 0.24, 0.2, 0.32, 0.38, 0.45],
+      ],
+    },
+    /* CMS planner demo looping in the Content Management panel */
+    contentFlow: {
+      windowTitle: "Content Planner",
+      windowBadge: "Grouped by campaign",
+      scheduledLabel: "Scheduling…",
+      readyLabel: "Ready",
+      viewHint: "View assets",
+      backLabel: "Back to campaigns",
+      assetsBadge: "Ready to use",
+      campaigns: <
+        {
+          name: string;
+          month: string;
+          day: string;
+          time: string;
+          channels: string[];
+          assets: string;
+        }[]
+      >[
+        {
+          name: "Songkran Splash Campaign",
+          month: "APR",
+          day: "11",
+          time: "09:00",
+          channels: ["TikTok", "Instagram", "Facebook"],
+          assets: "6 assets",
+        },
+        {
+          name: "Mid-Year Mega Sale",
+          month: "JUN",
+          day: "25",
+          time: "18:00",
+          channels: ["Shopee", "Instagram"],
+          assets: "8 assets",
+        },
+        {
+          name: "Glow Serum Launch",
+          month: "JUL",
+          day: "18",
+          time: "12:00",
+          channels: ["TikTok", "YouTube"],
+          assets: "10 assets",
+        },
+      ],
+      assets: <{ title: string; kind: string; locale: string }[]>[
+        { title: "Hero Film", kind: "Video 9:16", locale: "TH" },
+        { title: "Product Card", kind: "Image 1:1", locale: "EN" },
+        { title: "How-to Cut", kind: "Video 1:1", locale: "TH" },
+        { title: "Caption Pack", kind: "Copy ×12", locale: "TH / EN" },
+        { title: "Story Teaser", kind: "Image 9:16", locale: "EN" },
+        { title: "CTA Banner", kind: "Banner 16:9", locale: "TH" },
+      ],
+    },
     panels: <
       {
         eyebrow: string;

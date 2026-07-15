@@ -1,0 +1,420 @@
+.financeFlow {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 720 / 470;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- Drop / scan stage ---- */
+
+.dropStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: min(420px, 88%);
+  padding: var(--space-7) var(--space-6);
+  border: 2px dashed var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dropIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-bg-brand-subtle);
+  color: var(--color-brand-cta);
+}
+
+.dropTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text-primary);
+}
+
+.dropHint {
+  font-size: var(--text-body-sm-size);
+  color: var(--color-text-secondary);
+}
+
+.dropKinds {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  opacity: 0.85;
+}
+
+.dropKinds svg {
+  width: 22px;
+  height: 22px;
+}
+
+.dropRipple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-radius: 50%;
+  background: var(--color-brand-cta);
+  pointer-events: none;
+}
+
+/* File card flying into the zone */
+
+.fileCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -34px 0 0 -110px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 220px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: 0 16px 40px rgba(1, 39, 91, 0.22);
+  pointer-events: none;
+}
+
+.fileInfo {
+  min-width: 0;
+}
+
+.fileName {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileMeta {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+/* Scanning card */
+
+.scanCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(400px, 88%);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.scanInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.scanLabel {
+  margin-top: 2px;
+  font-size: var(--text-caption-size);
+  color: var(--color-brand-cta);
+  font-weight: 600;
+}
+
+.scanTrack {
+  margin-top: var(--space-2);
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-bg-brand-subtle);
+  overflow: hidden;
+}
+
+.scanFill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--gradient-brand);
+}
+
+/* ---- Mini dashboard ---- */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dashHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dashLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--gradient-brand);
+  color: var(--color-text-white);
+}
+
+.dashLogo svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dashTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.dashBadge {
+  margin-left: auto;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-brand-subtle);
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* KPI tiles */
+
+.kpiRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.kpiTile {
+  position: relative;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+}
+
+.kpiLabel {
+  font-size: var(--text-caption-size);
+  color: var(--color-text-secondary);
+}
+
+.kpiValue {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+.kpiDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: #d4ffd8;
+  color: #157f3d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.kpiSpark {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  width: 94px;
+  height: 30px;
+}
+
+/* Charts row */
+
+.chartRow {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-3);
+  flex: 1;
+  min-height: 0;
+}
+
+.chartCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-page);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.chartTitle {
+  font-size: var(--text-caption-size);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+/* Bar chart */
+
+.barChart {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  flex: 1;
+  min-height: 0;
+}
+
+.barCol {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.barTrack {
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  min-height: 0;
+  /* Headroom so the peak bar's direct label clears the tallest bar */
+  margin-top: 16px;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: rgba(1, 101, 208, 0.45);
+}
+
+.barPeak {
+  background: var(--gradient-brand);
+}
+
+.barValue {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  translate: -50%;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-brand-cta);
+}
+
+.barLabel {
+  margin-top: 4px;
+  font-size: 10px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* Heatmap */
+
+.heatmap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+  flex: 1;
+  min-height: 0;
+}
+
+.heatRow {
+  display: grid;
+  grid-template-columns: 62px repeat(6, 1fr);
+  gap: 4px;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.heatRegion {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heatCell {
+  display: block;
+  height: 100%;
+  min-height: 16px;
+  border-radius: 5px;
+}
+
+.heatMonth {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 640px) {
+  .financeFlow {
+    aspect-ratio: auto;
+    height: 580px;
+  }
+
+  .kpiValue {
+    font-size: 20px;
+  }
+
+  .kpiSpark {
+    display: none;
+  }
+
+  .chartRow {
+    grid-template-columns: 1fr;
+  }
+
+  .barChart {
+    min-height: 110px;
+  }
+
+  .heatmap {
+    min-height: 120px;
+  }
+
+  .heatRegion {
+    font-size: 9px;
+  }
+}
