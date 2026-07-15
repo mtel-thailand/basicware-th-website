@@ -37,11 +37,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  padding-block: var(--space-2);
   font-family: var(--font-nav);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: -0.02em;
   color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
 }
 
 .links {
@@ -54,14 +56,22 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  padding-block: var(--space-2);
   font-family: var(--font-nav);
   font-size: 16px;
   color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
   transition: color var(--duration-fast) ease;
 }
 
 .link:hover {
   color: var(--color-brand-cta);
+}
+
+.brand:focus-visible,
+.link:focus-visible {
+  outline: 2px solid var(--color-brand-cta);
+  outline-offset: 2px;
 }
 
 .dropdown {

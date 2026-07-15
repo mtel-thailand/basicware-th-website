@@ -145,6 +145,11 @@
   box-shadow: 0 8px 24px rgba(1, 101, 208, 0.35);
 }
 
+.submit:focus-visible {
+  outline: 2px solid var(--color-brand-cta);
+  outline-offset: 3px;
+}
+
 .success {
   font-size: var(--text-body-sm-size);
   color: var(--color-accent-light);

@@ -23,6 +23,15 @@
   box-shadow: 0 8px 24px rgba(1, 101, 208, 0.35);
 }
 
+.button:focus-visible {
+  outline: 2px solid var(--color-brand-cta);
+  outline-offset: 3px;
+}
+
+.onPhoto:focus-visible {
+  outline-color: var(--color-text-white);
+}
+
 .button:hover .arrow {
   transform: translateX(4px);
 }
