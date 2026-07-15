@@ -24,6 +24,13 @@ const STEPS = t.steps.map((step, i) => ({ ...step, ...STEP_VISUALS[i] }));
 
 const CYCLE_MS = 2800;
 
+/* Closed elliptical loop: over the top from step 1 to 5, back underneath
+   to step 1. A true ellipse keeps the tangent continuous, so the arrow
+   glides smoothly with no direction snaps at the ends. */
+const LOOP_PATH =
+  "M60 335 A540 225 0 0 1 1140 335 A540 225 0 0 1 60 335";
+const LOOP_DURATION_S = (STEP_VISUALS.length * CYCLE_MS) / 1000;
+
 export default function GrowthLoop() {
   const reduce = useReducedMotion();
   const stageRef = useRef<HTMLDivElement>(null);
@@ -62,16 +69,16 @@ export default function GrowthLoop() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          {/* Arc guide, drawn on scroll */}
+          {/* Circular loop guide, drawn on scroll, with an arrow riding it */}
           <svg
             className={styles.arc}
-            viewBox="0 0 1200 400"
+            viewBox="0 0 1200 580"
             fill="none"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
             <motion.path
-              d="M60 360 Q600 -140 1140 360"
+              d={LOOP_PATH}
               stroke="var(--color-brand-cta)"
               strokeOpacity="0.35"
               strokeWidth="2"
@@ -81,6 +88,19 @@ export default function GrowthLoop() {
               viewport={{ once: true, margin: "-20% 0px" }}
               transition={{ duration: 1.6, ease: "easeInOut" }}
             />
+            {!reduce && entered && (
+              <path
+                d="M0 -7 L14 0 L0 7 L3.5 0 Z"
+                fill="var(--color-brand-cta)"
+              >
+                <animateMotion
+                  dur={`${LOOP_DURATION_S}s`}
+                  repeatCount="indefinite"
+                  rotate="auto"
+                  path={LOOP_PATH}
+                />
+              </path>
+            )}
           </svg>
 
           <div className={styles.cards}>
