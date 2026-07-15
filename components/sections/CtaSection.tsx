@@ -41,7 +41,7 @@ export default function CtaSection() {
           <AccentText segments={t.title} />
         </h2>
         <p className={styles.lede}>{t.lede}</p>
-        <Button href={`mailto:${t.email}`} className={styles.button}>
+        <Button href="/contact" className={styles.button}>
           {t.button}
         </Button>
       </Reveal>

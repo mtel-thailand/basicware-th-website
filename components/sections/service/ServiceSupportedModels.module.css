@@ -1,0 +1,65 @@
+.section {
+  background: var(--color-bg-page);
+  padding-block: var(--space-10);
+}
+
+.section .container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) ease, transform var(--duration-base) var(--ease-out-expo);
+}
+
+.chip:hover {
+  border-color: var(--color-brand-cta);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gradient-brand);
+  color: var(--color-text-white);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-body-size);
+}
+
+.name {
+  font-size: var(--text-body-sm-size);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .chip {
+    padding: var(--space-3) var(--space-4);
+  }
+}

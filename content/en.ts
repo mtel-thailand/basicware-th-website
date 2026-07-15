@@ -16,11 +16,15 @@ export const en = {
 
   nav: {
     brand: "Basicware",
-    links: [
-      { label: "Home", href: "#top", hasChevron: false },
-      { label: "Solutions", href: "#solutions", hasChevron: true },
-      { label: "About", href: "#about", hasChevron: false },
+    home: { label: "Home", href: "/" },
+    servicesLabel: "Services",
+    services: [
+      { label: "Centralized AI", href: "/services/centralized-ai" },
+      { label: "AIGC & Marketing", href: "/services/aigc-marketing" },
+      { label: "Digital Employee", href: "/services/digital-employee" },
+      { label: "AI Talent Education", href: "/services/ai-talent-education" },
     ],
+    about: { label: "About Us", href: "/about" },
     lang: "EN",
     cta: "Get in touch",
   },
@@ -355,6 +359,36 @@ export const en = {
     lede: "Be one of enterprises and public sectors who are always one step ahead.",
     button: "Get in touch",
     email: "hello@basicware.th.ai",
+  },
+
+  contact: {
+    eyebrow: "Get In Touch",
+    title: {
+      pre: "Ready to Accelerate Your Business Growth with ",
+      accent: "AI",
+      post: "?",
+    },
+    lede: "Transform how your business creates content, scales marketing, deploys digital employees, controls AI costs, and builds AI-ready talent. One integrated ecosystem, built to drive real growth.",
+    email: "hello@basicware.th.ai",
+    form: {
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      company: "Company",
+      phone: "Phone number",
+      serviceLabel: "Service you’re interested in",
+      servicePlaceholder: "Select a service",
+      services: [
+        "Centralized AI",
+        "AIGC & Marketing",
+        "Digital Employee",
+        "AI Talent Education",
+      ],
+      goalLabel: "Your goal",
+      goalOptional: "(optional)",
+      submit: "Send message",
+      success: "Thanks — we’ll be in touch shortly.",
+    },
   },
 
   footer: {

@@ -15,7 +15,7 @@ export default function Footer() {
           </h2>
 
           <div className={styles.ctaCol}>
-            <a href={`mailto:${t.email}`} className={styles.cta}>
+            <a href="/contact" className={styles.cta}>
               {t.cta}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
