@@ -77,7 +77,7 @@ export default function Hero() {
           style={{ x: bgMouseX, y: bgMouseY }}
         >
           <Image
-            src="/images/hero/bg.png"
+            src="/images/hero/bg.avif"
             alt="A dandelion on a green hillside, its seeds drifting into a blue sky and forming an infinity symbol"
             fill
             priority
