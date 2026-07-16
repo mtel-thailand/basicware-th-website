@@ -26,6 +26,29 @@ export type ServicePlatformFeature = {
   description: string;
 };
 
+export type ServiceCaseStudyResult = {
+  value: string;
+  label: string;
+};
+
+export type ServiceCaseStudy = {
+  clientName: string;
+  industry: string;
+  /** Not every case study has a standalone headline — omit to skip. */
+  headline?: string;
+  challenge: string;
+  solution: string;
+  /** Some case studies only give a speaker/title with no quote text — omit both if neither exists. */
+  quote?: string;
+  quoteSpeaker?: string;
+  results: ServiceCaseStudyResult[];
+};
+
+export type ServiceFaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type ServiceContent = {
   /** Must match the folder slug under app/services/[slug], e.g. "centralized-ai" */
   slug: string;
@@ -53,6 +76,11 @@ export type ServiceContent = {
     heading: string;
     intro: string;
     points: ServiceSolutionPoint[];
+    /** Optional short chip list (e.g. "Roles available") shown under the intro. */
+    tags?: {
+      heading: string;
+      items: string[];
+    };
   };
 
   platform: {
@@ -61,10 +89,35 @@ export type ServiceContent = {
     features: ServicePlatformFeature[];
   };
 
-  supportedModels: {
+  /** Only Centralized AI has a model roster — omit on other service pages. */
+  supportedModels?: {
     eyebrow: string;
     heading: string;
     models: string[];
+  };
+
+  /** Implementation/strategic partner spotlight — omit when not applicable. */
+  partner?: {
+    eyebrow: string;
+    heading: string;
+    name: string;
+    body: string;
+    capabilitiesHeading: string;
+    capabilities: ServicePlatformFeature[];
+  };
+
+  /** Omit when the page has no case studies yet. */
+  caseStudies?: {
+    eyebrow: string;
+    heading: string;
+    items: ServiceCaseStudy[];
+  };
+
+  /** Omit when the page has no FAQ content yet. */
+  faqs?: {
+    eyebrow: string;
+    heading: string;
+    items: ServiceFaqItem[];
   };
 
   cta: {

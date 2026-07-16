@@ -31,7 +31,20 @@ export default function ServiceSolution({
           lede={content.intro}
         />
 
-        <div className={styles.grid}>
+        {content.tags && (
+          <Reveal className={styles.tagsWrap}>
+            <h3 className={styles.tagsHeading}>{content.tags.heading}</h3>
+            <ul className={styles.tagsList}>
+              {content.tags.items.map((tag) => (
+                <li key={tag} className={styles.tag}>
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
+
+        <div className={`${styles.grid} ${content.points.length === 1 ? styles.gridSingle : ""}`}>
           {content.points.map((point, i) => (
             <Reveal key={point.title} delay={0.12 * i}>
               <div className={styles.card}>

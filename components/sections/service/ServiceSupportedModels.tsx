@@ -6,7 +6,7 @@ import styles from "./ServiceSupportedModels.module.css";
 export default function ServiceSupportedModels({
   content,
 }: {
-  content: ServiceContent["supportedModels"];
+  content: NonNullable<ServiceContent["supportedModels"]>;
 }) {
   return (
     <section className={styles.section}>
