@@ -1,6 +1,6 @@
 .section {
   background: var(--color-bg-surface);
-  padding-block: var(--space-10) var(--space-11);
+  padding-block: clamp(140px, 22vw, 190px) var(--space-11);
 }
 
 .section :global(.container) {
@@ -26,6 +26,10 @@
 }
 
 @media (max-width: 600px) {
+  .section {
+    padding-top: clamp(120px, 32vw, 160px);
+  }
+
   .paragraph {
     font-size: var(--text-body-size);
   }

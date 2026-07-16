@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding-block: calc(var(--space-11) + var(--space-8)) calc(var(--space-11) * 2 + var(--space-9));
+  padding-block: calc(var(--space-11) + var(--space-10)) calc(var(--space-11) * 2 + var(--space-9));
   background: var(--color-bg-page);
   overflow: hidden;
 }
@@ -14,16 +14,6 @@
   object-fit: cover;
   object-position: center bottom;
   opacity: 0.2;
-}
-
-.curve {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(48px, 8.34vw, 120px);
-  display: block;
-  pointer-events: none;
 }
 
 .content {
@@ -59,6 +49,6 @@
 
 @media (max-width: 600px) {
   .section {
-    padding-block: var(--space-11) calc(var(--space-11) * 2);
+    padding-block: calc(var(--space-11) + var(--space-6)) calc(var(--space-11) * 2);
   }
 }

@@ -11,6 +11,7 @@ export default function AboutBrandStory() {
     <section className={styles.section}>
       <div className="container">
         <SectionTitle
+          as="h1"
           eyebrow={t.eyebrow}
           title={<AccentText segments={t.title} />}
         />

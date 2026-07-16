@@ -7,11 +7,6 @@
 import type { AccentSegments } from "@/components/ui/AccentText";
 
 export const aboutContent = {
-  hero: {
-    eyebrow: "Who we are",
-    title: { pre: "About ", accent: "Us", post: "" } satisfies AccentSegments,
-  },
-
   brandStory: {
     eyebrow: "Our story",
     title: { pre: "Brand ", accent: "story", post: "" } satisfies AccentSegments,

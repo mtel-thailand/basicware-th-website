@@ -8,8 +8,8 @@ type SectionTitleProps = {
   lede?: React.ReactNode;
   align?: "center" | "left";
   tone?: "light" | "dark";
-  /** Heading size: h2 (default, 48px) or display-like */
-  as?: "h2" | "h3";
+  /** Heading size: h2 (default, 48px) or display-like. Use "h1" only for a page's opening section. */
+  as?: "h1" | "h2" | "h3";
   className?: string;
 };
 
