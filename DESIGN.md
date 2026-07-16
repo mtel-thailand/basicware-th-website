@@ -121,3 +121,5 @@ All heading sizes are fluid via `clamp()` — see `--text-*-size` tokens.
 All user-facing copy lives in [content/en.ts](content/en.ts) — components never hardcode
 text. Open items, the full "what we still need" checklist, and the how-to for adding
 Thai/other languages are tracked in [CONTENT.md](CONTENT.md).
+
+Test
