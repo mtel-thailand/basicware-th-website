@@ -45,39 +45,6 @@ function TypewriterPrompt() {
   );
 }
 
-/** Connector lines fanning from the prompt box to the four result cards. */
-function Connectors() {
-  const paths = [
-    "M600 0 V24 C600 40 560 36 480 40 L150 48 V72",
-    "M600 0 V24 C600 42 560 40 528 44 L450 50 V72",
-    "M600 0 V24 C600 42 640 40 672 44 L750 50 V72",
-    "M600 0 V24 C600 40 640 36 720 40 L1050 48 V72",
-  ];
-
-  return (
-    <div className={styles.connectors} aria-hidden="true">
-      <svg viewBox="0 0 1200 72" fill="none" preserveAspectRatio="none">
-        {paths.map((d, i) => (
-          <motion.path
-            key={i}
-            d={d}
-            stroke="var(--color-black-a20)"
-            strokeWidth="1.5"
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{
-              duration: 0.9,
-              delay: 0.15 * i + 0.3,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </svg>
-    </div>
-  );
-}
-
 /* Visual config only — labels come from the content dictionary */
 const CARD_IMAGES: Record<string, string | undefined> = {
   copywriting: undefined,
@@ -89,6 +56,9 @@ const CARD_IMAGES: Record<string, string | undefined> = {
 const CARDS = t.cards.map((card) => ({ ...card, src: CARD_IMAGES[card.key] }));
 
 export default function AigcProduction() {
+  const [generated, setGenerated] = useState(false);
+  const reduce = useReducedMotion();
+
   return (
     <section className={styles.section} id="solutions">
       <div className="container">
@@ -117,6 +87,9 @@ export default function AigcProduction() {
               <motion.button
                 className={styles.generate}
                 type="button"
+                aria-expanded={generated}
+                aria-controls="aigc-results"
+                onClick={() => setGenerated(true)}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
               >
@@ -133,12 +106,20 @@ export default function AigcProduction() {
           </div>
         </Reveal>
 
-        <Connectors />
-
-        <div className={styles.grid}>
-          {CARDS.map((card, i) => (
-            <Reveal key={card.key} delay={0.15 * i + 0.5} y={44} scale={0.92}>
-              <div className={styles.cardWrap}>
+        {generated && (
+          <div id="aigc-results" className={styles.grid}>
+            {CARDS.map((card, i) => (
+              <motion.div
+                key={card.key}
+                className={styles.cardWrap}
+                initial={{ opacity: 0, y: reduce ? 0 : 32, scale: reduce ? 1 : 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  duration: 0.6,
+                  delay: reduce ? 0 : 0.12 * i,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
                 <Tilt max={9} className={styles.card}>
                   {card.key === "copywriting" ? (
                     <div className={styles.copyCard}>
@@ -156,10 +137,10 @@ export default function AigcProduction() {
                   )}
                 </Tilt>
                 <p className={styles.cardLabel}>{card.label}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
