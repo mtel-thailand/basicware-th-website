@@ -1,12 +1,12 @@
 .section {
   background: var(--color-bg-surface);
-  padding-block: var(--space-10);
+  padding-block: var(--space-11);
 }
 
 .inner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-9);
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
@@ -16,12 +16,12 @@
 .panels {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 /* Scroll deck: each slot is sticky so panels pile up and cover each other */
 .panelsStacked {
-  gap: var(--space-8);
+  gap: var(--space-9);
 }
 
 .panelsStacked .panelSlot {
