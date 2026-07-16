@@ -15,12 +15,13 @@ export default function ServiceSupportedModels({
 
         <div className={styles.grid}>
           {content.models.map((model, i) => (
-            <Reveal key={model} delay={0.05 * i} y={24}>
-              <div className={styles.chip}>
+            <Reveal key={model.name} delay={0.05 * i} y={24}>
+              <div className={styles.card}>
                 <span className={styles.mark} aria-hidden="true">
-                  {model.charAt(0)}
+                  {model.name.charAt(0)}
                 </span>
-                <span className={styles.name}>{model}</span>
+                <h3 className={styles.name}>{model.name}</h3>
+                <p className={styles.description}>{model.description}</p>
               </div>
             </Reveal>
           ))}

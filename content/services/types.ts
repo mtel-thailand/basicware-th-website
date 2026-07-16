@@ -49,6 +49,11 @@ export type ServiceFaqItem = {
   answer: string;
 };
 
+export type ServiceSupportedModel = {
+  name: string;
+  description: string;
+};
+
 export type ServiceContent = {
   /** Must match the folder slug under app/services/[slug], e.g. "centralized-ai" */
   slug: string;
@@ -93,7 +98,7 @@ export type ServiceContent = {
   supportedModels?: {
     eyebrow: string;
     heading: string;
-    models: string[];
+    models: ServiceSupportedModel[];
   };
 
   /** Implementation/strategic partner spotlight — omit when not applicable. */
