@@ -41,7 +41,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-6);
-  padding: var(--space-11) var(--container-pad) var(--space-10);
+  padding: var(--space-11) var(--container-pad) calc(var(--space-11) + var(--space-6));
   text-align: center;
 }
 

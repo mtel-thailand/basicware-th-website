@@ -3,7 +3,7 @@
   padding-block: var(--space-9);
 }
 
-.section .container {
+.section :global(.container) {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
