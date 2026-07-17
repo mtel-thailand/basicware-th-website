@@ -13,7 +13,7 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: var(--space-7) var(--space-5);
+  gap: var(--space-7) var(--space-8);
 }
 
 .tagline {
@@ -54,6 +54,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-5);
+  max-width: 320px;
   font-size: var(--text-body-sm-size);
   line-height: var(--text-body-sm-line);
   color: var(--color-text-white-secondary);

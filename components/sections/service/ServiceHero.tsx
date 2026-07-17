@@ -75,9 +75,6 @@ export default function ServiceHero({
           <p className={styles.lede}>{content.lede}</p>
           <div className={styles.ctaRow}>
             <Button href="#cta">{content.ctaLabel}</Button>
-            <a href="#problem" className={styles.jumpLink}>
-              ↓ 01 / The problem
-            </a>
           </div>
         </Reveal>
 

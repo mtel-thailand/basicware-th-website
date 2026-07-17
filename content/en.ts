@@ -84,25 +84,25 @@ export const en = {
     },
     candidates: [
       {
-        name: "Thanakorn Wongchai",
+        name: "Kanya Sethaputra",
         role: "Senior Marketing Manager",
         location: "Bangkok, Thailand",
         match: "95% Match",
       },
       {
-        name: "Thanakorn Wongchai",
+        name: "Pim Ratanakosin",
         role: "Senior Marketing Manager",
         location: "Bangkok, Thailand",
         match: "75% Match",
       },
       {
-        name: "Siriporn Chaiyasit",
+        name: "Areeya Chotisiri",
         role: "Digital Marketing Specialist",
         location: "Chiang Mai, Thailand",
         match: "50% Match",
       },
       {
-        name: "Natthapong Suwan",
+        name: "Krit Bunnag",
         role: "Brand Strategy Director",
         location: "Phuket, Thailand",
         match: "40% Match",
@@ -213,7 +213,7 @@ export const en = {
           day: string;
           time: string;
           channels: string[];
-          assets: string;
+          assets: { title: string; kind: string; locale: string }[];
         }[]
       >[
         {
@@ -222,7 +222,14 @@ export const en = {
           day: "11",
           time: "09:00",
           channels: ["TikTok", "Instagram", "Facebook"],
-          assets: "6 assets",
+          assets: [
+            { title: "Splash Hero Film", kind: "Video 9:16", locale: "TH" },
+            { title: "Water Fight Reel", kind: "Video 1:1", locale: "TH" },
+            { title: "Songkran Product Card", kind: "Image 1:1", locale: "EN" },
+            { title: "Countdown Sticker Pack", kind: "Copy ×12", locale: "TH / EN" },
+            { title: "Story Teaser", kind: "Image 9:16", locale: "EN" },
+            { title: "CTA Banner", kind: "Banner 16:9", locale: "TH" },
+          ],
         },
         {
           name: "Mid-Year Mega Sale",
@@ -230,7 +237,14 @@ export const en = {
           day: "25",
           time: "18:00",
           channels: ["Shopee", "Instagram"],
-          assets: "8 assets",
+          assets: [
+            { title: "Sale Hero Banner", kind: "Banner 16:9", locale: "TH" },
+            { title: "Flash Deal Carousel", kind: "Image 1:1", locale: "EN" },
+            { title: "Bundle Unboxing Reel", kind: "Video 1:1", locale: "TH" },
+            { title: "Discount Sticker Pack", kind: "Copy ×12", locale: "TH / EN" },
+            { title: "Story Teaser", kind: "Image 9:16", locale: "EN" },
+            { title: "CTA Banner", kind: "Banner 16:9", locale: "TH" },
+          ],
         },
         {
           name: "Glow Serum Launch",
@@ -238,16 +252,15 @@ export const en = {
           day: "18",
           time: "12:00",
           channels: ["TikTok", "YouTube"],
-          assets: "10 assets",
+          assets: [
+            { title: "Serum Hero Film", kind: "Video 9:16", locale: "TH" },
+            { title: "Product Card", kind: "Image 1:1", locale: "EN" },
+            { title: "How-to Apply", kind: "Video 1:1", locale: "TH" },
+            { title: "Caption Pack", kind: "Copy ×12", locale: "TH / EN" },
+            { title: "Story Teaser", kind: "Image 9:16", locale: "EN" },
+            { title: "CTA Banner", kind: "Banner 16:9", locale: "TH" },
+          ],
         },
-      ],
-      assets: <{ title: string; kind: string; locale: string }[]>[
-        { title: "Hero Film", kind: "Video 9:16", locale: "TH" },
-        { title: "Product Card", kind: "Image 1:1", locale: "EN" },
-        { title: "How-to Cut", kind: "Video 1:1", locale: "TH" },
-        { title: "Caption Pack", kind: "Copy ×12", locale: "TH / EN" },
-        { title: "Story Teaser", kind: "Image 9:16", locale: "EN" },
-        { title: "CTA Banner", kind: "Banner 16:9", locale: "TH" },
       ],
     },
     panels: <
@@ -266,7 +279,7 @@ export const en = {
       },
       {
         eyebrow: "Marketing Assistant",
-        title: "Smart Audience Insights by BytePlus",
+        title: "Smart Audience Insights by ByteDance's Volcano Engine",
         statLabel: "Audience growth",
       },
       {

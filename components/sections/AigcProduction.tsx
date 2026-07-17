@@ -56,7 +56,7 @@ const CARD_IMAGES: Record<string, string | undefined> = {
 const CARDS = t.cards.map((card) => ({ ...card, src: CARD_IMAGES[card.key] }));
 
 export default function AigcProduction() {
-  const [generated, setGenerated] = useState(false);
+  const [generated, setGenerated] = useState(true);
   const reduce = useReducedMotion();
 
   return (

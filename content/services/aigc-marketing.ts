@@ -12,11 +12,11 @@ export const aigcMarketing: ServiceContent = {
   hero: {
     chip: "AIGC ENGINE · LIVE",
     title: {
-      pre: "Content at ",
-      accent: "machine speed.",
-      post: "",
+      pre: "",
+      accent: "AI Video Production",
+      post: ": Scale Production, Cut Costs, Grow on Every Platform",
     },
-    lede: "Copy, video, avatars and TikTok growth — produced at scale by AI. Cut production costs 70%, ship campaigns in hours instead of weeks, and grow GMV on every platform.",
+    lede: "Basicware produces AI-powered marketing content at scale — copy, video, avatars, and TikTok growth. Cut production costs 70% and boost GMV.",
     ctaLabel: "Let's Talk",
     terminal: [
       { text: "$ basicware render campaign_q3", tone: "base" },
@@ -54,9 +54,24 @@ export const aigcMarketing: ServiceContent = {
       "Deeply integrated with ByteDance's TikTok and VolcEngine, we use AI-generated content to produce marketing assets at scale — copy, images, short videos, and virtual livestreams.",
     points: [
       {
+        icon: "sliders",
+        title: "AI Content Production at Scale",
+        body: "From copy and images to short videos and virtual livestreams — our AI pipeline turns weeks of production into hours, so your team ships more creative without growing headcount or budget.",
+      },
+      {
         icon: "bolt",
         title: "Data-Driven Growth Engine",
         body: "Our data-driven platform powers targeted advertising, audience insights, and private-domain growth to reduce costs, improve efficiency, and increase GMV across brands and e-commerce.",
+      },
+      {
+        icon: "hub",
+        title: "Native TikTok & ByteDance Integration",
+        body: "Deeply integrated with TikTok and VolcEngine, we build content formats proven to perform on the platform — backed by end-to-end short-video strategy and performance optimization.",
+      },
+      {
+        icon: "shield",
+        title: "Human-in-the-Loop Quality",
+        body: "AI handles the volume; your brand voice stays protected. A human review layer keeps every asset on-brand and editorial-grade — so speed never comes at the cost of quality.",
       },
     ],
   },

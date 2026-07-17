@@ -64,20 +64,6 @@
   margin-top: var(--space-2);
 }
 
-.jumpLink {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption-size);
-  font-weight: 500;
-  letter-spacing: var(--text-eyebrow-tracking);
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  transition: color var(--duration-fast) ease;
-}
-
-.jumpLink:hover {
-  color: var(--color-brand-cta);
-}
-
 .visualWrap {
   justify-self: center;
   width: 100%;

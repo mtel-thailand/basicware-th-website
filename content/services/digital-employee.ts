@@ -12,11 +12,11 @@ export const digitalEmployee: ServiceContent = {
   hero: {
     chip: "OPENCLAW · NOW HIRING",
     title: {
-      pre: "Your next hire ",
-      accent: "isn't human.",
-      post: "",
+      pre: "",
+      accent: "AI Digital Employees",
+      post: " That Work Inside Your Existing Tools — Autonomous, 24/7, Enterprise-Ready",
     },
-    lede: "Autonomous AI employees for support, sales, HR, finance and marketing — configured to your workflows, secured for enterprise, live in days, on shift 24/7.",
+    lede: "Deploy autonomous AI employees for support, sales, HR, finance and marketing. Configured to your workflows, secured for enterprise, live in days.",
     ctaLabel: "Talk to Our Team",
     terminal: [
       { text: "$ openclaw deploy --role support", tone: "base" },
@@ -50,7 +50,7 @@ export const digitalEmployee: ServiceContent = {
 
   solution: {
     eyebrow: "The solution",
-    heading: "A full department. No hiring timeline.",
+    heading: "Double your workforce with AI digital employees.",
     intro:
       "With OpenClaw, we deploy AI digital employees that operate within your existing tools — no rip-and-replace.",
     points: [
@@ -106,6 +106,7 @@ export const digitalEmployee: ServiceContent = {
   partner: {
     eyebrow: "Strategic partnership",
     name: "Mtel (Thailand)",
+    logo: "/images/partners/mtel.png",
     body: "Through the partnership between Mtel (Thailand) and Enterprise-Grade Digital Employee powered by OpenClaw, enterprises can deploy role-based AI Digital Employees that work alongside teams to accelerate productivity, increase operational agility, and unlock new levels of efficiency.",
     capabilitiesHeading: "Mtel (Thailand) Capabilities",
     capabilities: [

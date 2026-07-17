@@ -9,11 +9,12 @@
   gap: var(--space-8);
 }
 
+/* Hairlines come from each card's own box-shadow ring (below), not a
+   background peeking through the grid gap — that would leave a grey patch
+   over any empty cells in an incomplete last row. */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
@@ -25,6 +26,7 @@
   height: 100%;
   padding: var(--space-6);
   background: var(--color-bg-black);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.14);
   transition: background var(--duration-base) ease;
 }
 

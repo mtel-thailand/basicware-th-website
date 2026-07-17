@@ -137,6 +137,10 @@ export type ServiceContent = {
     eyebrow: string;
     /** The partner's name, rendered as this section's heading, e.g. "Mtel (Thailand)". */
     name: string;
+    /** Path under /public, e.g. "/images/partners/mtel.png". Omit to render name-only. */
+    logo?: string;
+    /** External site to link out to — omit to render no link. */
+    href?: string;
     body: string;
     capabilitiesHeading: string;
     capabilities: ServicePlatformFeature[];

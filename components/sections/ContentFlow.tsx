@@ -8,11 +8,7 @@ import styles from "./ContentFlow.module.css";
 
 const t = content.aiWorkers.contentFlow;
 
-/* Visual config only — asset text comes from the content dictionary */
-const ASSETS = t.assets.map((asset, i) => ({
-  ...asset,
-  src: `/images/workers/storyboard/shot-${i + 1}.png`,
-}));
+const STORYBOARD_SHOTS = 6;
 
 const CHANNEL_DOTS: Record<string, string> = {
   TikTok: "#111110",
@@ -195,7 +191,7 @@ function CampaignBoard({
                 ))}
               </span>
             </span>
-            <span className={styles.assetCount}>{campaign.assets}</span>
+            <span className={styles.assetCount}>{campaign.assets.length} assets</span>
             <StatusBadge readyAt={READY_BASE_S + READY_STEP_S * i} reduce={reduce} />
             <span className={styles.viewHint} aria-hidden="true">
               {t.viewHint}
@@ -219,6 +215,10 @@ function AssetGrid({
 }) {
   const reduce = useReducedMotion() ?? false;
   const campaign = t.campaigns[campaignIndex];
+  const assets = campaign.assets.map((asset, i) => ({
+    ...asset,
+    src: `/images/workers/storyboard/shot-${(i % STORYBOARD_SHOTS) + 1}.png`,
+  }));
   return (
     <div className={styles.window}>
       <div className={styles.windowBar}>
@@ -251,7 +251,7 @@ function AssetGrid({
       </div>
 
       <div className={styles.assetGrid}>
-        {ASSETS.map((asset, i) => (
+        {assets.map((asset, i) => (
           <motion.div
             key={asset.title}
             className={styles.assetTile}

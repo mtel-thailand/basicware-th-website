@@ -406,28 +406,6 @@ function Mockup({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-/** BytePlus lockup rendered in place of the word "BytePlus" in panel titles. */
-function BytePlusLogo() {
-  return (
-    <span className={styles.bytePlusLogo}>
-      <Image src="/images/byteplus-logo.svg" alt="" width={26} height={20} />
-      BytePlus
-    </span>
-  );
-}
-
-/** Splits the word "BytePlus" out of a title and swaps it for the logo lockup. */
-function TitleWithBytePlus({ text }: { text: string }) {
-  const [pre, post] = text.split("BytePlus");
-  return (
-    <>
-      {pre}
-      <BytePlusLogo />
-      {post}
-    </>
-  );
-}
-
 /* Stat values and visuals stay here; eyebrow/title/labels come from the dictionary */
 const PANEL_VISUALS: {
   stat?: { value: number; suffix: string };
@@ -437,7 +415,6 @@ const PANEL_VISUALS: {
   { stat: { value: 60, suffix: "%" }, visual: <HiringVisual /> },
   {
     stat: { value: 40, suffix: "x" },
-    title: <TitleWithBytePlus text={t.panels[1].title} />,
     visual: <MarketingFlow />,
   },
   {
@@ -477,7 +454,11 @@ function StackedPanel({
 }) {
   const targetScale = 1 - (count - 1 - index) * 0.045;
   const scale = useTransform(progress, [index / count, 1], [1, targetScale]);
-  const dim = useTransform(progress, [index / count, 1], [0, 0.35]);
+  // Dim only while the *next* card is sliding over this one — not for the
+  // rest of the scroll — so the topmost, uncovered card never darkens.
+  const dimStart = Math.min((index + 1) / count, 0.999);
+  const dimEnd = Math.min((index + 2) / count, 1);
+  const dim = useTransform(progress, [dimStart, dimEnd], [0, 0.35]);
 
   return (
     <div

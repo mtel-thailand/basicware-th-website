@@ -12,11 +12,11 @@ export const aiTalentEducation: ServiceContent = {
   hero: {
     chip: "NEW COHORT · ENROLLING",
     title: {
-      pre: "Upgrade your ",
-      accent: "human stack.",
-      post: "",
+      pre: "",
+      accent: "AI Talent Development",
+      post: " & Certification",
     },
-    lede: "Certified AI training for marketers, engineers, HR and executives — online and in-person across Hong Kong, Macao and Southeast Asia, co-certified with Pearson.",
+    lede: "Certified AI training for marketers, engineers, HR and executives. Online and in-person programs across Hong Kong, Macao and Southeast Asia, with Pearson co-certification.",
     ctaLabel: "Talk to Our Team",
     terminal: [
       { text: "$ enroll --track marketing", tone: "base" },
@@ -30,7 +30,7 @@ export const aiTalentEducation: ServiceContent = {
 
   problem: {
     eyebrow: "The problem",
-    heading: "You bought the tools. Nobody's using them.",
+    heading: "You bought the tools but nobody's using them efficiently.",
     points: [
       {
         title: "Tools without people",
@@ -57,6 +57,16 @@ export const aiTalentEducation: ServiceContent = {
         icon: "globe",
         title: "Regional Training Network",
         body: "Cooperating with universities and local governments in Hong Kong, Macao and Southeast Asia, we provide online and offline training programs to build standardized pathways for AI talent development and continuously supply skilled professionals to the industry.",
+      },
+      {
+        icon: "shield",
+        title: "Globally Recognized Certification",
+        body: "Earn AI credentials co-certified by TikTok and Pearson — recognized by enterprises and governments across APAC and beyond, giving your team a portable, verifiable qualification that employers trust.",
+      },
+      {
+        icon: "sliders",
+        title: "Role-Specific Curriculum",
+        body: "No generic AI theory. Marketers, engineers, HR, executives, and operations teams each follow a dedicated track built around real workflows — so training converts directly into on-the-job capability.",
       },
     ],
   },

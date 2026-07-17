@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Eyebrow from "../../ui/Eyebrow";
 import Reveal from "../../motion/Reveal";
 import type { ServiceContent } from "@/content/services/types";
@@ -17,8 +18,29 @@ export default function ServicePartner({
         <Reveal className={styles.panel}>
           <div className={styles.intro}>
             <Eyebrow>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
-            <h2 className="h2">{content.name}</h2>
+            <div className={styles.nameRow}>
+              {content.logo && (
+                <Image
+                  src={content.logo}
+                  alt={content.name}
+                  width={120}
+                  height={45}
+                  className={styles.logo}
+                />
+              )}
+              <h2 className="h2">{content.name}</h2>
+            </div>
             <p className={styles.body}>{content.body}</p>
+            {content.href && (
+              <a
+                href={content.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                Visit {content.name} <span aria-hidden="true">→</span>
+              </a>
+            )}
           </div>
 
           <div className={styles.capabilities}>

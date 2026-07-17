@@ -12,14 +12,14 @@ export const centralizedAi: ServiceContent = {
   hero: {
     chip: "BASICROUTER · NOW LIVE",
     title: {
-      pre: "Every model. ",
-      accent: "One API.",
-      post: "",
+      pre: "",
+      accent: "BasicRouter",
+      post: ": The Unified AI Gateway — One API for Every Leading Model",
     },
-    lede: "GPT, Claude, Gemini, Qwen, DeepSeek and more — behind a single integration. Switch models with one parameter. Enterprise security, one bill, zero vendor sprawl.",
+    lede: "Access GPT, Claude, Gemini, Qwen, DeepSeek and more through one API. Switch models with one parameter. Enterprise security and unified billing.",
     ctaLabel: "Get Access",
     terminal: [
-      { text: "$ curl api.basicrouter.ai/v1/chat \\", tone: "base" },
+      { text: "$ curl api.basicrouter.ai/api/v1/chat \\", tone: "base" },
       { text: "    -d '{ \"model\": \"gpt-5.4\", ... }'", tone: "dim" },
       { text: "  → 200 OK · 412ms", tone: "accent" },
       { text: "$ # switch models — one parameter", tone: "comment" },
@@ -48,12 +48,12 @@ export const centralizedAi: ServiceContent = {
     eyebrow: "The solution",
     heading: "Integrate once. Never reintegrate.",
     intro:
-      "BasicRouter is a unified AI gateway connecting your app to 10+ top models via a single API — turning vendor overhead into a competitive edge.",
+      "We help brands rebuild their content engine with AI, turning production pressure into a competitive edge with significantly lower costs and faster cycles using BasicRouter.",
     points: [
       {
         icon: "hub",
         title: "Unified Gateway",
-        body: "One API connecting your app to 10+ top models — no per-vendor integrations.",
+        body: "One API connecting your app to 10+ top models — turning vendor overhead into a competitive edge.",
       },
       {
         icon: "switch",

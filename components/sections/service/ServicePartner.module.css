@@ -19,9 +19,37 @@
   max-width: 800px;
 }
 
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
 .body {
   font-size: var(--text-body-lg-size);
   color: var(--color-text-secondary);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  font-weight: 600;
+  color: var(--color-brand-cta);
+  transition: color var(--duration-fast) ease, transform var(--duration-fast) var(--ease-out-expo);
+}
+
+.link:hover {
+  color: var(--color-accent-light);
+  transform: translateX(2px);
 }
 
 .capabilities {

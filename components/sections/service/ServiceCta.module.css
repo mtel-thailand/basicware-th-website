@@ -8,22 +8,27 @@
 .content {
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
-  text-align: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  text-align: left;
 }
 
 .lede {
-  max-width: 680px;
+  flex: 1 1 560px;
+  max-width: 640px;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-line);
-  letter-spacing: var(--text-h3-tracking);
+  font-size: var(--text-h4-size);
+  line-height: var(--text-h4-line);
+  letter-spacing: var(--text-h4-tracking);
   color: var(--color-text-white);
   text-shadow: 0 4px 24px rgba(1, 39, 91, 0.35);
-  text-wrap: balance;
+  text-wrap: pretty;
+}
+
+.content :global(a) {
+  flex-shrink: 0;
 }
 
 .dot {
@@ -90,6 +95,19 @@
 @media (prefers-reduced-motion: reduce) {
   .dot {
     animation: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-6);
+  }
+
+  .lede {
+    max-width: 560px;
   }
 }
 

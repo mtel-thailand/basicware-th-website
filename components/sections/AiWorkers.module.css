@@ -116,18 +116,6 @@
   max-width: 400px;
 }
 
-/* BytePlus mark + wordmark rendered inline within a panel title */
-.bytePlusLogo {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  vertical-align: baseline;
-}
-
-.bytePlusLogo img {
-  transform: translateY(2px);
-}
-
 .statBlock {
   display: flex;
   flex-direction: column;

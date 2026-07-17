@@ -19,6 +19,7 @@
 }
 
 .bgImage {
+  --kenburns-scale: 1.07;
   object-fit: cover;
   object-position: center top;
   animation: kenburns 24s ease-in-out infinite alternate;
@@ -30,7 +31,7 @@
   }
 
   to {
-    transform: scale(1.07);
+    transform: scale(var(--kenburns-scale));
   }
 }
 
@@ -138,5 +139,17 @@
 
   .content {
     padding-bottom: var(--space-7);
+  }
+
+  /* No mouse parallax on touch, so the extra bleed room above the frame
+     isn't needed — keeping it only makes the portrait crop look more
+     zoomed than it has to. */
+  .bg {
+    inset: 0;
+  }
+
+  .bgImage {
+    --kenburns-scale: 1.02;
+    object-position: 70% top;
   }
 }
