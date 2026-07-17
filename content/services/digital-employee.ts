@@ -107,6 +107,7 @@ export const digitalEmployee: ServiceContent = {
     eyebrow: "Strategic partnership",
     name: "Mtel (Thailand)",
     logo: "/images/partners/mtel.png",
+    href: "https://www.mtel.co.th",
     body: "Through the partnership between Mtel (Thailand) and Enterprise-Grade Digital Employee powered by OpenClaw, enterprises can deploy role-based AI Digital Employees that work alongside teams to accelerate productivity, increase operational agility, and unlock new levels of efficiency.",
     capabilitiesHeading: "Mtel (Thailand) Capabilities",
     capabilities: [

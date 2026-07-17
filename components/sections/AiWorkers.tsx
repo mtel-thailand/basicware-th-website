@@ -454,11 +454,6 @@ function StackedPanel({
 }) {
   const targetScale = 1 - (count - 1 - index) * 0.045;
   const scale = useTransform(progress, [index / count, 1], [1, targetScale]);
-  // Dim only while the *next* card is sliding over this one — not for the
-  // rest of the scroll — so the topmost, uncovered card never darkens.
-  const dimStart = Math.min((index + 1) / count, 0.999);
-  const dimEnd = Math.min((index + 2) / count, 1);
-  const dim = useTransform(progress, [dimStart, dimEnd], [0, 0.35]);
 
   return (
     <div
@@ -497,13 +492,6 @@ function StackedPanel({
           </div>
         </div>
         <div className={styles.panelVisual}>{panel.visual}</div>
-        {stacked && (
-          <motion.div
-            className={styles.panelDim}
-            style={{ opacity: dim }}
-            aria-hidden="true"
-          />
-        )}
       </motion.article>
     </div>
   );

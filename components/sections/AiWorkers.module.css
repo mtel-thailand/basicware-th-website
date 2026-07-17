@@ -33,14 +33,6 @@
   box-shadow: 0 -12px 48px rgba(1, 39, 91, 0.25);
 }
 
-.panelDim {
-  position: absolute;
-  inset: 0;
-  background: #01275b;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
 /* ---- Gradient panel ---- */
 
 .panel {
