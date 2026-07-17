@@ -1,72 +1,63 @@
 .section {
-  background: var(--color-bg-page);
+  background: var(--color-bg-surface);
   padding-block: var(--space-10);
 }
 
-.section :global(.container) {
+.panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-9);
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-brand-subtle);
 }
 
 .intro {
-  max-width: 720px;
-  margin-inline: auto;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-}
-
-.name {
-  font-size: var(--text-h4-size);
-  line-height: var(--text-h4-line);
-  color: var(--color-accent-light);
+  gap: var(--space-4);
+  max-width: 800px;
 }
 
 .body {
+  font-size: var(--text-body-lg-size);
   color: var(--color-text-secondary);
 }
 
+.capabilities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
 .capabilitiesHeading {
-  text-align: center;
-  font-size: var(--text-h5-size);
-  line-height: var(--text-h5-line);
-  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption-size);
+  font-weight: 500;
+  letter-spacing: var(--text-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .card {
   display: flex;
-  gap: var(--space-4);
-  height: 100%;
+  flex-direction: column;
+  gap: var(--space-1);
   padding: var(--space-6);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   background: var(--color-bg-surface);
-  transition: box-shadow var(--duration-base) ease, border-color var(--duration-base) ease;
+  transition: box-shadow var(--duration-base) ease, transform var(--duration-base) var(--ease-out-expo);
 }
 
 .card:hover {
-  border-color: var(--color-border-strong);
   box-shadow: var(--shadow-card);
-}
-
-.icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--color-bg-brand-subtle);
-  color: var(--color-brand-cta);
+  transform: translateY(-3px);
 }
 
 .cardTitle {
@@ -76,12 +67,12 @@
 }
 
 .cardBody {
-  margin-top: var(--space-1);
+  font-size: var(--text-body-sm-size);
   color: var(--color-text-secondary);
 }
 
 @media (max-width: 600px) {
-  .card {
-    padding: var(--space-5);
+  .panel {
+    padding: var(--space-6);
   }
 }

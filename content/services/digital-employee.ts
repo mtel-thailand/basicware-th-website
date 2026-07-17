@@ -10,18 +10,28 @@ export const digitalEmployee: ServiceContent = {
   },
 
   hero: {
-    eyebrow: "Digital Employee",
+    chip: "OPENCLAW · NOW HIRING",
     title: {
-      pre: "",
-      accent: "AI Digital Employees",
-      post: " That Work Inside Your Existing Tools — Autonomous, 24/7, Enterprise-Ready",
+      pre: "Your next hire ",
+      accent: "isn't human.",
+      post: "",
     },
-    lede: "Deploy autonomous AI employees for support, sales, HR, finance and marketing. Configured to your workflows, secured for enterprise, live in days.",
+    lede: "Autonomous AI employees for support, sales, HR, finance and marketing — configured to your workflows, secured for enterprise, live in days, on shift 24/7.",
+    ctaLabel: "Talk to Our Team",
+    terminal: [
+      { text: "$ openclaw deploy --role support", tone: "base" },
+      { text: "  ✓ workflows synced (47 rules)", tone: "success" },
+      { text: "  ✓ tone + escalation configured", tone: "success" },
+      { text: "  ✓ channels: email · chat · social", tone: "success" },
+      { text: "● agent on shift — 24/7", tone: "accent" },
+      { text: "$ openclaw scale --to 50", tone: "base" },
+      { text: "  → full department, zero hiring lag", tone: "dim" },
+    ],
   },
 
   problem: {
-    eyebrow: "The challenge",
-    heading: "The problem",
+    eyebrow: "The problem",
+    heading: "Your best people are doing your worst work.",
     points: [
       {
         title: "Repetitive work eats capacity",
@@ -39,38 +49,35 @@ export const digitalEmployee: ServiceContent = {
   },
 
   solution: {
-    eyebrow: "Our approach",
-    heading: "The solution",
+    eyebrow: "The solution",
+    heading: "A full department. No hiring timeline.",
     intro:
-      "With OpenClaw, we deploy AI digital employees that operate within your existing tools.",
+      "With OpenClaw, we deploy AI digital employees that operate within your existing tools — no rip-and-replace.",
     points: [
       {
+        icon: "sliders",
         title: "Configured to Your Workflows",
         body: "Each agent is configured to your workflows, tone, and escalation rules, then activated to run autonomously around the clock.",
       },
       {
+        icon: "handoff",
         title: "Full-Context Handoff",
         body: "They handle repetitive, low-value tasks across all departments and hand off to your team with full context intact when needed.",
       },
       {
+        icon: "trend",
         title: "Department-Level Productivity",
-        body: "You will get the productivity of a full department without the hiring timeline and the ability to scale up or down in days.",
+        body: "The productivity of a full department without the hiring timeline — scale up or down in days.",
       },
     ],
     tags: {
       heading: "Roles available",
-      items: [
-        "Brand Marketing",
-        "Customer Support",
-        "Sales Assistant",
-        "HR",
-        "Finance",
-      ],
+      items: ["Brand Marketing", "Customer Support", "Sales Assistant", "HR", "Finance"],
     },
   },
 
   platform: {
-    eyebrow: "What we deliver",
+    eyebrow: "Platform spec",
     heading: "Capabilities",
     features: [
       {
@@ -98,7 +105,6 @@ export const digitalEmployee: ServiceContent = {
 
   partner: {
     eyebrow: "Strategic partnership",
-    heading: "Strategic Partnership",
     name: "Mtel (Thailand)",
     body: "Through the partnership between Mtel (Thailand) and Enterprise-Grade Digital Employee powered by OpenClaw, enterprises can deploy role-based AI Digital Employees that work alongside teams to accelerate productivity, increase operational agility, and unlock new levels of efficiency.",
     capabilitiesHeading: "Mtel (Thailand) Capabilities",
@@ -132,31 +138,31 @@ export const digitalEmployee: ServiceContent = {
 
   caseStudies: {
     eyebrow: "Results",
-    heading: "Case study",
+    heading: "Proof, not promises.",
     items: [
       {
         clientName: "State-owned Enterprise",
         industry: "Consumer Goods",
         headline:
-          "50+ AI digital twins deployed across one enterprise — routine work automated, strategic capacity unlocked. Employees can quickly create personalized AI digital avatars tailored to daily workflows, improving efficiency across work scenarios.",
+          "50+ AI digital twins deployed across one enterprise — routine work automated, strategic capacity unlocked.",
         challenge:
           "A large state-owned enterprise with over 50 core staff was under pressure to accelerate digital transformation and improve operational efficiency across all business functions. Employees spent a significant portion of their working hours on repetitive, low-value tasks — drafting documents, processing routine queries, preparing reports — leaving limited capacity for strategic work. The organisation needed a scalable AI solution that could be customised to each employee's specific role and workflow, without disrupting existing systems or requiring deep technical expertise from staff.",
         solution:
-          "Basicware delivered an end-to-end AI digital twin workforce programme for 50+ core employees. Each staff member received a bespoke AI digital clone — trained on their individual role context, internal knowledge base, and communication style — capable of handling routine tasks, generating work-ready documents, and responding to standard queries autonomously. Basicware managed the full implementation lifecycle: system integration, twin calibration, employee onboarding, iterative optimisation, and measurable outcome validation. An enterprise-wide AI training and adoption programme was also delivered in parallel to ensure sustainable internal capability.",
+          "Basicware delivered an end-to-end AI digital twin workforce programme for 50+ core employees. Each staff member received a bespoke AI digital clone — trained on their individual role context, internal knowledge base, and communication style — capable of handling routine tasks, generating work-ready documents, and responding to standard queries autonomously. Basicware managed the full implementation lifecycle: system integration, twin calibration, employee onboarding, iterative optimisation, and measurable outcome validation.",
         quote:
           "Basicware supported us through every single phase of the project. Beyond solution development, we also got comprehensive support for system integration, meticulous optimization and final result implementation.",
         quoteSpeaker: "Chief Digital Officer",
         results: [
-          { value: "50", label: "Core staff with AI digital twins built" },
-          { value: "40%", label: "Overall workforce efficiency uplift" },
-          { value: "60%", label: "Reduction in repetitive task workload" },
+          { value: 50, label: "Core staff with AI digital twins built" },
+          { value: 40, suffix: "%", label: "Overall workforce efficiency uplift" },
+          { value: 60, suffix: "%", label: "Reduction in repetitive task workload" },
         ],
       },
     ],
   },
 
   faqs: {
-    eyebrow: "FAQs",
+    eyebrow: "FAQ",
     heading: "Frequently asked questions",
     items: [
       {

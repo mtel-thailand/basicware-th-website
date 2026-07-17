@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SectionTitle from "../../ui/SectionTitle";
 import Reveal from "../../motion/Reveal";
 import type { ServiceContent } from "@/content/services/types";
+import { sectionEyebrow } from "./sectionNumber";
 import styles from "./ServiceFaqs.module.css";
 
 function ChevronIcon({ className }: { className?: string }) {
@@ -73,15 +74,17 @@ function FaqItem({
 
 export default function ServiceFaqs({
   content,
+  sectionNumber,
 }: {
   content: NonNullable<ServiceContent["faqs"]>;
+  sectionNumber: number;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className={styles.section}>
       <div className="container">
-        <SectionTitle eyebrow={content.eyebrow} title={content.heading} />
+        <SectionTitle eyebrow={sectionEyebrow(sectionNumber, content.eyebrow)} title={content.heading} />
 
         <Reveal className={styles.list}>
           {content.items.map((faq, i) => (

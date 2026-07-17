@@ -19,34 +19,31 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-3);
+  gap: var(--space-2);
   height: 100%;
   padding: var(--space-6);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
-  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-page);
   transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) ease, transform var(--duration-base) var(--ease-out-expo);
 }
 
 .card:hover {
   border-color: var(--color-brand-cta);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-.mark {
+.header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: var(--space-3);
+}
+
+.logo {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--gradient-brand);
-  color: var(--color-text-white);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: var(--text-body-size);
+  border-radius: var(--radius-sm);
+  object-fit: contain;
 }
 
 .name {

@@ -23,16 +23,31 @@ export default function ServicePageTemplate({
 }: {
   content: ServiceContent;
 }) {
+  // Problem/Solution/Platform are always sections 01/02/03. The remaining
+  // sections are optional per service, so their numbers shift to match
+  // whichever of Partner/Models/Cases/FAQ this content actually supplies.
+  let n = 3;
+  const partnerNumber = content.partner ? ++n : undefined;
+  const modelsNumber = content.supportedModels ? ++n : undefined;
+  const casesNumber = content.caseStudies ? ++n : undefined;
+  const faqsNumber = content.faqs ? ++n : undefined;
+
   return (
     <>
       <ServiceHero content={content.hero} />
       <ServiceProblem content={content.problem} />
       <ServiceSolution content={content.solution} />
       <ServicePlatform content={content.platform} />
-      {content.partner && <ServicePartner content={content.partner} />}
-      {content.supportedModels && <ServiceSupportedModels content={content.supportedModels} />}
-      {content.caseStudies && <ServiceCaseStudies content={content.caseStudies} />}
-      {content.faqs && <ServiceFaqs content={content.faqs} />}
+      {content.partner && (
+        <ServicePartner content={content.partner} sectionNumber={partnerNumber!} />
+      )}
+      {content.supportedModels && (
+        <ServiceSupportedModels content={content.supportedModels} sectionNumber={modelsNumber!} />
+      )}
+      {content.caseStudies && (
+        <ServiceCaseStudies content={content.caseStudies} sectionNumber={casesNumber!} />
+      )}
+      {content.faqs && <ServiceFaqs content={content.faqs} sectionNumber={faqsNumber!} />}
       <ServiceCta content={content.cta} />
     </>
   );

@@ -10,18 +10,28 @@ export const centralizedAi: ServiceContent = {
   },
 
   hero: {
-    eyebrow: "Centralized AI",
+    chip: "BASICROUTER · NOW LIVE",
     title: {
-      pre: "",
-      accent: "BasicRouter",
-      post: ": The Unified AI Gateway — One API for Every Leading Model",
+      pre: "Every model. ",
+      accent: "One API.",
+      post: "",
     },
-    lede: "Access GPT, Claude, Gemini, Qwen, DeepSeek and more through one API. Switch models with one parameter. Enterprise security and unified billing.",
+    lede: "GPT, Claude, Gemini, Qwen, DeepSeek and more — behind a single integration. Switch models with one parameter. Enterprise security, one bill, zero vendor sprawl.",
+    ctaLabel: "Get Access",
+    terminal: [
+      { text: "$ curl api.basicrouter.ai/v1/chat \\", tone: "base" },
+      { text: "    -d '{ \"model\": \"gpt-5.4\", ... }'", tone: "dim" },
+      { text: "  → 200 OK · 412ms", tone: "accent" },
+      { text: "$ # switch models — one parameter", tone: "comment" },
+      { text: "    -d '{ \"model\": \"claude-opus\", ... }'", tone: "dim" },
+      { text: "  → 200 OK · 388ms", tone: "accent" },
+      { text: "✓ 10+ models · one key · one bill", tone: "success" },
+    ],
   },
 
   problem: {
-    eyebrow: "The challenge",
-    heading: "The problem",
+    eyebrow: "The problem",
+    heading: "Ten vendors. Ten contracts. Zero speed.",
     points: [
       {
         title: "Vendor sprawl",
@@ -35,32 +45,36 @@ export const centralizedAi: ServiceContent = {
   },
 
   solution: {
-    eyebrow: "Our approach",
-    heading: "The solution",
+    eyebrow: "The solution",
+    heading: "Integrate once. Never reintegrate.",
     intro:
-      "We help brands rebuild their content engine with AI, turning production pressure into a competitive edge with significantly lower costs and faster cycles using BasicRouter.",
+      "BasicRouter is a unified AI gateway connecting your app to 10+ top models via a single API — turning vendor overhead into a competitive edge.",
     points: [
       {
+        icon: "hub",
         title: "Unified Gateway",
-        body: "BasicRouter is a unified AI gateway connecting your app to 10+ top models via a single API.",
+        body: "One API connecting your app to 10+ top models — no per-vendor integrations.",
       },
       {
+        icon: "switch",
         title: "Zero-Reintegration Switching",
-        body: "Switch models with one parameter, no reintegration.",
+        body: "Switch models with one parameter. No new SDKs, no code rewrites.",
       },
       {
+        icon: "shield",
         title: "Secure & Auditable",
-        body: "Requests are securely routed with encryption, role-based permissions, and a full audit trail.",
+        body: "Encrypted routing, role-based permissions, and a full audit trail on every request.",
       },
       {
+        icon: "chart",
         title: "Centralized Billing",
-        body: "A centralized billing dashboard shows real-time usage and costs across your team, so you always track your AI spend and its value.",
+        body: "Real-time usage and cost across your whole team — one dashboard, one invoice.",
       },
     ],
   },
 
   platform: {
-    eyebrow: "The platform",
+    eyebrow: "Platform spec",
     heading: "BasicRouter.ai platform",
     features: [
       {
@@ -100,44 +114,54 @@ export const centralizedAi: ServiceContent = {
     heading: "Supported models",
     models: [
       {
+        logo: "/images/models/gemini.png",
         name: "Google Gemini Series",
         description:
           "Frontier multimodal AI for text, image, video, audio — with 1M-token context and unbeatable Flash pricing.",
       },
       {
+        logo: "/images/models/openai.png",
         name: "OpenAI GPT Series",
         description:
           "Flagship reasoning and the largest ecosystem — the default for complex agentic and coding tasks.",
       },
       {
+        logo: "/images/models/claude.png",
         name: "Anthropic Claude Series",
         description: "Leader in real-world coding and natural long-form writing, from Haiku to Opus.",
       },
       {
+        logo: "/images/models/qwen.png",
         name: "Alibaba Qwen Series",
         description: "Frontier-class reasoning in 200+ languages at a fraction of Western flagship cost.",
       },
       {
+        logo: "/images/models/seedance.png",
         name: "ByteDance Seedream Series",
         description: "State-of-the-art text-to-image generation for ad creatives and social content at scale.",
       },
       {
+        logo: "/images/models/doubao.png",
         name: "ByteDance Doubao Series",
         description: "Best-in-class Chinese-language AI, tuned for Douyin/TikTok and China's digital ecosystem.",
       },
       {
+        logo: "/images/models/deepseek.png",
         name: "DeepSeek",
         description: "Near-frontier coding performance at some of the lowest token prices on the market.",
       },
       {
+        logo: "/images/models/glm.png",
         name: "Zhipu GLM",
         description: "Open-weight models with 1M-token context, built for long-horizon autonomous coding.",
       },
       {
+        logo: "/images/models/kimi.png",
         name: "Moonshot Kimi",
         description: "Coding-first open-weight leader with exceptional long-document comprehension.",
       },
       {
+        logo: "/images/models/minimax.png",
         name: "MiniMax Series",
         description: "Agentic reasoning plus text, speech, and video generation at open-weight economics.",
       },
@@ -145,7 +169,7 @@ export const centralizedAi: ServiceContent = {
   },
 
   faqs: {
-    eyebrow: "FAQs",
+    eyebrow: "FAQ",
     heading: "Frequently asked questions",
     items: [
       {

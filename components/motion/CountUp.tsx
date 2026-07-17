@@ -13,14 +13,22 @@ type CountUpProps = {
   value: number;
   prefix?: string;
   suffix?: string;
+  /** Group thousands with commas, e.g. 63200 -> "63,200" */
+  locale?: boolean;
   className?: string;
 };
+
+function formatCount(n: number, locale?: boolean) {
+  const rounded = Math.round(n);
+  return locale ? rounded.toLocaleString("en-US") : String(rounded);
+}
 
 /** Number that counts up from 0 when it enters the viewport. */
 export default function CountUp({
   value,
   prefix = "",
   suffix = "",
+  locale,
   className,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -35,15 +43,15 @@ export default function CountUp({
 
   useEffect(() => {
     if (reduce) {
-      if (ref.current) ref.current.textContent = `${prefix}${value}${suffix}`;
+      if (ref.current) ref.current.textContent = `${prefix}${formatCount(value, locale)}${suffix}`;
       return;
     }
     return spring.on("change", (latest) => {
       if (ref.current) {
-        ref.current.textContent = `${prefix}${Math.round(latest)}${suffix}`;
+        ref.current.textContent = `${prefix}${formatCount(latest, locale)}${suffix}`;
       }
     });
-  }, [spring, prefix, suffix, value, reduce]);
+  }, [spring, prefix, suffix, value, locale, reduce]);
 
   return (
     <span ref={ref} className={className}>

@@ -26,8 +26,79 @@
   text-wrap: balance;
 }
 
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  animation: ctaDrift 12s ease-in-out infinite;
+}
+
+.dot1 {
+  top: 22%;
+  left: 12%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 11s;
+}
+
+.dot2 {
+  top: 60%;
+  left: 24%;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  animation-duration: 14s;
+  animation-direction: reverse;
+}
+
+.dot3 {
+  top: 30%;
+  right: 16%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.45);
+  animation-duration: 12s;
+  animation-delay: 2s;
+}
+
+.dot4 {
+  top: 70%;
+  right: 28%;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  animation-duration: 16s;
+  animation-delay: 1s;
+  animation-direction: reverse;
+}
+
+@keyframes ctaDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(14px, -22px);
+  }
+  66% {
+    transform: translate(-10px, -40px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}
+
 @media (max-width: 600px) {
   .section {
     padding-block: var(--space-8) var(--space-10);
+  }
+
+  .dot {
+    display: none;
   }
 }

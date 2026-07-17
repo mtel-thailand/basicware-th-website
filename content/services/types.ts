@@ -16,9 +16,29 @@ export type ServicePainPoint = {
   body: string;
 };
 
+/** Icon keys rendered by ServiceSolution — see ICONS in that file for the glyph set. */
+export type ServiceSolutionIcon =
+  | "hub"
+  | "switch"
+  | "shield"
+  | "chart"
+  | "sliders"
+  | "handoff"
+  | "trend"
+  | "bolt"
+  | "globe";
+
 export type ServiceSolutionPoint = {
   title: string;
   body: string;
+  /** Defaults to "hub" when omitted. */
+  icon?: ServiceSolutionIcon;
+};
+
+export type ServiceTerminalLine = {
+  text: string;
+  /** Terminal syntax-highlight tone — see ServiceHero.module.css for the palette. */
+  tone?: "base" | "dim" | "comment" | "accent" | "success";
 };
 
 export type ServicePlatformFeature = {
@@ -27,7 +47,12 @@ export type ServicePlatformFeature = {
 };
 
 export type ServiceCaseStudyResult = {
-  value: string;
+  /** Animated count-up target, e.g. 63200 for "63,200" or 40 for "40x". */
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  /** Group thousands with commas, e.g. 63200 -> "63,200". */
+  grouped?: boolean;
   label: string;
 };
 
@@ -52,6 +77,8 @@ export type ServiceFaqItem = {
 export type ServiceSupportedModel = {
   name: string;
   description: string;
+  /** Path under /public, e.g. "/images/models/gemini.png". Omit for a text-only card. */
+  logo?: string;
 };
 
 export type ServiceContent = {
@@ -64,10 +91,14 @@ export type ServiceContent = {
   };
 
   hero: {
-    eyebrow: string;
+    /** Status pill above the title, e.g. "BASICROUTER · NOW LIVE". */
+    chip: string;
     /** The page's single <h1>. Split so one segment can render as the accent color. */
     title: AccentSegments;
     lede: string;
+    ctaLabel: string;
+    /** Animated lines in the hero's terminal-window visual, typed in one at a time. */
+    terminal: ServiceTerminalLine[];
   };
 
   problem: {
@@ -104,7 +135,7 @@ export type ServiceContent = {
   /** Implementation/strategic partner spotlight — omit when not applicable. */
   partner?: {
     eyebrow: string;
-    heading: string;
+    /** The partner's name, rendered as this section's heading, e.g. "Mtel (Thailand)". */
     name: string;
     body: string;
     capabilitiesHeading: string;
