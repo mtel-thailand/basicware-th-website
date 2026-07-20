@@ -37,8 +37,8 @@ export default function Footer() {
             <h3 className={styles.colTitle}>{t.solutionsTitle}</h3>
             <ul className={styles.list}>
               {t.solutions.map((item) => (
-                <li key={item}>
-                  <a href="#solutions">{item}</a>
+                <li key={item.label}>
+                  <a href={item.href}>{item.label}</a>
                 </li>
               ))}
             </ul>

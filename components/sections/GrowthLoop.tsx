@@ -24,11 +24,14 @@ const STEPS = t.steps.map((step, i) => ({ ...step, ...STEP_VISUALS[i] }));
 
 const CYCLE_MS = 2800;
 
-/* Closed elliptical loop: over the top from step 1 to 5, back underneath
-   to step 1. A true ellipse keeps the tangent continuous, so the arrow
-   glides smoothly with no direction snaps at the ends. */
+/* Closed loop: over the top from step 1 to 5, back underneath to step 1.
+   The two arcs share the same rx and endpoints (the ellipse's horizontal
+   co-vertices), so the tangent there is vertical for either ry — the
+   bottom arc's radius can shrink without any snap in the arrow's motion.
+   It's deliberately flatter than the top arc so it can't reach down into
+   the lede/indicator footer below the stage. */
 const LOOP_PATH =
-  "M60 335 A540 225 0 0 1 1140 335 A540 225 0 0 1 60 335";
+  "M60 335 A540 225 0 0 1 1140 335 A540 140 0 0 1 60 335";
 const LOOP_DURATION_S = (STEP_VISUALS.length * CYCLE_MS) / 1000;
 
 export default function GrowthLoop() {

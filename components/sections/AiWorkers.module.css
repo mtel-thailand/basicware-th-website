@@ -30,7 +30,6 @@
 
 .panelsStacked .panel {
   transform-origin: center top;
-  box-shadow: 0 -12px 48px rgba(1, 39, 91, 0.25);
 }
 
 /* ---- Gradient panel ---- */

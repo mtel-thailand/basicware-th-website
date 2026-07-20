@@ -29,7 +29,6 @@ export const aboutContent = {
       "Basicware AI partners with world-class top AI large model (LLM) developers through commercial research and application, to jointly build an AI business co-creation partner that forms an enterprise community with global clients.",
     description:
       "Relying on the world's latest cutting-edge AI technologies, we regard every client as a fellow entrepreneurial buddy. With agile and intelligent iteration capabilities, we continuously integrate AI technologies into clients' business scenarios, co-create innovative business models, and jointly explore global markets.",
-    placeholderLabel: "Image placeholder",
   },
 
   role: {

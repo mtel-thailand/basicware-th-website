@@ -23,12 +23,12 @@ export default function ServicePartner({
                 <Image
                   src={content.logo}
                   alt={content.name}
-                  width={120}
-                  height={45}
+                  width={200}
+                  height={75}
                   className={styles.logo}
                 />
               )}
-              <h2 className="h2">{content.name}</h2>
+              <h2 className={styles.srOnly}>{content.name}</h2>
             </div>
             <p className={styles.body}>{content.body}</p>
             {content.href && (
