@@ -46,14 +46,14 @@ function TypewriterPrompt() {
 }
 
 /* Visual config only — labels come from the content dictionary */
-const CARD_IMAGES: Record<string, string | undefined> = {
+const CARD_MEDIA: Record<string, { type: "image" | "video"; src: string } | undefined> = {
   copywriting: undefined,
-  image: "/images/aigc/image-gen.png",
-  avatar: "/images/aigc/avatar.png",
-  video: "/images/aigc/video.png",
+  image: { type: "image", src: "/images/aigc/image-gen.png" },
+  avatar: { type: "video", src: "/images/aigc/digital%20avatar.mp4" },
+  video: { type: "video", src: "/images/aigc/video%20production.mp4" },
 };
 
-const CARDS = t.cards.map((card) => ({ ...card, src: CARD_IMAGES[card.key] }));
+const CARDS = t.cards.map((card) => ({ ...card, media: CARD_MEDIA[card.key] }));
 
 export default function AigcProduction() {
   const [generated, setGenerated] = useState(true);
@@ -126,9 +126,19 @@ export default function AigcProduction() {
                       <blockquote className={styles.quote}>{t.quote}</blockquote>
                       <p className={styles.copyCaption}>{t.quoteCaption}</p>
                     </div>
+                  ) : card.media!.type === "video" ? (
+                    <video
+                      className={styles.cardImage}
+                      src={card.media!.src}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      aria-label={card.label}
+                    />
                   ) : (
                     <Image
-                      src={card.src!}
+                      src={card.media!.src}
                       alt={card.label}
                       fill
                       sizes="(max-width: 600px) 90vw, (max-width: 900px) 45vw, 285px"
