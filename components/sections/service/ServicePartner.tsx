@@ -75,11 +75,10 @@ export default function ServicePartner({
   return (
     <section className={styles.section}>
       <div className={styles.glow} aria-hidden="true" />
-      <div className={styles.grain} aria-hidden="true" />
 
       <div className={`container ${styles.container}`}>
         <Reveal className={styles.header}>
-          <Eyebrow tone="dark">{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
+          <Eyebrow>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
           <h2 className={`h2 ${styles.heading}`}>
             <AccentText segments={content.heading} accentClass={styles.accent} />
           </h2>
@@ -142,7 +141,6 @@ export default function ServicePartner({
               href={content.href}
               target="_blank"
               rel="noopener noreferrer"
-              variant="onPhoto"
               className={styles.cta}
             >
               Visit {content.name}
