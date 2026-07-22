@@ -13,11 +13,11 @@ const t = content.growthLoop;
 
 /* Visual config only — step copy comes from the content dictionary */
 const STEP_VISUALS = [
-  { image: "/images/loop/stage-1.png", rotate: -8 },
-  { image: "/images/loop/stage-2.png", rotate: -5 },
-  { image: "/images/loop/stage-3.png", rotate: 0 },
-  { image: "/images/loop/stage-4.png", rotate: 5 },
-  { image: "/images/loop/stage-5.png", rotate: 8 },
+  { image: "/images/loop/stage-01.png", rotate: -8 },
+  { image: "/images/loop/stage-02.png", rotate: -5 },
+  { image: "/images/loop/stage-03.png", rotate: 0 },
+  { image: "/images/loop/stage-04.png", rotate: 5 },
+  { image: "/images/loop/stage-05.png", rotate: 8 },
 ];
 
 const STEPS = t.steps.map((step, i) => ({ ...step, ...STEP_VISUALS[i] }));
