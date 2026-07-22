@@ -500,16 +500,7 @@ function StackedPanel({
 export default function AiWorkers() {
   const deckRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const [stacked, setStacked] = useState(false);
-
-  // The deck effect needs room — desktop pointers only
-  useEffect(() => {
-    const query = window.matchMedia("(min-width: 1100px)");
-    const update = () => setStacked(query.matches && !reduce);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, [reduce]);
+  const stacked = !reduce;
 
   const { scrollYProgress } = useScroll({
     target: deckRef,

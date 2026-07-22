@@ -396,6 +396,7 @@ export const en = {
         "AIGC & Marketing",
         "Digital Employee",
         "AI Talent Education",
+        "Other",
       ],
       goalLabel: "Your goal",
       goalOptional: "(optional)",
