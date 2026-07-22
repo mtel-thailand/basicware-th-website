@@ -105,33 +105,47 @@ export const digitalEmployee: ServiceContent = {
 
   partner: {
     eyebrow: "Strategic partnership",
+    heading: {
+      pre: "",
+      accent: "One partnership.",
+      post: " A complete digital workforce.",
+    },
+    counterpart: { name: "OpenClaw", role: "Enterprise Digital Employee Platform" },
     name: "Mtel (Thailand)",
+    role: "Enterprise Implementation Partner",
     logo: "/images/partners/mtel.png",
     href: "https://www.mtel.co.th",
     body: "Through the partnership between Mtel (Thailand) and Enterprise-Grade Digital Employee powered by OpenClaw, enterprises can deploy role-based AI Digital Employees that work alongside teams to accelerate productivity, increase operational agility, and unlock new levels of efficiency.",
+    roles: ["Brand Marketing", "Customer Support", "Sales Assistant", "HR", "Finance"],
     capabilitiesHeading: "Mtel (Thailand) Capabilities",
     capabilities: [
       {
+        icon: "code",
         title: "Custom Software Development",
         description: "Design and build tailored business applications and AI-enabled workflows.",
       },
       {
+        icon: "integration",
         title: "System Integration",
         description: "Connect Digital Employees with enterprise systems, data sources, and operational processes.",
       },
       {
+        icon: "platform",
         title: "Enterprise Platforms",
         description: "Enable scalable digital operations through enterprise application ecosystems.",
       },
       {
+        icon: "cloud",
         title: "Cloud & Infrastructure",
         description: "Build secure, resilient, and scalable environments for AI deployment.",
       },
       {
+        icon: "design",
         title: "UX/UI Design",
         description: "Create intuitive employee and customer experiences across digital touchpoints.",
       },
       {
+        icon: "testing",
         title: "Testing Service",
         description: "Ensure performance, quality, reliability, and enterprise readiness.",
       },

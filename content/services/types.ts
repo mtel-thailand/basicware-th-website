@@ -46,6 +46,19 @@ export type ServicePlatformFeature = {
   description: string;
 };
 
+/** Icon keys rendered by ServicePartner's capability grid — see ICON_PATHS in that file. */
+export type ServicePartnerCapabilityIcon =
+  | "code"
+  | "integration"
+  | "platform"
+  | "cloud"
+  | "design"
+  | "testing";
+
+export type ServicePartnerCapability = ServicePlatformFeature & {
+  icon: ServicePartnerCapabilityIcon;
+};
+
 export type ServiceCaseStudyResult = {
   /** Animated count-up target, e.g. 63200 for "63,200" or 40 for "40x". */
   value: number;
@@ -135,15 +148,23 @@ export type ServiceContent = {
   /** Implementation/strategic partner spotlight — omit when not applicable. */
   partner?: {
     eyebrow: string;
-    /** The partner's name, rendered as this section's heading, e.g. "Mtel (Thailand)". */
+    /** Visible section heading — segments rendered via AccentText. */
+    heading: AccentSegments;
+    /** The AI platform side of the partnership, e.g. OpenClaw. */
+    counterpart: { name: string; role: string };
+    /** The partner's name, e.g. "Mtel (Thailand)". */
     name: string;
+    /** The partner's role in the partnership, e.g. "Enterprise Implementation Partner". */
+    role: string;
     /** Path under /public, e.g. "/images/partners/mtel.png". Omit to render name-only. */
     logo?: string;
     /** External site to link out to — omit to render no link. */
     href?: string;
     body: string;
+    /** Role-based digital employee roles to visualize as pills flowing from the partnership. */
+    roles: string[];
     capabilitiesHeading: string;
-    capabilities: ServicePlatformFeature[];
+    capabilities: ServicePartnerCapability[];
   };
 
   /** Omit when the page has no case studies yet. */
