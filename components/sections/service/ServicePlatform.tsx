@@ -16,7 +16,6 @@ export default function ServicePlatform({
           eyebrow={sectionEyebrow(3, content.eyebrow)}
           title={content.heading}
           align="left"
-          tone="dark"
         />
 
         <div className={styles.grid}>
