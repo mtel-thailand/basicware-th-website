@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Eyebrow from "../../ui/Eyebrow";
 import Reveal from "../../motion/Reveal";
+import Button from "../../ui/Button";
 import type { ServiceContent } from "@/content/services/types";
 import { sectionEyebrow } from "./sectionNumber";
 import styles from "./ServicePartner.module.css";
@@ -16,10 +17,12 @@ export default function ServicePartner({
     <section className={styles.section}>
       <div className="container">
         <Reveal className={styles.panel}>
+          <Eyebrow>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
+          <h2 className={styles.srOnly}>{content.name}</h2>
+
           <div className={styles.intro}>
-            <Eyebrow>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
-            <div className={styles.nameRow}>
-              {content.logo && (
+            {content.logo && (
+              <div className={styles.logoCard}>
                 <Image
                   src={content.logo}
                   alt={content.name}
@@ -27,20 +30,21 @@ export default function ServicePartner({
                   height={75}
                   className={styles.logo}
                 />
-              )}
-              <h2 className={styles.srOnly}>{content.name}</h2>
-            </div>
-            <p className={styles.body}>{content.body}</p>
-            {content.href && (
-              <a
-                href={content.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.link}
-              >
-                Visit {content.name} <span aria-hidden="true">→</span>
-              </a>
+              </div>
             )}
+            <div className={styles.introText}>
+              <p className={styles.body}>{content.body}</p>
+              {content.href && (
+                <Button
+                  href={content.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.link}
+                >
+                  Visit {content.name}
+                </Button>
+              )}
+            </div>
           </div>
 
           <div className={styles.capabilities}>

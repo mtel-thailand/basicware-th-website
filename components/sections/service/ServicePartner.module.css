@@ -14,20 +14,24 @@
 
 .intro {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  max-width: 800px;
+  align-items: center;
+  gap: var(--space-8);
 }
 
-.nameRow {
+.logoCard {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 240px;
+  padding: var(--space-7) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
 }
 
 .logo {
-  height: 56px;
+  height: 64px;
   width: auto;
   object-fit: contain;
 }
@@ -44,24 +48,33 @@
   border: 0;
 }
 
+.introText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  max-width: 640px;
+}
+
 .body {
   font-size: var(--text-body-lg-size);
   color: var(--color-text-secondary);
 }
 
 .link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  width: fit-content;
-  font-weight: 600;
-  color: var(--color-brand-cta);
-  transition: color var(--duration-fast) ease, transform var(--duration-fast) var(--ease-out-expo);
+  flex-shrink: 0;
 }
 
-.link:hover {
-  color: var(--color-accent-light);
-  transform: translateX(2px);
+@media (max-width: 700px) {
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .logoCard {
+    width: 100%;
+  }
 }
 
 .capabilities {

@@ -10,6 +10,8 @@ type ButtonProps = {
   variant?: "primary" | "onPhoto";
   className?: string;
   onClick?: () => void;
+  target?: string;
+  rel?: string;
 };
 
 /**
@@ -22,6 +24,8 @@ export default function Button({
   variant = "primary",
   className,
   onClick,
+  target,
+  rel,
 }: ButtonProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const reduce = useReducedMotion();
@@ -42,6 +46,8 @@ export default function Button({
     <motion.a
       ref={ref}
       href={href}
+      target={target}
+      rel={rel}
       onClick={onClick}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
