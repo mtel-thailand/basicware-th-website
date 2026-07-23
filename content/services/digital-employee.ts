@@ -106,9 +106,9 @@ export const digitalEmployee: ServiceContent = {
   partner: {
     eyebrow: "Strategic partnership",
     heading: {
-      pre: "",
-      accent: "One partnership.",
-      post: " A complete digital workforce.",
+      pre: "Powering the Future of Work\n",
+      accent: "Together with AI.",
+      post: "",
     },
     counterpart: { name: "OpenClaw", role: "Enterprise Digital Employee Platform" },
     name: "Mtel (Thailand)",

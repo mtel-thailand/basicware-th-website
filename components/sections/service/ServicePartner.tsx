@@ -50,17 +50,17 @@ function CapabilityIcon({ name }: { name: ServicePartnerCapabilityIcon }) {
   );
 }
 
-/** Abstract node glyph for the non-logo side of the connection graphic (OpenClaw). */
-function NodeGlyph() {
+/** Arrow glyph for capability cards — same mark as the primary CTA button. */
+function ArrowIcon() {
   return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M12 3.5l7 2.7v5.2c0 4.4-3 7.6-7 9.1c-4-1.5-7-4.7-7-9.1V6.2z"
+        d="M4 12h15m0 0-6-6m6 6-6 6"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <circle cx="12" cy="11" r="2.6" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M12 8.4V6.5M9.5 12.5L7 14M14.5 12.5L17 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   );
 }
@@ -77,75 +77,49 @@ export default function ServicePartner({
       <div className={styles.glow} aria-hidden="true" />
 
       <div className={`container ${styles.container}`}>
-        <Reveal className={styles.header}>
-          <Eyebrow>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
-          <h2 className={`h2 ${styles.heading}`}>
-            <AccentText segments={content.heading} accentClass={styles.accent} />
-          </h2>
-        </Reveal>
+        <Reveal className={styles.hero}>
+          <Eyebrow className={styles.eyebrow}>{sectionEyebrow(sectionNumber, content.eyebrow)}</Eyebrow>
 
-        <Reveal delay={0.1} className={styles.link}>
-          <div className={styles.linkRow}>
-            <div className={styles.node}>
-              <span className={styles.nodeBadge}>
-                <NodeGlyph />
-              </span>
-              <span className={styles.nodeName}>{content.counterpart.name}</span>
-              <span className={styles.nodeRole}>{content.counterpart.role}</span>
-            </div>
-
-            <div className={styles.beam} aria-hidden="true">
-              <span className={styles.beamTrack} />
-              <span className={styles.beamPulse} />
-            </div>
-
-            <div className={styles.node}>
-              {content.logo ? (
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy}>
+              {content.logo && (
                 <span className={styles.logoCard}>
                   <Image
                     src={content.logo}
                     alt={content.name}
-                    width={168}
-                    height={63}
+                    width={140}
+                    height={52}
                     className={styles.logo}
                   />
                 </span>
-              ) : (
-                <span className={styles.nodeBadge}>
-                  <NodeGlyph />
-                </span>
               )}
-              <span className={styles.nodeName}>{content.name}</span>
-              <span className={styles.nodeRole}>{content.role}</span>
+              <h2 className={`h2 ${styles.heading}`}>
+                <AccentText segments={content.heading} accentClass={styles.accent} />
+              </h2>
+              <p className={styles.body}>{content.body}</p>
+              {content.href && (
+                <Button
+                  href={content.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.cta}
+                >
+                  Visit {content.name}
+                </Button>
+              )}
+            </div>
+
+            <div className={styles.heroArt}>
+              <Image
+                src="/images/strategic-partnership/illustration.png"
+                alt={`${content.counterpart.name} AI orchestration hub connecting the ${content.name} digital employee roles`}
+                width={1672}
+                height={941}
+                className={styles.illustration}
+                sizes="(max-width: 900px) 100vw, 640px"
+              />
             </div>
           </div>
-
-          {content.roles && content.roles.length > 0 && (
-            <div className={styles.rolesRow}>
-              <span className={styles.rolesLabel}>Deployed as</span>
-              <div className={styles.rolesList}>
-                {content.roles.map((role, i) => (
-                  <Reveal key={role} delay={0.4 + i * 0.07} y={12} className={styles.roleChipWrap}>
-                    <span className={styles.roleChip}>{role}</span>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          )}
-        </Reveal>
-
-        <Reveal delay={0.15} className={styles.introText}>
-          <p className={styles.body}>{content.body}</p>
-          {content.href && (
-            <Button
-              href={content.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cta}
-            >
-              Visit {content.name}
-            </Button>
-          )}
         </Reveal>
 
         <div className={styles.capabilities}>
@@ -154,10 +128,15 @@ export default function ServicePartner({
             {content.capabilities.map((item, i) => (
               <Reveal key={item.title} delay={0.06 * i} y={20}>
                 <div className={styles.card}>
-                  <span className={styles.cardIcon}>
-                    <CapabilityIcon name={item.icon} />
-                  </span>
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
+                  <div className={styles.cardHead}>
+                    <span className={styles.cardIcon}>
+                      <CapabilityIcon name={item.icon} />
+                    </span>
+                    <h3 className={styles.cardTitle}>{item.title}</h3>
+                    <span className={styles.cardArrow}>
+                      <ArrowIcon />
+                    </span>
+                  </div>
                   <p className={styles.cardBody}>{item.description}</p>
                 </div>
               </Reveal>

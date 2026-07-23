@@ -20,19 +20,59 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-9);
+  gap: var(--space-8);
 }
 
-.header {
+/* ---- Hero card ---- */
+
+.hero {
   display: flex;
   flex-direction: column;
+  gap: var(--space-6);
+  padding: clamp(1.75rem, 4vw, var(--space-9));
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+.eyebrow {
+  align-self: flex-start;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
   align-items: center;
+  gap: var(--space-8);
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-4);
-  text-align: center;
+}
+
+.logoCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow:
+    0 0 0 1px var(--color-border-subtle),
+    0 8px 20px rgba(17, 17, 16, 0.06);
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
 }
 
 .heading {
-  max-width: 720px;
   margin: 0;
   color: var(--color-text-primary);
   text-wrap: balance;
@@ -45,214 +85,6 @@
   color: transparent;
 }
 
-/* ---- Connection graphic ---- */
-
-.link {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  padding: clamp(1.75rem, 4vw, var(--space-9));
-  border-radius: var(--radius-xl);
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
-  box-shadow: var(--shadow-card);
-}
-
-.linkRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-7);
-}
-
-.node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  flex-shrink: 0;
-  width: 200px;
-}
-
-.nodeBadge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  color: var(--color-text-white);
-  background: linear-gradient(150deg, #0165d0 0%, #01275b 100%);
-  box-shadow:
-    0 0 0 1px rgba(1, 101, 208, 0.15),
-    0 12px 28px rgba(1, 101, 208, 0.3);
-  animation: nodePulse 3.6s ease-in-out infinite;
-}
-
-.logoCard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 168px;
-  height: 84px;
-  padding: var(--space-4) var(--space-5);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-surface);
-  box-shadow:
-    0 0 0 1px rgba(255, 197, 26, 0.4),
-    0 0 32px rgba(255, 197, 26, 0.28),
-    0 12px 28px rgba(17, 17, 16, 0.1);
-  animation: logoFloat 5s ease-in-out infinite;
-}
-
-.logo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-}
-
-.nodeName {
-  font-family: var(--font-heading);
-  font-size: var(--text-h5-size);
-  line-height: 1.2;
-  font-weight: 600;
-  color: var(--color-text-primary);
-}
-
-.nodeRole {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption-size);
-  letter-spacing: 0.04em;
-  color: var(--color-text-secondary);
-  text-align: center;
-}
-
-.beam {
-  position: relative;
-  flex: 1;
-  min-width: 60px;
-  height: 2px;
-}
-
-.beamTrack {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, #0165d0 0%, var(--color-border-strong) 50%, #ffc51a 100%);
-  opacity: 0.5;
-}
-
-.beamPulse {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  margin-top: -5px;
-  border-radius: 50%;
-  background: var(--color-brand-cta);
-  box-shadow: 0 0 12px 4px rgba(1, 101, 208, 0.45);
-  animation: beamTravel 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-@keyframes beamTravel {
-  0% {
-    left: 0;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% - 10px);
-    opacity: 0;
-  }
-}
-
-@keyframes nodePulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 1px rgba(1, 101, 208, 0.15),
-      0 12px 28px rgba(1, 101, 208, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(1, 101, 208, 0.28),
-      0 12px 36px rgba(1, 101, 208, 0.45);
-  }
-}
-
-@keyframes logoFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.rolesRow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.rolesLabel {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption-size);
-  letter-spacing: var(--text-eyebrow-tracking);
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-}
-
-.rolesList {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-}
-
-.roleChipWrap {
-  display: inline-flex;
-}
-
-.roleChip {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
-  background: var(--color-bg-brand-subtle);
-  border: 1px solid var(--color-border-subtle);
-  color: var(--color-text-primary);
-  font-size: var(--text-body-sm-size);
-  font-weight: 500;
-  transition: background var(--duration-base) ease, border-color var(--duration-base) ease;
-}
-
-.roleChip:hover {
-  background: rgba(255, 197, 26, 0.14);
-  border-color: rgba(255, 197, 26, 0.5);
-}
-
-/* ---- Intro copy ---- */
-
-.introText {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-  max-width: 720px;
-  margin-inline: auto;
-  text-align: center;
-}
-
 .body {
   font-size: var(--text-body-lg-size);
   line-height: var(--text-body-lg-line);
@@ -261,6 +93,18 @@
 
 .cta {
   flex-shrink: 0;
+}
+
+.heroArt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
 }
 
 /* ---- Capabilities ---- */
@@ -306,21 +150,43 @@
   transform: translateY(-3px);
 }
 
+.card:hover .cardArrow {
+  color: var(--color-brand-cta);
+  transform: translate(2px, -2px);
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
 .cardIcon {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
   color: var(--color-brand-cta);
   background: var(--color-bg-brand-subtle);
 }
 
 .cardTitle {
+  flex: 1;
   font-size: var(--text-h5-size);
   line-height: var(--text-h5-line);
   color: var(--color-text-primary);
+}
+
+.cardArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: color var(--duration-base) ease, transform var(--duration-base) var(--ease-out-expo);
 }
 
 .cardBody {
@@ -330,67 +196,18 @@
 
 /* ---- Responsive ---- */
 
-@media (max-width: 700px) {
-  .linkRow {
-    flex-direction: column;
-    gap: var(--space-5);
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
   }
 
-  .beam {
-    width: 2px;
-    height: 48px;
-    min-width: 0;
-  }
-
-  .beamTrack {
-    background: linear-gradient(180deg, #0165d0 0%, var(--color-border-strong) 50%, #ffc51a 100%);
-  }
-
-  .beamPulse {
-    top: 0;
-    left: 50%;
-    margin-top: 0;
-    margin-left: -5px;
-    animation-name: beamTravelVertical;
-  }
-
-  @keyframes beamTravelVertical {
-    0% {
-      top: 0;
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      top: calc(100% - 10px);
-      opacity: 0;
-    }
-  }
-
-  .node {
-    width: 100%;
+  .heroArt {
+    order: -1;
   }
 }
 
 @media (max-width: 600px) {
-  .link {
+  .hero {
     padding: var(--space-6);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nodeBadge,
-  .logoCard,
-  .beamPulse {
-    animation: none;
-  }
-
-  .beamPulse {
-    left: 50%;
-    opacity: 0.9;
   }
 }
