@@ -1,7 +1,7 @@
 .section {
   position: relative;
   overflow: hidden;
-  background: var(--gradient-sky);
+  background: #d9e7fc;
   padding-block: var(--space-11);
   isolation: isolate;
 }
@@ -96,15 +96,13 @@
 }
 
 .heroArt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.illustration {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1913 / 2020;
   border-radius: var(--radius-lg);
+  background-image: url("/images/strategic-partnership/illustration.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* ---- Capabilities ---- */

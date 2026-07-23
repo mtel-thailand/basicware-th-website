@@ -109,16 +109,11 @@ export default function ServicePartner({
               )}
             </div>
 
-            <div className={styles.heroArt}>
-              <Image
-                src="/images/strategic-partnership/illustration.png"
-                alt={`${content.counterpart.name} AI orchestration hub connecting the ${content.name} digital employee roles`}
-                width={1672}
-                height={941}
-                className={styles.illustration}
-                sizes="(max-width: 900px) 100vw, 640px"
-              />
-            </div>
+            <div
+              className={styles.heroArt}
+              role="img"
+              aria-label={`${content.counterpart.name} AI orchestration hub connecting the ${content.name} digital employee roles`}
+            />
           </div>
         </Reveal>
 
