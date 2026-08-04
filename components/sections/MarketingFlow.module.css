@@ -42,8 +42,8 @@
   /* accent recolors per step; scale pops the active card */
   --step-accent: var(--color-brand-cta);
   --step-accent-bg: #eef4ff;
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease,
-    scale 0.3s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease,
+    scale 0.2s ease;
 }
 
 .stepPurple {
@@ -102,7 +102,7 @@
   display: flex;
   padding-inline: 2px;
   color: rgba(1, 101, 208, 0.3);
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .arrowDone {

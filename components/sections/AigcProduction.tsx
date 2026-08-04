@@ -3,10 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import SectionTitle from "../ui/SectionTitle";
+import Eyebrow from "../ui/Eyebrow";
 import Reveal from "../motion/Reveal";
 import Tilt from "../motion/Tilt";
-import AccentText from "../ui/AccentText";
 import { content } from "@/content";
 import styles from "./AigcProduction.module.css";
 
@@ -55,6 +54,46 @@ const CARD_MEDIA: Record<string, { type: "image" | "video"; src: string } | unde
 
 const CARDS = t.cards.map((card) => ({ ...card, media: CARD_MEDIA[card.key] }));
 
+/** Real BytePlus / Seedance 2.5 wordmark from /public/logos. */
+function Logo({
+  name,
+  className,
+}: {
+  name: "byteplus" | "seedance";
+  className?: string;
+}) {
+  const label = name === "byteplus" ? "BytePlus" : t.model;
+  const width = name === "byteplus" ? 136 : 156;
+
+  return (
+    <Image
+      src={`/logos/${name}.svg`}
+      alt={label}
+      width={width}
+      height={28}
+      className={className}
+    />
+  );
+}
+
+/** Large brand lockup: isolate the official mark and pair it with display text. */
+function SeedanceHeadline() {
+  return (
+    <span className={styles.seedanceHeadline} role="img" aria-label={t.model}>
+      <span className={styles.seedanceMark} aria-hidden="true">
+        <Image
+          src="/logos/seedance.svg"
+          alt=""
+          width={156}
+          height={28}
+          className={styles.seedanceMarkSource}
+        />
+      </span>
+      <span>{t.model}</span>
+    </span>
+  );
+}
+
 export default function AigcProduction() {
   const [generated, setGenerated] = useState(true);
   const reduce = useReducedMotion();
@@ -62,24 +101,27 @@ export default function AigcProduction() {
   return (
     <section className={styles.section} id="solutions">
       <div className="container">
-        <SectionTitle
-          eyebrow={t.eyebrow}
-          title={<AccentText segments={t.title} />}
-        />
+        <Reveal className={styles.speedHeader}>
+          <Eyebrow>{t.eyebrow}</Eyebrow>
+          <div className={styles.brandHeadlineGroup}>
+            <h2 className={styles.speedTitle}>{t.speedTitle}</h2>
+            <SeedanceHeadline />
+          </div>
+        </Reveal>
+
+        <Reveal className={styles.platformLine} delay={0.1}>
+          <span>{t.partnerAvailable}</span>
+          <Logo name="byteplus" className={styles.platformLogo} />
+          <span className={styles.platformDivider} aria-hidden="true" />
+          <span>{t.partnerPromise}</span>
+        </Reveal>
 
         <Reveal className={styles.promptWrap} delay={0.15}>
           <div className={styles.promptCard}>
             <TypewriterPrompt />
             <div className={styles.promptActions}>
               <button className={styles.modelSelect} type="button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M12 2.5 4 7v10l8 4.5 8-4.5V7l-8-4.5Zm0 4.5 4 2.25v4.5L12 16l-4-2.25v-4.5L12 7Z"
-                    fill="currentColor"
-                    opacity="0.8"
-                  />
-                </svg>
-                {t.model}
+                <Logo name="seedance" className={styles.modelLogo} />
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

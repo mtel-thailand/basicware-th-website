@@ -13,12 +13,17 @@ const SHOTS = t.shots.map((shot, i) => ({
   src: `/images/workers/storyboard/shot-${i + 1}.png`,
 }));
 
-/* Auto-play loop timing (ms): storyboard builds, merges, video plays */
-const BOARD_MS = 3600;
-const MERGE_MS = 1000;
-const FRAME_MS = 1150;
+/* One-pass timing: storyboard builds, merges, then the finished cut remains. */
+const BOARD_MS = 850;
+const MERGE_MS = 700;
+const FRAME_MS = 780;
 const VIDEO_MS = FRAME_MS * SHOTS.length;
 const TOTAL_SECONDS = 15;
+const ACTIVE_FLOW_VIEW = {
+  once: true,
+  amount: 0.45,
+  margin: "0px 0px -25% 0px",
+} as const;
 
 type Phase = "board" | "merge" | "video";
 
@@ -29,45 +34,47 @@ function timecode(frame: number) {
 
 /**
  * Product Video panel visual: six storyboard shots pop in one by one, then
- * fly together into a single video player that "plays" the cut with a
- * Ken Burns drift, before exploding back into the storyboard. Hover pauses;
- * reduced motion shows the static storyboard.
+ * fly together into a single video player that plays the finished cut with a
+ * Ken Burns drift. The final player remains visible; reduced motion shows the
+ * static storyboard.
  */
 export default function ProductVideoFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<Phase>("board");
   const [frame, setFrame] = useState(0);
-  const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.4 });
-  const autoPlay = inView && !paused && !reduce;
+  const inView = useInView(ref, ACTIVE_FLOW_VIEW);
 
   useEffect(() => {
-    if (!autoPlay) return;
-    const ms = phase === "board" ? BOARD_MS : phase === "merge" ? MERGE_MS : VIDEO_MS;
-    const id = setTimeout(() => {
-      if (phase === "merge") setFrame(0);
-      setPhase(phase === "board" ? "merge" : phase === "merge" ? "video" : "board");
-    }, ms);
-    return () => clearTimeout(id);
-  }, [autoPlay, phase]);
+    if (!inView || reduce) return;
+
+    const merge = window.setTimeout(() => setPhase("merge"), BOARD_MS);
+    const play = window.setTimeout(() => {
+      setFrame(0);
+      setPhase("video");
+    }, BOARD_MS + MERGE_MS);
+
+    return () => {
+      window.clearTimeout(merge);
+      window.clearTimeout(play);
+    };
+  }, [inView, reduce]);
 
   useEffect(() => {
-    if (!autoPlay || phase !== "video") return;
-    const id = setInterval(() => setFrame((f) => (f + 1) % SHOTS.length), FRAME_MS);
-    return () => clearInterval(id);
-  }, [autoPlay, phase]);
+    if (phase !== "video" || reduce) return;
+
+    const frames = SHOTS.slice(1).map((_, index) =>
+      window.setTimeout(() => setFrame(index + 1), FRAME_MS * (index + 1)),
+    );
+
+    return () => frames.forEach((timer) => window.clearTimeout(timer));
+  }, [phase, reduce]);
 
   const merged = phase !== "board" && !reduce;
   const playing = phase === "video";
 
   return (
-    <div
-      ref={ref}
-      className={styles.videoFlow}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div ref={ref} className={styles.videoFlow}>
       {/* Storyboard grid */}
       <div className={styles.board} aria-hidden="true">
         {SHOTS.map((shot, i) => {
@@ -77,7 +84,7 @@ export default function ProductVideoFlow() {
             <motion.div
               key={shot.title}
               className={styles.tile}
-              initial={reduce ? { opacity: 1 } : { opacity: 0, y: 24, scale: 0.92 }}
+              initial={false}
               animate={
                 merged
                   ? {
@@ -86,12 +93,14 @@ export default function ProductVideoFlow() {
                       x: `${(1 - col) * 108}%`,
                       scale: 0.25,
                     }
-                  : { opacity: 1, x: 0, y: 0, scale: 1 }
+                  : reduce || inView
+                    ? { opacity: 1, x: 0, y: 0, scale: 1 }
+                    : { opacity: 0, x: 0, y: 18, scale: 0.95 }
               }
               transition={{
-                duration: merged ? 0.55 : 0.5,
-                delay: merged ? 0.05 * i : 0.14 * i,
-                ease: [0.16, 1, 0.3, 1],
+                duration: merged ? 0.52 : 0.38,
+                delay: merged ? 0.035 * i : inView ? 0.07 * i : 0,
+                ease: [0.22, 1, 0.36, 1],
               }}
             >
               <div className={styles.tileImage}>
@@ -116,7 +125,7 @@ export default function ProductVideoFlow() {
               ? { opacity: 1, scale: 1 }
               : { opacity: 0, scale: 0.7, transition: { duration: 0.35 } }
           }
-          transition={{ duration: 0.55, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.54, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
           aria-hidden="true"
         >
           <div className={styles.playerBar}>
@@ -135,8 +144,8 @@ export default function ProductVideoFlow() {
                 animate={{ opacity: 1, scale: 1.09 }}
                 exit={{ opacity: 0 }}
                 transition={{
-                  opacity: { duration: 0.4 },
-                  scale: { duration: FRAME_MS / 1000 + 0.5, ease: "linear" },
+                  opacity: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                  scale: { duration: FRAME_MS / 1000 + 0.55, ease: "linear" },
                 }}
               >
                 <Image
@@ -154,7 +163,7 @@ export default function ProductVideoFlow() {
                   ? { opacity: 0, scale: 1.5 }
                   : { opacity: 1, scale: 1 }
               }
-              transition={{ duration: 0.4, delay: playing ? 0.2 : 0.6 }}
+              transition={{ duration: 0.25, delay: playing ? 0.08 : 0.28 }}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" />

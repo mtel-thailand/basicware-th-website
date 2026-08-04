@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SectionTitle from "../../ui/SectionTitle";
 import Reveal from "../../motion/Reveal";
 import type { ServiceContent, ServiceSolutionIcon } from "@/content/services/types";
@@ -73,6 +74,7 @@ export default function ServiceSolution({
           eyebrow={sectionEyebrow(2, content.eyebrow)}
           title={content.heading}
           lede={content.intro}
+          className={content.featureBanner ? styles.titleWithFeature : undefined}
         />
 
         {content.tags && (
@@ -88,7 +90,60 @@ export default function ServiceSolution({
           </Reveal>
         )}
 
-        <div className={`${styles.grid} ${content.points.length === 1 ? styles.gridSingle : ""}`}>
+        {content.featureBanner && (
+          <Reveal className={styles.featureBanner}>
+            <div className={styles.featureIdentity}>
+              {content.featureBanner.label && (
+                <span className={styles.featureLabel}>{content.featureBanner.label}</span>
+              )}
+              {content.featureBanner.title && (
+                <h3 className={styles.featureTitle}>{content.featureBanner.title}</h3>
+              )}
+            </div>
+            <div className={styles.featureBrand}>
+              {content.featureBanner.poweredLabel && (
+                <span className={styles.featurePoweredLabel}>
+                  {content.featureBanner.poweredLabel}
+                </span>
+              )}
+              {content.featureBanner.logo && (
+                <Image
+                  className={styles.featureLogo}
+                  src={content.featureBanner.logo}
+                  alt="BytePlus VolcEngine"
+                  width={183}
+                  height={31}
+                />
+              )}
+              {content.featureBanner.suffix && (
+                <span className={styles.featureSuffix}>
+                  {content.featureBanner.suffix}
+                </span>
+              )}
+            </div>
+            {content.featureBanner.summary && (
+              <p className={styles.featureSummary}>{content.featureBanner.summary}</p>
+            )}
+            {content.featureBanner.items && (
+              <ul className={styles.featureItems}>
+                {content.featureBanner.items.map((item, index) => (
+                  <li key={item}>
+                    <span className={styles.featureItemNumber}>
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Reveal>
+        )}
+
+        <div
+          className={`${styles.grid} ${
+            content.points.length === 1 ? styles.gridSingle : ""
+          } ${content.featureBanner ? styles.gridWithFeature : ""}`}
+        >
           {content.points.map((point, i) => (
             <Reveal key={point.title} delay={0.12 * i}>
               <div className={styles.card}>

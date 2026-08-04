@@ -52,6 +52,11 @@ export const aigcMarketing: ServiceContent = {
     heading: "An AI content engine, tuned for growth.",
     intro:
       "Deeply integrated with ByteDance's TikTok and VolcEngine, we use AI-generated content to produce marketing assets at scale — copy, images, short videos, and virtual livestreams.",
+    featureBanner: {
+      logo: "/logos/byteplus-volcengine.svg",
+      poweredLabel: "Powered by",
+      title: "Customer Data & Audience Insights",
+    },
     points: [
       {
         icon: "sliders",
@@ -80,6 +85,26 @@ export const aigcMarketing: ServiceContent = {
     eyebrow: "Platform spec",
     heading: "Capabilities",
     features: [
+      {
+        title: "Customer Data Platform",
+        description:
+          "Unify behavioral, transactional, and campaign data into one actionable customer view.",
+      },
+      {
+        title: "Audience Segmentation",
+        description:
+          "Build targeted audience groups from customer behavior, interests, and purchase intent.",
+      },
+      {
+        title: "Behavioral Insights",
+        description:
+          "Reveal engagement patterns, affinities, and signals that inform content and campaigns.",
+      },
+      {
+        title: "Sentiment Analysis",
+        description:
+          "Understand how audiences feel about your brand, products, and emerging conversations.",
+      },
       {
         title: "AI Copywriting",
         description: "Marketing copy, ad headlines, product descriptions, social posts.",

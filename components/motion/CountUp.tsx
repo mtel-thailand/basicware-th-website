@@ -16,6 +16,8 @@ type CountUpProps = {
   /** Group thousands with commas, e.g. 63200 -> "63,200" */
   locale?: boolean;
   className?: string;
+  springStiffness?: number;
+  springDamping?: number;
 };
 
 function formatCount(n: number, locale?: boolean) {
@@ -30,12 +32,17 @@ export default function CountUp({
   suffix = "",
   locale,
   className,
+  springStiffness = 60,
+  springDamping = 20,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-20% 0px" });
   const reduce = useReducedMotion();
   const motionValue = useMotionValue(0);
-  const spring = useSpring(motionValue, { stiffness: 60, damping: 20 });
+  const spring = useSpring(motionValue, {
+    stiffness: springStiffness,
+    damping: springDamping,
+  });
 
   useEffect(() => {
     if (inView) motionValue.set(value);

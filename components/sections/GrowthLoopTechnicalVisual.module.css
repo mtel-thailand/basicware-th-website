@@ -1,0 +1,204 @@
+.visual {
+  position: relative;
+  display: grid;
+  width: 100%;
+  aspect-ratio: 1.25;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(1, 101, 208, 0.1);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(1, 101, 208, 0.14), transparent 58%),
+    linear-gradient(145deg, #f7faff, #eef5ff);
+  color: var(--color-brand-cta);
+}
+
+.visual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.72) 50%, transparent 65%);
+  content: "";
+  transform: translateX(-140%);
+  animation: surfaceScan 5.5s ease-in-out infinite;
+}
+
+.visual svg {
+  position: relative;
+  z-index: 1;
+  width: 94%;
+  overflow: visible;
+}
+
+.glow {
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(1, 101, 208, 0.16);
+  filter: blur(22px);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.gridLines path,
+.chartGrid path {
+  fill: none;
+  stroke: rgba(1, 101, 208, 0.13);
+  stroke-width: 1;
+}
+
+.signalPath path,
+.chartLine,
+.networkLinks path,
+.routeLinks path,
+.flowArrows,
+.routerMark,
+.corePins path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signalPath path,
+.chartLine,
+.networkLinks path,
+.routeLinks path {
+  stroke-dasharray: 6 5;
+  animation: signalDash 2.2s linear infinite;
+}
+
+.nodeSet circle,
+.chartDots circle,
+.networkNodes circle {
+  fill: white;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.nodeSet .activeNode,
+.chartDots .activeNode,
+.networkNodes .activeNode {
+  fill: currentColor;
+  stroke: white;
+  filter: drop-shadow(0 0 6px rgba(1, 101, 208, 0.8));
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+
+.scanLine,
+.livePulse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 18 120;
+  animation: scan 2.8s linear infinite;
+}
+
+.flowBlocks rect,
+.outputFrames rect,
+.channelNodes rect {
+  fill: white;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.flowBlocks rect:nth-child(2),
+.outputFrames rect:nth-child(2),
+.channelNodes rect:nth-child(2) {
+  animation: blockPulse 2.1s ease-in-out infinite;
+}
+
+.engineBody,
+.routerBody {
+  fill: rgba(1, 101, 208, 0.08);
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.engineCore {
+  fill: currentColor;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.spark {
+  fill: white;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sparkSpin 5s linear infinite;
+}
+
+.screenFrame {
+  fill: rgba(255, 255, 255, 0.68);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.chartArea {
+  fill: rgba(1, 101, 208, 0.11);
+}
+
+.inputPulse {
+  fill: currentColor;
+  filter: drop-shadow(0 0 6px rgba(1, 101, 208, 0.8));
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+
+.channelMarks path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes signalDash {
+  to { stroke-dashoffset: -22; }
+}
+
+@keyframes scan {
+  to { stroke-dashoffset: -138; }
+}
+
+@keyframes surfaceScan {
+  0%, 45% { transform: translateX(-140%); }
+  70%, 100% { transform: translateX(140%); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.48; transform: scale(0.9); }
+  50% { opacity: 0.85; transform: scale(1.12); }
+}
+
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+@keyframes blockPulse {
+  0%, 100% { fill: white; }
+  50% { fill: rgba(1, 101, 208, 0.18); }
+}
+
+@keyframes sparkSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual::after,
+  .glow,
+  .signalPath path,
+  .chartLine,
+  .networkLinks path,
+  .routeLinks path,
+  .scanLine,
+  .livePulse,
+  .flowBlocks rect,
+  .outputFrames rect,
+  .channelNodes rect,
+  .spark,
+  .inputPulse {
+    animation: none;
+  }
+}

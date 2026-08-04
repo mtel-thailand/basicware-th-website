@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import SectionTitle from "../ui/SectionTitle";
 import Reveal from "../motion/Reveal";
 import AccentText from "../ui/AccentText";
+import GrowthLoopTechnicalVisual from "./GrowthLoopTechnicalVisual";
 import { content } from "@/content";
 import styles from "./GrowthLoop.module.css";
 
@@ -13,11 +13,11 @@ const t = content.growthLoop;
 
 /* Visual config only — step copy comes from the content dictionary */
 const STEP_VISUALS = [
-  { image: "/images/loop/stage-01.png", rotate: -8 },
-  { image: "/images/loop/stage-02.png", rotate: -5 },
-  { image: "/images/loop/stage-03.png", rotate: 0 },
-  { image: "/images/loop/stage-04.png", rotate: 5 },
-  { image: "/images/loop/stage-05.png", rotate: 8 },
+  { rotate: -8 },
+  { rotate: -5 },
+  { rotate: 0 },
+  { rotate: 5 },
+  { rotate: 8 },
 ];
 
 const STEPS = t.steps.map((step, i) => ({ ...step, ...STEP_VISUALS[i] }));
@@ -38,9 +38,7 @@ export default function GrowthLoop() {
   const reduce = useReducedMotion();
   const stageRef = useRef<HTMLDivElement>(null);
   const stageInView = useInView(stageRef, { once: true, margin: "-15% 0px" });
-  const [active, setActive] = useState(0);
   const [entered, setEntered] = useState(false);
-  const [paused, setPaused] = useState(false);
 
   // Wait for the entrance stagger to finish, then start walking the loop
   useEffect(() => {
@@ -48,15 +46,6 @@ export default function GrowthLoop() {
     const id = setTimeout(() => setEntered(true), 1400);
     return () => clearTimeout(id);
   }, [stageInView]);
-
-  useEffect(() => {
-    if (!entered || paused || reduce) return;
-    const id = setInterval(
-      () => setActive((current) => (current + 1) % STEPS.length),
-      CYCLE_MS,
-    );
-    return () => clearInterval(id);
-  }, [entered, paused, reduce]);
 
   return (
     <section className={styles.section}>
@@ -69,8 +58,6 @@ export default function GrowthLoop() {
         <div
           ref={stageRef}
           className={styles.stage}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
         >
           {/* Circular loop guide, drawn on scroll, with an arrow riding it */}
           <svg
@@ -108,7 +95,6 @@ export default function GrowthLoop() {
 
           <div className={styles.cards}>
             {STEPS.map((step, i) => {
-              const isActive = entered && !reduce && active === i;
               return (
                 <motion.div
                   key={step.number}
@@ -123,10 +109,10 @@ export default function GrowthLoop() {
                     stageInView
                       ? {
                           opacity: 1,
-                          y: isActive ? -12 : 0,
-                          scale: isActive ? 1.06 : 1,
-                          rotate: isActive ? 0 : step.rotate,
-                          zIndex: isActive ? 5 : 1,
+                          y: 0,
+                          scale: 1,
+                          rotate: step.rotate,
+                          zIndex: 1,
                         }
                       : undefined
                   }
@@ -138,38 +124,16 @@ export default function GrowthLoop() {
                     delay: entered ? 0 : 0.18 * i + 0.2,
                     ease: [0.34, 1.3, 0.5, 1],
                   }}
-                  onClick={() => setActive(i)}
                 >
-                  <div
-                    className={`${styles.card} ${isActive ? styles.cardActive : ""}`}
-                  >
+                  <div className={styles.card}>
                     <div className={styles.cardText}>
                       <p className={styles.number}>{step.number}</p>
                       <h3 className={styles.stepTitle}>{step.title}</h3>
                       <p className={styles.caption}>{step.caption}</p>
                     </div>
                     <div className={styles.illustration}>
-                      <Image
-                        src={step.image}
-                        alt={`Dandelion growth stage ${step.number}: ${step.title}`}
-                        fill
-                        sizes="(max-width: 600px) 60vw, 200px"
-                      />
+                      <GrowthLoopTechnicalVisual stage={i} />
                     </div>
-                    {!reduce && (
-                      <motion.div
-                        className={styles.cardProgress}
-                        key={isActive ? `active-${active}` : "idle"}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: isActive ? 1 : 0 }}
-                        transition={
-                          isActive
-                            ? { duration: CYCLE_MS / 1000, ease: "linear" }
-                            : { duration: 0.2 }
-                        }
-                        aria-hidden="true"
-                      />
-                    )}
                   </div>
                 </motion.div>
               );

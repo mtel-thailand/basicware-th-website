@@ -10,10 +10,93 @@
   gap: var(--space-8);
 }
 
+/* ---- Seedance-led section opener ---- */
+
+.speedHeader {
+  display: flex;
+  width: min(980px, 100%);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+}
+
+.speedTitle {
+  font-size: 48px;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.brandHeadlineGroup {
+  display: flex;
+  margin-top: var(--space-2);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.seedanceHeadline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--color-brand-cta);
+  white-space: nowrap;
+}
+
+.seedanceMark {
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  overflow: hidden;
+}
+
+.seedanceMarkSource {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  max-width: none;
+  height: 100%;
+}
+
+.platformLine {
+  display: flex;
+  width: min(920px, 100%);
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-block: 1px solid var(--color-black-a10);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-line);
+  color: var(--color-text-secondary);
+}
+
+.platformLogo {
+  width: auto;
+  height: 24px;
+}
+
+.platformDivider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-black-a20);
+}
+
 /* ---- Prompt card ---- */
 
 .promptWrap {
-  width: min(800px, 100%);
+  width: min(920px, 100%);
 }
 
 .promptCard {
@@ -72,6 +155,11 @@
 
 .modelSelect:hover {
   border-color: var(--color-border-strong);
+}
+
+.modelLogo {
+  width: auto;
+  height: 18px;
 }
 
 .generate {
@@ -180,6 +268,42 @@
 }
 
 @media (max-width: 600px) {
+  .speedHeader {
+    gap: var(--space-4);
+  }
+
+  .speedTitle {
+    font-size: clamp(2rem, 8.5vw, 2.5rem);
+  }
+
+  .brandHeadlineGroup {
+    margin-top: var(--space-1);
+  }
+
+  .seedanceHeadline {
+    font-size: clamp(2.25rem, 10vw, 3rem);
+  }
+
+  .seedanceMark {
+    width: 46px;
+    height: 46px;
+  }
+
+  .platformLine {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-inline: var(--space-3);
+    text-align: center;
+  }
+
+  .platformDivider {
+    display: none;
+  }
+
+  .platformLine > span:last-child {
+    flex-basis: 100%;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     max-width: 400px;

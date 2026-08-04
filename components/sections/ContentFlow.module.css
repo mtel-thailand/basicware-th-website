@@ -97,25 +97,7 @@
   font: inherit;
   text-align: left;
   color: var(--color-text-primary);
-  cursor: pointer;
   position: relative;
-  transition: translate 0.25s ease, box-shadow 0.25s ease, scale 0.2s ease;
-}
-
-.row:hover {
-  translate: 0 -3px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
-}
-
-.row:focus-visible {
-  outline: 2px solid var(--color-brand-cta);
-  outline-offset: 3px;
-}
-
-/* Pressed by the auto-play cursor just before the assets appear */
-.rowPressed {
-  scale: 0.965;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .dateRail {
@@ -264,79 +246,7 @@
   white-space: nowrap;
 }
 
-.viewHint {
-  position: absolute;
-  right: var(--space-4);
-  bottom: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: var(--text-caption-size);
-  font-weight: 600;
-  color: var(--color-brand-cta);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.viewHint::after {
-  content: "→";
-}
-
-.row:hover .viewHint,
-.row:focus-visible .viewHint {
-  opacity: 1;
-}
-
-/* ---- Auto-play cursor ---- */
-
-.cursorLayer {
-  position: absolute;
-  top: 96px;
-  left: 58%;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.cursorRipple {
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(1, 101, 208, 0.35);
-}
-
-.cursorSvg {
-  display: block;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
-}
-
 /* ---- Asset grid (campaign detail) ---- */
-
-.backButton {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border: none;
-  border-radius: 50%;
-  background: #eef4ff;
-  color: var(--color-brand-cta);
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.backButton:hover {
-  background: #dce9ff;
-}
-
-.backButton:focus-visible {
-  outline: 2px solid var(--color-brand-cta);
-  outline-offset: 2px;
-}
 
 .readyPill {
   margin-left: auto;

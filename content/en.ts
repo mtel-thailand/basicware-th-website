@@ -40,6 +40,9 @@ export const en = {
 
   aigc: {
     eyebrow: "AIGC Content Production",
+    speedTitle: "Create at the speed of",
+    partnerAvailable: "Available through",
+    partnerPromise: "Built for enterprise creative production",
     title: {
       pre: "Transform your marketing with ",
       accent: "AI‑generated content",
@@ -47,7 +50,7 @@ export const en = {
     },
     prompt:
       "Generate a premium Nature-Tech campaign from a dandelion concept.\nCreate copywriting, a 1:1 image, a short video concept, and a dandelion digital avatar broadcast.",
-    model: "GPT-4o",
+    model: "Seedance 2.5",
     generateLabel: "Generate",
     quote:
       "“Like dandelion seeds carried by the wind, every message can travel further when guided by intelligence”",
@@ -171,22 +174,28 @@ export const en = {
     financeFlow: {
       dropTitle: "Drop your spreadsheet",
       dropHint: "Excel or Google Sheets",
-      /* The dropped file alternates between these two each loop cycle */
+      /* file[0] is picked from the tray and dropped; file[1] sits in the tray */
       files: <{ name: string; meta: string; kind: "excel" | "sheets" }[]>[
         { name: "sales_q2_2026.xlsx", meta: "12,480 rows", kind: "excel" },
         { name: "P&L — FY2026", meta: "Google Sheets", kind: "sheets" },
       ],
-      analyzing: "Analyzing 12,480 rows…",
-      dashboardTitle: "Q2 Financial Overview",
-      generatedBadge: "Auto-generated",
-      kpis: [
-        { label: "Revenue", value: "฿24.8M", delta: "+18.2%" },
-        { label: "Net Margin", value: "31.4%", delta: "+4.2 pts" },
-      ],
-      barTitle: "Revenue by month (฿M)",
+      /* Loading checklist steps shown while the file is analysed */
+      steps: ["Parsing sheet", "Detecting 14 columns", "Computing KPIs"],
+      title: "Q2 Financial Overview",
+      period: "Q2 2026",
+      badge: "Auto-generated",
       months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      /* Monthly revenue in ฿M — last value matches the Revenue KPI */
-      barValues: [12.4, 14.1, 13.2, 16.8, 19.5, 24.8],
+      /* Monthly revenue in ฿M — drives the trend chart; last = Revenue KPI */
+      revenue: [12.4, 14.1, 13.2, 16.8, 19.5, 24.8],
+      /* Each KPI carries a 6-month series for its sparkline */
+      kpis: [
+        { label: "Revenue", value: "฿24.8M", delta: "+18.2%", series: [12.4, 14.1, 13.2, 16.8, 19.5, 24.8] },
+        { label: "Gross Profit", value: "฿16.2M", delta: "+12.0%", series: [8.1, 9.2, 8.8, 11.0, 12.8, 16.2] },
+        { label: "Net Margin", value: "31.4%", delta: "+4.2 pts", series: [27, 28, 27.5, 29, 30.2, 31.4] },
+        { label: "Cash Flow", value: "฿8.9M", delta: "+22.0%", series: [4.2, 5.0, 4.6, 6.1, 7.2, 8.9] },
+      ],
+      trendTitle: "Revenue by month",
+      trendUnit: "฿M",
       heatTitle: "Margin by region",
       regions: ["Bangkok", "Chiang Mai", "Phuket", "Khon Kaen"],
       /* Margin heat 0–1 per region × month, mapped onto a single blue ramp */

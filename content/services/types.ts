@@ -125,6 +125,19 @@ export type ServiceContent = {
     heading: string;
     intro: string;
     points: ServiceSolutionPoint[];
+    /** Optional featured capability shown as a compact banner above the solution cards. */
+    featureBanner?: {
+      label?: string;
+      /** Optional brand lockup displayed beside the label. */
+      logo?: string;
+      /** Optional technology/platform name displayed beside the logo. */
+      suffix?: string;
+      /** Optional attribution displayed before the brand lockup. */
+      poweredLabel?: string;
+      title?: string;
+      summary?: string;
+      items?: string[];
+    };
     /** Optional short chip list (e.g. "Roles available") shown under the intro. */
     tags?: {
       heading: string;

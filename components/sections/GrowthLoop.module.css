@@ -42,10 +42,6 @@
   margin-top: 41px;
 }
 
-.cardSlot {
-  cursor: pointer;
-}
-
 .card {
   position: relative;
   display: flex;
@@ -57,21 +53,6 @@
   box-shadow: 0 4px 20px rgba(44, 43, 127, 0.1);
   overflow: hidden;
   transition: box-shadow var(--duration-base) ease;
-}
-
-.cardActive {
-  box-shadow: 0 16px 48px rgba(1, 101, 208, 0.22);
-}
-
-/* Timer bar showing how long until the loop advances */
-.cardProgress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: var(--color-brand-cta);
-  transform-origin: left;
 }
 
 .cardText {
@@ -97,12 +78,10 @@
 
 .illustration {
   position: relative;
+  display: grid;
   aspect-ratio: 1;
   width: 100%;
-}
-
-.illustration img {
-  object-fit: contain;
+  place-items: center;
 }
 
 /* ---- Footer: lede + loop indicator ---- */

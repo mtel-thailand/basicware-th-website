@@ -1,348 +1,349 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useId, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import { content } from "@/content";
+import TrendGraphIcon from "@/components/ui/TrendGraphIcon";
+import FinanceDashboard from "./FinanceDashboard";
 import styles from "./FinanceFlow.module.css";
 
 const t = content.aiWorkers.financeFlow;
 
-/* Auto-play loop timing (ms): file drops in, quick scan, dashboard holds */
-const FILE_FLY_S = 1.1;
-const LAND_AT_MS = 1500;
-const DROP_MS = 2400;
-const SCAN_MS = 1500;
-const DASH_HOLD_MS = 6200;
+/* One-shot intro: a spreadsheet analysis card completes its checklist, then
+   an executive dashboard assembles and holds. */
+const ANALYSIS_COMPLETE_MS = 1350;
+const RESULT_DELAY_MS = 300;
+const ACTIVE_FLOW_VIEW = {
+  once: true,
+  amount: 0.45,
+  margin: "0px 0px -25% 0px",
+} as const;
 
-const BAR_MAX = Math.max(...t.barValues);
+type Phase = "idle" | "analyze" | "complete" | "result";
+const EASE = [0.16, 1, 0.3, 1] as const;
+const MORPH_EASE = [0.22, 1, 0.36, 1] as const;
 
-type Phase = "drop" | "scan" | "dash";
+const file = t.files[0];
 
+/* ---------------- icons ---------------- */
 function ExcelIcon() {
   return (
     <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <rect x="3" y="2.5" width="18" height="19" rx="3" fill="#1d6f42" />
-      <path
-        d="M8.6 8l2.5 4-2.5 4h2.1l1.5-2.6L13.7 16h2.1l-2.5-4 2.5-4h-2.1l-1.5 2.6L10.7 8H8.6Z"
-        fill="#fff"
-      />
+      <path d="M8.6 8l2.5 4-2.5 4h2.1l1.5-2.6L13.7 16h2.1l-2.5-4 2.5-4h-2.1l-1.5 2.6L10.7 8H8.6Z" fill="#fff" />
     </svg>
   );
 }
-
-function SheetsIcon() {
+function CheckIcon() {
   return (
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="4.5" y="2" width="15" height="20" rx="2.4" fill="#169154" />
-      <path
-        d="M8 10.5h8v6.5H8v-6.5Zm1.6 1.6v1h2v-1h-2Zm3.4 0v1h2v-1h-2Zm-3.4 2.3v1h2v-1h-2Zm3.4 0v1h2v-1h-2Z"
-        fill="#fff"
-      />
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 12.5l4 4 10-10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
+/* ---------------- chart helpers ---------------- */
+function buildPath(series: number[], w: number, h: number, pad = 4) {
+  const min = Math.min(...series);
+  const max = Math.max(...series);
+  const span = max - min || 1;
+  const n = series.length;
+  const x = (i: number) => pad + (i / (n - 1)) * (w - 2 * pad);
+  const y = (v: number) => pad + (1 - (v - min) / span) * (h - 2 * pad);
+  const line = series.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+  const area = `${line} L${x(n - 1).toFixed(1)} ${(h - pad).toFixed(1)} L${x(0).toFixed(1)} ${(h - pad).toFixed(1)} Z`;
+  return { line, area, min, max };
+}
 
-function UploadIcon() {
+const reveal = (delay = 0) =>
+  ({
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.36, delay, ease: MORPH_EASE },
+  }) as const;
+
+function DeltaPill({ text }: { text: string }) {
   return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 16V5m0 0-4.5 4.5M12 5l4.5 4.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M4 15.5v2A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5v-2"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
+    <span className={styles.deltaPill}>
+      <TrendGraphIcon />
+      {text}
+    </span>
   );
 }
 
-function TrendIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M3 17 9.5 10.5l4 4L21 7m0 0h-5.5M21 7v5.5"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+function Spark({ series, delay = 0 }: { series: number[]; delay?: number }) {
+  const { line, area } = buildPath(series, 100, 30, 3);
+  const clipId = `spark-${useId().replaceAll(":", "")}`;
 
-/** File card that drifts into the dropzone, presses, and sinks in. */
-function DroppedFile({ kind, name, meta }: { kind: "excel" | "sheets"; name: string; meta: string }) {
   return (
-    <motion.div
-      className={styles.fileCard}
-      initial={{ opacity: 0, x: 170, y: -150, rotate: 6 }}
-      animate={{
-        opacity: [0, 1, 1, 0],
-        x: [170, 0, 0, 0],
-        y: [-150, 0, 0, 8],
-        rotate: [6, -1.5, -1.5, 0],
-        scale: [1, 1, 1, 0.82],
-      }}
-      transition={{
-        duration: DROP_MS / 1000,
-        times: [0, FILE_FLY_S / (DROP_MS / 1000), LAND_AT_MS / DROP_MS, 1],
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      aria-hidden="true"
-    >
-      {kind === "excel" ? <ExcelIcon /> : <SheetsIcon />}
-      <div className={styles.fileInfo}>
-        <p className={styles.fileName}>{name}</p>
-        <p className={styles.fileMeta}>{meta}</p>
-      </div>
-    </motion.div>
-  );
-}
-
-/** Dashed dropzone shown while the file flies in. */
-function DropZone({ file }: { file: (typeof t.files)[number] }) {
-  return (
-    <div className={styles.dropStage}>
-      <motion.div
-        className={styles.dropzone}
-        initial={{ borderColor: "var(--color-border-default)" }}
-        animate={{
-          borderColor: [
-            "var(--color-border-default)",
-            "var(--color-brand-cta)",
-            "var(--color-brand-cta)",
-          ],
-          backgroundColor: [
-            "var(--color-bg-surface)",
-            "var(--color-bg-brand-subtle)",
-            "var(--color-bg-brand-subtle)",
-          ],
-        }}
-        transition={{ duration: DROP_MS / 1000, times: [0, 0.45, 1] }}
-      >
-        <motion.span
-          className={styles.dropIcon}
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <UploadIcon />
-        </motion.span>
-        <p className={styles.dropTitle}>{t.dropTitle}</p>
-        <p className={styles.dropHint}>{t.dropHint}</p>
-        <span className={styles.dropKinds} aria-hidden="true">
-          <ExcelIcon />
-          <SheetsIcon />
-        </span>
-        <motion.span
-          className={styles.dropRipple}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: [0, 2.6], opacity: [0.45, 0] }}
-          transition={{ delay: LAND_AT_MS / 1000, duration: 0.6, ease: "easeOut" }}
-          aria-hidden="true"
+    <svg className={styles.kpiSpark} viewBox="0 0 100 30" preserveAspectRatio="none" fill="none">
+      <defs>
+        <clipPath id={clipId}>
+          <motion.rect
+            x="0"
+            y="0"
+            height="30"
+            initial={{ width: 0 }}
+            animate={{ width: 100 }}
+            transition={{ duration: 0.52, delay, ease: EASE }}
+          />
+        </clipPath>
+      </defs>
+      <g clipPath={`url(#${clipId})`}>
+        <motion.path
+          d={area}
+          fill="var(--color-brand-cta)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 0.3, delay }}
         />
-      </motion.div>
-      <DroppedFile kind={file.kind} name={file.name} meta={file.meta} />
-    </div>
-  );
-}
-
-/** Brief indeterminate scan between the drop and the dashboard reveal. */
-function ScanCard({ file }: { file: (typeof t.files)[number] }) {
-  return (
-    <div className={styles.dropStage}>
-      <div className={styles.scanCard}>
-        {file.kind === "excel" ? <ExcelIcon /> : <SheetsIcon />}
-        <div className={styles.scanInfo}>
-          <p className={styles.fileName}>{file.name}</p>
-          <p className={styles.scanLabel}>{t.analyzing}</p>
-          <div className={styles.scanTrack}>
-            <motion.div
-              className={styles.scanFill}
-              initial={{ width: "8%" }}
-              animate={{ width: "96%" }}
-              transition={{ duration: SCAN_MS / 1000, ease: "easeInOut" }}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Tiny cash-flow sparkline inside the first KPI tile. */
-function KpiSparkline({ active }: { active: boolean }) {
-  const line = "M3 26 C 14 24, 22 20, 32 21 S 52 12, 62 13 S 80 5, 91 3";
-  return (
-    <svg
-      className={styles.kpiSpark}
-      viewBox="0 0 94 30"
-      fill="none"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path d={`${line} L91 30 L3 30 Z`} fill="var(--color-brand-cta)" opacity="0.1" />
-      <motion.path
-        d={line}
-        stroke="var(--color-brand-cta)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        initial={false}
-        animate={{ pathLength: active ? 1 : 0 }}
-        transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
-      />
+        <path
+          d={line}
+          stroke="var(--color-brand-cta)"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
     </svg>
   );
 }
 
-/** Auto-generated mini dashboard: KPI tiles, revenue bars, margin heatmap. */
-function MiniDashboard({ animate }: { animate: boolean }) {
-  const pop = (delay: number) => ({
-    initial: animate ? { opacity: 0, y: 14 } : false,
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] as const },
-  });
+function BarChart() {
+  const max = Math.max(...t.revenue);
 
   return (
-    <div className={styles.dashboard}>
-      <motion.div className={styles.dashHeader} {...pop(0)}>
-        <span className={styles.dashLogo} aria-hidden="true">
-          <TrendIcon />
-        </span>
-        <p className={styles.dashTitle}>{t.dashboardTitle}</p>
-        <span className={styles.dashBadge}>{t.generatedBadge}</span>
-      </motion.div>
+    <div className={styles.barChart}>
+      {t.revenue.map((value, index) => {
+        const latest = index === t.revenue.length - 1;
+        const delay = 0.58 + index * 0.07;
 
-      <div className={styles.kpiRow}>
-        {t.kpis.map((kpi, i) => (
-          <motion.div key={kpi.label} className={styles.kpiTile} {...pop(0.12 + 0.1 * i)}>
-            <p className={styles.kpiLabel}>{kpi.label}</p>
-            <p className={styles.kpiValue}>{kpi.value}</p>
-            <span className={styles.kpiDelta}>
-              <TrendIcon />
-              {kpi.delta}
-            </span>
-            {i === 0 && <KpiSparkline active={animate} />}
-          </motion.div>
+        return (
+          <div key={t.months[index]} className={styles.barColumn}>
+            <div className={styles.barTrack}>
+              <motion.div
+                className={`${styles.bar} ${latest ? styles.barLatest : ""}`}
+                style={{ height: `${(value / max) * 100}%` }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 0.55, delay, ease: EASE }}
+              >
+                {latest && (
+                  <motion.span
+                    className={styles.barValue}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.25, delay: delay + 0.48, ease: EASE }}
+                  >
+                    {value.toFixed(1)}
+                  </motion.span>
+                )}
+              </motion.div>
+            </div>
+            <span className={styles.barMonth}>{t.months[index]}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ---------------- drag / load / result ---------------- */
+
+/** Spreadsheet and analysis checklist presented as one continuous task. */
+function AnalysisStage({ run, complete }: { run: boolean; complete: boolean }) {
+  return (
+    <div className={styles.analysisStage}>
+      <motion.div
+        className={styles.analysisCard}
+        style={{ borderRadius: 24 }}
+        initial={false}
+        animate={{ opacity: run ? 1 : 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.42, ease: MORPH_EASE }}
+      >
+        <motion.div
+          className={styles.analysisFile}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.28, ease: MORPH_EASE }}
+        >
+          <span className={styles.analysisFileIcon}>
+            <ExcelIcon />
+          </span>
+          <div className={styles.analysisFileInfo}>
+            <p className={styles.analysisFileName}>{file.name}</p>
+            <motion.p
+              className={styles.analysisFileMeta}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {file.meta}
+            </motion.p>
+          </div>
+          <motion.span
+            className={styles.analysisBadge}
+            initial={false}
+            animate={{ opacity: run ? 1 : 0, x: run ? 0 : 8 }}
+            exit={{
+              opacity: 0,
+              scale: 0.94,
+              transition: { duration: 0.22, ease: MORPH_EASE },
+            }}
+            transition={{ duration: 0.24, delay: 0.12, ease: MORPH_EASE }}
+          >
+            {complete ? "Analysis complete" : "Analyzing"}
+          </motion.span>
+        </motion.div>
+
+        <motion.div
+          className={styles.analysisTrack}
+          aria-hidden="true"
+          exit={{ opacity: 0, scaleX: 0.96 }}
+          transition={{ duration: 0.32, ease: MORPH_EASE }}
+        >
+          <motion.div
+            className={styles.analysisFill}
+            initial={false}
+            animate={{ width: run ? "100%" : "0%" }}
+            transition={{
+              duration: ANALYSIS_COMPLETE_MS / 1000 - 0.18,
+              delay: 0.12,
+              ease: EASE,
+            }}
+          />
+        </motion.div>
+
+        <motion.div
+          className={styles.analysisSteps}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.32, ease: MORPH_EASE }}
+        >
+          {t.steps.map((step, index) => {
+            const delay = 0.24 + index * 0.34;
+            return (
+              <motion.div
+                key={step}
+                className={styles.analysisRow}
+                initial={false}
+                animate={{
+                  opacity: run ? 1 : 0.25,
+                }}
+                transition={{ duration: 0.3, delay, ease: EASE }}
+              >
+                <motion.span
+                  className={styles.analysisCheck}
+                  initial={false}
+                  animate={{
+                    scale: run ? 1 : 0,
+                    rotate: run ? 0 : -12,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 360,
+                    damping: 18,
+                    delay: delay + 0.1,
+                  }}
+                >
+                  <CheckIcon />
+                </motion.span>
+                <span className={styles.analysisLabel}>{step}</span>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+/** Margin-by-region heatmap (regions × months, single blue ramp). */
+function Heatmap() {
+  return (
+    <div className={styles.heatmap}>
+      {t.heatValues.map((row, r) => (
+        <div key={t.regions[r]} className={styles.heatRow}>
+          <span className={styles.heatRegion}>{t.regions[r]}</span>
+          {row.map((v, c) => (
+            <motion.span
+              key={c}
+              className={styles.heatCell}
+              style={{ background: `rgba(1, 101, 208, ${0.08 + v * 0.9})` }}
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.25, delay: 0.6 + 0.015 * (r * 6 + c) }}
+            />
+          ))}
+        </div>
+      ))}
+      <div className={styles.heatRow}>
+        <span className={styles.heatRegion} />
+        {t.months.map((m) => (
+          <span key={m} className={styles.heatMonth}>
+            {m.slice(0, 1)}
+          </span>
         ))}
       </div>
-
-      <div className={styles.chartRow}>
-        <motion.div className={styles.chartCard} {...pop(0.3)}>
-          <p className={styles.chartTitle}>{t.barTitle}</p>
-          <div className={styles.barChart}>
-            {t.barValues.map((value, i) => {
-              const peak = value === BAR_MAX;
-              return (
-                <div key={t.months[i]} className={styles.barCol}>
-                  {peak && <span className={styles.barValue}>{value}</span>}
-                  <div className={styles.barTrack}>
-                    <motion.div
-                      className={`${styles.bar} ${peak ? styles.barPeak : ""}`}
-                      initial={animate ? { height: "0%" } : false}
-                      animate={{ height: `${(value / BAR_MAX) * 100}%` }}
-                      transition={{
-                        duration: 0.7,
-                        delay: 0.45 + 0.07 * i,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                    />
-                  </div>
-                  <span className={styles.barLabel}>{t.months[i]}</span>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        <motion.div className={styles.chartCard} {...pop(0.4)}>
-          <p className={styles.chartTitle}>{t.heatTitle}</p>
-          <div className={styles.heatmap}>
-            {t.regions.map((region, r) => (
-              <div key={region} className={styles.heatRow}>
-                <span className={styles.heatRegion}>{region}</span>
-                {t.heatValues[r].map((value, c) => (
-                  <motion.span
-                    key={c}
-                    className={styles.heatCell}
-                    style={{ background: `rgba(1, 101, 208, ${0.06 + value * 0.9})` }}
-                    initial={animate ? { opacity: 0, scale: 0.6 } : false}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.35, delay: 0.55 + 0.03 * (r * 6 + c) }}
-                  />
-                ))}
-              </div>
-            ))}
-            <div className={styles.heatRow}>
-              <span className={styles.heatRegion} />
-              {t.months.map((month) => (
-                <span key={month} className={styles.heatMonth}>
-                  {month.slice(0, 1)}
-                </span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
     </div>
   );
 }
 
-/**
- * Financial Analysis panel visual: a spreadsheet file (Excel and Google
- * Sheets, alternating each cycle) drops into an upload zone, a quick scan
- * runs, and a mini financial dashboard — KPIs, revenue bars, a margin
- * heatmap — assembles itself. Loops while in view; hover pauses; reduced
- * motion shows the finished dashboard statically.
- */
+/** Executive dashboard: 4 KPIs + revenue trend + margin-by-region heatmap. */
+function ResultDashboard() {
+  return (
+    <div className={styles.resultReveal}>
+      <FinanceDashboard />
+    </div>
+  );
+}
+
 export default function FinanceFlow() {
   const ref = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState<Phase>("drop");
-  const [cycle, setCycle] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const inView = useInView(ref, ACTIVE_FLOW_VIEW);
   const reduce = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.4 });
-  const autoPlay = inView && !paused && !reduce;
+  const [phase, setPhase] = useState<Phase>("analyze");
 
   useEffect(() => {
-    if (!autoPlay) return;
-    const ms = phase === "drop" ? DROP_MS : phase === "scan" ? SCAN_MS : DASH_HOLD_MS;
-    const id = setTimeout(() => {
-      if (phase === "dash") setCycle((c) => c + 1);
-      setPhase(phase === "drop" ? "scan" : phase === "scan" ? "dash" : "drop");
-    }, ms);
-    return () => clearTimeout(id);
-  }, [autoPlay, phase]);
+    if (!inView || reduce) return;
+    if (phase === "analyze") {
+      const id = window.setTimeout(
+        () => setPhase("complete"),
+        ANALYSIS_COMPLETE_MS,
+      );
+      return () => clearTimeout(id);
+    }
+    if (phase === "complete") {
+      const id = window.setTimeout(() => setPhase("result"), RESULT_DELAY_MS);
+      return () => clearTimeout(id);
+    }
+  }, [inView, reduce, phase]);
 
-  const file = t.files[cycle % t.files.length];
-  const view = reduce ? "dash" : phase;
-  const hidden = reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.97 };
-  const visible = reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 };
+  const view: Phase = reduce ? "result" : !inView ? "idle" : phase;
+  // Idle and analysis share the same scene so entering view starts in place.
+  const stageKey =
+    view === "idle" || view === "complete" ? "analyze" : view;
 
   return (
-    <div
-      ref={ref}
-      className={styles.financeFlow}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <AnimatePresence mode="wait" initial={false}>
+    <div ref={ref} className={styles.financeFlow}>
+      <AnimatePresence mode="sync" initial={false}>
         <motion.div
-          key={view === "dash" ? "dash" : view === "scan" ? "scan" : `drop-${cycle}`}
+          key={stageKey}
           className={styles.stage}
-          initial={hidden}
-          animate={visible}
-          exit={hidden}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          initial={false}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 1 }}
         >
-          {view === "drop" && <DropZone file={file} />}
-          {view === "scan" && <ScanCard file={file} />}
-          {view === "dash" && <MiniDashboard animate={!reduce} />}
+          {(view === "idle" || view === "analyze" || view === "complete") && (
+            <AnalysisStage
+              run={view === "analyze" || view === "complete"}
+              complete={view === "complete"}
+            />
+          )}
+          {view === "result" && <ResultDashboard />}
         </motion.div>
       </AnimatePresence>
     </div>

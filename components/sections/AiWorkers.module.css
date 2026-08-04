@@ -160,14 +160,65 @@
 }
 
 .candidate {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-4);
+  padding: 10px var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-bg-surface);
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
   color: var(--color-text-primary);
+}
+
+.candidateSharedHost {
+  background: transparent;
+  box-shadow: none;
+}
+
+.candidateSharedShell,
+.reportCandidateShell {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--radius-md);
+}
+
+.candidateSharedShell {
+  background: var(--color-bg-surface);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+.candidateSharedHost > *:not(.candidateSharedShell),
+.reportCandidate > *:not(.reportCandidateShell) {
+  position: relative;
+  z-index: 1;
+}
+
+.sharedAvatar {
+  display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.sharedAvatarList {
+  width: 64px;
+  height: 64px;
+}
+
+.sharedAvatarReport {
+  width: 80px;
+  height: 80px;
+  /* The report owns its grey-to-color reveal; avoid the shared-layout
+     crossfade restoring opacity abruptly after the position spring. */
+  opacity: 1 !important;
+}
+
+.sharedAvatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Best match is biggest, trailing candidates shrink and tuck behind */
@@ -249,98 +300,47 @@
   white-space: nowrap;
 }
 
-/* ---- Hiring panel interaction ---- */
-
 .hiringVisual {
+  display: grid;
   width: 100%;
-}
-
-/* Top candidate is clickable: lift on hover, reveal the report hint */
-.candidateTop {
-  position: relative;
-  border: none;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: translate 0.25s ease, box-shadow 0.25s ease, scale 0.2s ease;
-}
-
-/* Pressed by the auto-play cursor just before the report appears */
-.candidatePressed {
-  scale: 0.965;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-}
-
-/* ---- Auto-play cursor ---- */
-
-.cursorLayer {
-  position: absolute;
-  top: 62px;
-  left: 60%;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.cursorRipple {
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(1, 101, 208, 0.35);
-}
-
-.cursorSvg {
-  display: block;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
-}
-
-.candidateTop:hover {
-  translate: 0 -3px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
-}
-
-.candidateTop:focus-visible {
-  outline: 2px solid var(--color-brand-cta);
-  outline-offset: 3px;
-}
-
-.viewHint {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-4);
-  display: inline-flex;
+  height: calc(
+    500px - clamp(var(--space-6), 5vw, var(--space-10)) -
+      clamp(var(--space-6), 5vw, var(--space-10))
+  );
+  min-height: 0;
   align-items: center;
-  gap: 4px;
-  font-size: var(--text-caption-size);
-  font-weight: 600;
-  color: var(--color-brand-cta);
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
 
-.viewHint::after {
-  content: "→";
-}
-
-.candidateTop:hover .viewHint,
-.candidateTop:focus-visible .viewHint {
-  opacity: 1;
+.hiringVisual > * {
+  grid-area: 1 / 1;
+  width: 100%;
 }
 
 /* ---- Resume match report card ---- */
 
 .reportCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   color: var(--color-text-primary);
   overflow: hidden;
+}
+
+.reportBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: inherit;
+  background: var(--color-bg-surface);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reportCard > *:not(.reportBackdrop) {
+  position: relative;
+  z-index: 1;
 }
 
 .reportHeader {
@@ -368,59 +368,26 @@
   line-height: 1.3;
 }
 
-.reportBack {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  margin-left: auto;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.reportBack:hover,
-.reportBack:focus-visible {
-  background: var(--color-bg-brand-subtle);
-  color: var(--color-brand-cta);
-}
-
-.reportBack:focus-visible {
-  outline: 2px solid var(--color-brand-cta);
-  outline-offset: 2px;
-}
-
 .reportCandidateWrap {
-  padding: var(--space-3) var(--space-4);
+  padding: 6px var(--space-4);
 }
 
 .reportCandidate {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-4);
   width: 100%;
   padding: var(--space-4);
-  border: 2px solid var(--color-brand-cta);
   border-radius: var(--radius-md);
-  background: var(--color-bg-page);
-  font: inherit;
-  text-align: left;
   color: inherit;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease;
 }
 
-.reportCandidate:hover {
-  box-shadow: 0 6px 16px rgba(1, 101, 208, 0.15);
-}
-
-.reportCandidate:focus-visible {
-  outline: 2px solid var(--color-brand-cta);
-  outline-offset: 3px;
+.reportCandidateShell {
+  border: 2px solid rgba(130, 140, 154, 0.35);
+  background: var(--color-bg-surface);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+  opacity: 1 !important;
 }
 
 .reportName {
@@ -446,7 +413,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  padding: var(--space-5) var(--space-4);
+  padding: 13px var(--space-4);
 }
 
 .gauge {
@@ -498,7 +465,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-4);
+  padding: 13px var(--space-4);
   border-left: 1px solid var(--color-border-default);
 }
 
@@ -545,6 +512,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-6);
+  }
+
+  .hiringVisual {
+    height: auto;
   }
 
   .panelText {

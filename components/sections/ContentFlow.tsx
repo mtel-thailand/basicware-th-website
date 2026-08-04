@@ -18,15 +18,16 @@ const CHANNEL_DOTS: Record<string, string> = {
   YouTube: "#ff0000",
 };
 
-/* Auto-play loop timing: batches flip to Ready, cursor clicks campaign 1,
- * the asset grid shows, then it returns to the board */
-const READY_BASE_S = 1.1;
-const READY_STEP_S = 0.35;
-const CURSOR_DELAY_S = 2.3;
-const CURSOR_FLY_S = 1.0;
-const PRESS_AT_MS = 3600;
-const PRESS_MS = 350;
-const ASSETS_HOLD_MS = 5800;
+/* One-shot sequence: batches flip to Ready, then the first campaign opens
+ * automatically and holds on its localized asset grid. */
+const READY_BASE_S = 0.72;
+const READY_STEP_S = 0.22;
+const ASSETS_DELAY_MS = 1600;
+const ACTIVE_FLOW_VIEW = {
+  once: true,
+  amount: 0.45,
+  margin: "0px 0px -25% 0px",
+} as const;
 
 function CheckIcon() {
   return (
@@ -56,49 +57,6 @@ function ClockIcon() {
   );
 }
 
-/** Fake mouse pointer that flies onto the first campaign and clicks it. */
-function ClickCursor() {
-  return (
-    <motion.div
-      className={styles.cursorLayer}
-      initial={{ opacity: 0, x: 140, y: 190 }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{
-        delay: CURSOR_DELAY_S,
-        duration: CURSOR_FLY_S,
-        ease: [0.16, 1, 0.3, 1],
-        opacity: { delay: CURSOR_DELAY_S, duration: 0.3 },
-      }}
-      aria-hidden="true"
-    >
-      <motion.span
-        className={styles.cursorRipple}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0, 2.4], opacity: [0.5, 0] }}
-        transition={{ delay: PRESS_AT_MS / 1000, duration: 0.5, ease: "easeOut" }}
-      />
-      <motion.svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
-        className={styles.cursorSvg}
-        initial={{ scale: 1 }}
-        animate={{ scale: [1, 0.78, 1] }}
-        transition={{ delay: PRESS_AT_MS / 1000, duration: PRESS_MS / 1000 }}
-      >
-        <path
-          d="M5 3l14 8.5-6.2 1.2L16 19.5l-3 1.4-3.2-6.8L5 18V3Z"
-          fill="#fff"
-          stroke="#111110"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-      </motion.svg>
-    </motion.div>
-  );
-}
-
 /** Status badge that flips from "Scheduling…" to a green "Ready ✓" pop. */
 function StatusBadge({ readyAt, reduce }: { readyAt: number; reduce: boolean }) {
   return (
@@ -107,7 +65,7 @@ function StatusBadge({ readyAt, reduce }: { readyAt: number; reduce: boolean }) 
         <motion.span
           className={styles.statusScheduled}
           initial={{ opacity: 1 }}
-          animate={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 0 }}
           transition={{ delay: readyAt, duration: 0.25 }}
         >
           <span className={styles.statusSpinner} aria-hidden="true" />
@@ -116,9 +74,13 @@ function StatusBadge({ readyAt, reduce }: { readyAt: number; reduce: boolean }) 
       )}
       <motion.span
         className={styles.statusReady}
-        initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }}
+        initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: reduce ? 0 : readyAt, duration: 0.35, ease: "backOut" }}
+        transition={{
+          delay: reduce ? 0 : readyAt,
+          duration: 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
         <CheckIcon />
         {t.readyLabel}
@@ -128,15 +90,7 @@ function StatusBadge({ readyAt, reduce }: { readyAt: number; reduce: boolean }) 
 }
 
 /** Planner board: scheduled content batches grouped by campaign. */
-function CampaignBoard({
-  onSelect,
-  pressing,
-  showCursor,
-}: {
-  onSelect: (index: number) => void;
-  pressing: boolean;
-  showCursor: boolean;
-}) {
+function CampaignBoard() {
   const reduce = useReducedMotion() ?? false;
   return (
     <div className={styles.window}>
@@ -152,19 +106,14 @@ function CampaignBoard({
 
       <div className={styles.rows}>
         {t.campaigns.map((campaign, i) => (
-          <motion.button
+          <motion.div
             key={campaign.name}
-            type="button"
-            className={`${styles.row} ${
-              i === 0 && pressing ? styles.rowPressed : ""
-            }`}
-            onClick={() => onSelect(i)}
-            aria-label={`${campaign.name} — ${t.viewHint}`}
+            className={styles.row}
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 26, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
-              duration: 0.55,
-              delay: 0.15 * i,
+              duration: 0.45,
+              delay: 0.1 * i,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -193,28 +142,17 @@ function CampaignBoard({
             </span>
             <span className={styles.assetCount}>{campaign.assets.length} assets</span>
             <StatusBadge readyAt={READY_BASE_S + READY_STEP_S * i} reduce={reduce} />
-            <span className={styles.viewHint} aria-hidden="true">
-              {t.viewHint}
-            </span>
-          </motion.button>
+          </motion.div>
         ))}
       </div>
-
-      {showCursor && <ClickCursor />}
     </div>
   );
 }
 
 /** Campaign detail: the batch's localized assets, ready to use. */
-function AssetGrid({
-  campaignIndex,
-  onBack,
-}: {
-  campaignIndex: number;
-  onBack: () => void;
-}) {
+function AssetGrid() {
   const reduce = useReducedMotion() ?? false;
-  const campaign = t.campaigns[campaignIndex];
+  const campaign = t.campaigns[0];
   const assets = campaign.assets.map((asset, i) => ({
     ...asset,
     src: `/images/workers/storyboard/shot-${(i % STORYBOARD_SHOTS) + 1}.png`,
@@ -222,22 +160,11 @@ function AssetGrid({
   return (
     <div className={styles.window}>
       <div className={styles.windowBar}>
-        <button
-          type="button"
-          className={styles.backButton}
-          onClick={onBack}
-          aria-label={t.backLabel}
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M14.5 5 8 12l6.5 7"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <span className={styles.windowDots} aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </span>
         <span className={styles.windowTitle}>{campaign.name}</span>
         <motion.span
           className={styles.readyPill}
@@ -258,8 +185,8 @@ function AssetGrid({
             initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.93 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
-              duration: 0.5,
-              delay: 0.12 + 0.09 * i,
+              duration: 0.4,
+              delay: 0.08 + 0.06 * i,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
@@ -271,8 +198,8 @@ function AssetGrid({
                 initial={reduce ? { scale: 1 } : { scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{
-                  delay: reduce ? 0 : 0.55 + 0.09 * i,
-                  duration: 0.3,
+                  delay: reduce ? 0 : 0.42 + 0.06 * i,
+                  duration: 0.25,
                   ease: "backOut",
                 }}
               >
@@ -296,73 +223,49 @@ function AssetGrid({
 /**
  * Content Management panel visual: a CMS planner where content batches —
  * already planned, scheduled, and grouped by campaign — flip to "Ready" one
- * by one. An auto-play cursor clicks a campaign to reveal its localized
- * assets, ready to use, then loops back. Hovering pauses the loop so real
- * clicks take over; reduced motion disables auto-play.
+ * by one. The first campaign then opens automatically to reveal its localized
+ * assets and holds on that final state.
  */
 export default function ContentFlow() {
   const ref = useRef<HTMLDivElement>(null);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [pressing, setPressing] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const inView = useInView(ref, ACTIVE_FLOW_VIEW);
   const reduce = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.4 });
-  const autoPlay = inView && !paused && !reduce;
-  const showAssets = selected !== null;
+  const [showAssets, setShowAssets] = useState(false);
 
   useEffect(() => {
-    if (!autoPlay) return;
-    if (!showAssets) {
-      const press = setTimeout(() => setPressing(true), PRESS_AT_MS);
-      const flip = setTimeout(() => setSelected(0), PRESS_AT_MS + PRESS_MS);
-      return () => {
-        clearTimeout(press);
-        clearTimeout(flip);
-        setPressing(false);
-      };
-    }
-    const back = setTimeout(() => setSelected(null), ASSETS_HOLD_MS);
-    return () => clearTimeout(back);
-  }, [autoPlay, showAssets]);
+    if (!inView || reduce) return;
+    const id = window.setTimeout(() => setShowAssets(true), ASSETS_DELAY_MS);
+    return () => window.clearTimeout(id);
+  }, [inView, reduce]);
 
-  const hidden = reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 };
-  const visible = reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 };
+  const finalState = reduce || showAssets;
 
   return (
-    <div
-      ref={ref}
-      className={styles.contentFlow}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        {showAssets ? (
+    <div ref={ref} className={styles.contentFlow}>
+      <AnimatePresence mode="sync" initial={false}>
+        {finalState ? (
           <motion.div
             key="assets"
             className={styles.phase}
-            initial={hidden}
-            animate={visible}
-            exit={hidden}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <AssetGrid campaignIndex={selected} onBack={() => setSelected(null)} />
+            <AssetGrid />
           </motion.div>
-        ) : (
+        ) : inView ? (
           <motion.div
             key="board"
             className={styles.phase}
-            initial={hidden}
-            animate={visible}
-            exit={hidden}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <CampaignBoard
-              onSelect={setSelected}
-              pressing={pressing}
-              showCursor={autoPlay}
-            />
+            <CampaignBoard />
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

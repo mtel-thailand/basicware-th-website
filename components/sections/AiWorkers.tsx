@@ -49,107 +49,130 @@ function LocationIcon() {
   );
 }
 
-/* Auto-play loop timing (ms): cursor flies in, presses card 1, report shows */
-const CURSOR_DELAY_S = 1.6;
-const CURSOR_FLY_S = 1.2;
-const PRESS_AT_MS = 3200;
-const PRESS_MS = 350;
-const REPORT_HOLD_MS = 5200;
-
-/** Fake mouse pointer that flies onto the top candidate and clicks it. */
-function ClickCursor() {
-  return (
-    <motion.div
-      className={styles.cursorLayer}
-      initial={{ opacity: 0, x: 150, y: 200 }}
-      animate={{ opacity: 1, x: 0, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{
-        delay: CURSOR_DELAY_S,
-        duration: CURSOR_FLY_S,
-        ease: [0.16, 1, 0.3, 1],
-        opacity: { delay: CURSOR_DELAY_S, duration: 0.3 },
-      }}
-      aria-hidden="true"
-    >
-      <motion.span
-        className={styles.cursorRipple}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0, 2.4], opacity: [0.5, 0] }}
-        transition={{ delay: PRESS_AT_MS / 1000, duration: 0.5, ease: "easeOut" }}
-      />
-      <motion.svg
-        width="26"
-        height="26"
-        viewBox="0 0 24 24"
-        className={styles.cursorSvg}
-        initial={{ scale: 1 }}
-        animate={{ scale: [1, 0.78, 1] }}
-        transition={{ delay: PRESS_AT_MS / 1000, duration: PRESS_MS / 1000 }}
-      >
-        <path
-          d="M5 3l14 8.5-6.2 1.2L16 19.5l-3 1.4-3.2-6.8L5 18V3Z"
-          fill="#fff"
-          stroke="#111110"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-      </motion.svg>
-    </motion.div>
-  );
-}
+const FOCUS_DELAY_MS = 420;
+const REPORT_DELAY_MS = 920;
+const HIRING_EASE = [0.22, 1, 0.36, 1] as const;
+const HIRING_REVEAL_EASE = [0.16, 1, 0.3, 1] as const;
+const HIRING_LAYOUT_SPRING = {
+  type: "spring",
+  stiffness: 250,
+  damping: 30,
+  mass: 0.78,
+} as const;
+const ACTIVE_FLOW_VIEW = {
+  once: true,
+  amount: 0.45,
+  margin: "0px 0px -25% 0px",
+} as const;
 
 /** Stacked candidate cards that shuffle in, best match rising to the top. */
 function CandidateStack({
-  onSelectTop,
-  pressing,
-  showCursor,
+  active,
+  focusTop,
 }: {
-  onSelectTop: () => void;
-  pressing: boolean;
-  showCursor: boolean;
+  active: boolean;
+  focusTop: boolean;
 }) {
   const reduce = useReducedMotion();
+
   // NOTE: candidates must stay the first children — the stack's tapering
   // widths are keyed off .candidate:nth-child(1..4)
   return (
     <div className={styles.stack}>
       {CANDIDATES.map((candidate, i) => {
         const isTop = i === 0;
-        const Card = (isTop ? motion.button : motion.div) as typeof motion.button;
+
         return (
-          <Card
-            key={i}
-            type={isTop ? "button" : undefined}
-            onClick={isTop ? onSelectTop : undefined}
-            aria-label={
-              isTop
-                ? `${candidate.name} — ${t.resumeMatch.viewHint}`
-                : undefined
-            }
-            aria-hidden={isTop ? undefined : true}
-            className={`${styles.candidate} ${isTop ? styles.candidateTop : ""} ${
-              isTop && pressing ? styles.candidatePressed : ""
+          <motion.div
+            key={candidate.name}
+            className={`${styles.candidate} ${
+              isTop ? styles.candidateSharedHost : ""
             }`}
             style={{ zIndex: CANDIDATES.length - i }}
             initial={
-              reduce ? { opacity: 0 } : { opacity: 0, y: -80 - i * 20, scale: 1.04 }
+              reduce
+                ? { opacity: 1 }
+                : {
+                    opacity: 0,
+                    y: 24 + i * 8,
+                    scale: 0.985,
+                    boxShadow: isTop
+                      ? "none"
+                      : "0 8px 10px rgba(0, 0, 0, 0.1)",
+                  }
             }
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-20% 0px" }}
-            transition={{
-              duration: 0.7,
-              delay: 0.5 + 0.18 * (CANDIDATES.length - 1 - i),
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            animate={
+              reduce
+                ? { opacity: 1 }
+                : !active
+                  ? undefined
+                  : focusTop
+                    ? isTop
+                      ? {
+                          opacity: 1,
+                          y: 0,
+                          scale: 1.01,
+                          boxShadow: "0 16px 30px rgba(1, 101, 208, 0.22)",
+                        }
+                      : {
+                          opacity: 0,
+                          y: 0,
+                          scale: 0.985,
+                          boxShadow: "0 6px 10px rgba(0, 0, 0, 0.08)",
+                        }
+                    : {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        boxShadow: isTop
+                          ? "none"
+                          : "0 8px 10px rgba(0, 0, 0, 0.1)",
+                      }
+            }
+            transition={
+              focusTop
+                ? {
+                    duration: 0.32,
+                    delay: isTop ? 0 : i * 0.02,
+                    ease: HIRING_EASE,
+                  }
+                : {
+                    duration: 0.4,
+                    delay: 0.04 * i,
+                    ease: HIRING_EASE,
+                  }
+            }
           >
-            <Image
-              src={candidate.avatar}
-              alt=""
-              width={64}
-              height={64}
-              className={styles.avatar}
-            />
+            {isTop && (
+              <motion.span
+                layoutId="hiring-selected-shell"
+                className={styles.candidateSharedShell}
+                transition={HIRING_LAYOUT_SPRING}
+              />
+            )}
+            {isTop ? (
+              <motion.span
+                layoutId="hiring-selected-avatar"
+                className={`${styles.sharedAvatar} ${styles.sharedAvatarList}`}
+                transition={HIRING_LAYOUT_SPRING}
+              >
+                <Image
+                  src={candidate.avatar}
+                  alt=""
+                  width={64}
+                  height={64}
+                  className={styles.sharedAvatarImage}
+                />
+              </motion.span>
+            ) : (
+              <Image
+                src={candidate.avatar}
+                alt=""
+                width={64}
+                height={64}
+                className={styles.avatar}
+              />
+            )}
             <div className={styles.candidateInfo}>
               <p className={styles.candidateName}>{candidate.name}</p>
               <p className={styles.candidateRole}>{candidate.role}</p>
@@ -164,15 +187,9 @@ function CandidateStack({
             >
               {candidate.match}
             </span>
-            {isTop && (
-              <span className={styles.viewHint} aria-hidden="true">
-                {t.resumeMatch.viewHint}
-              </span>
-            )}
-          </Card>
+          </motion.div>
         );
       })}
-      {showCursor && <ClickCursor />}
     </div>
   );
 }
@@ -225,84 +242,193 @@ function ScoreGauge({ value, total }: { value: number; total: string }) {
           transform={`rotate(125 ${size / 2} ${size / 2})`}
           initial={reduce ? { pathLength: fillFraction } : { pathLength: 0 }}
           animate={{ pathLength: fillFraction }}
-          transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.52, delay: 0.04, ease: HIRING_EASE }}
         />
       </svg>
       <div className={styles.gaugeReadout}>
-        <CountUp value={value} className={styles.gaugeValue} />
+        <CountUp
+          value={value}
+          className={styles.gaugeValue}
+          springStiffness={260}
+          springDamping={28}
+        />
         <span className={styles.gaugeTotal}>{total}</span>
       </div>
     </div>
   );
 }
 
-/** AI match report revealed when the top candidate is clicked. */
-function ResumeMatchCard({ onBack }: { onBack: () => void }) {
+/** AI match report revealed automatically after the shortlist settles. */
+function ResumeMatchCard() {
   const r = t.resumeMatch;
   const top = CANDIDATES[0];
+  const reduce = useReducedMotion();
+  const revealFrom = reduce ? false : { opacity: 0 };
+
   return (
     <div className={styles.reportCard}>
-      <div className={styles.reportHeader}>
+      <motion.span
+        className={styles.reportBackdrop}
+        aria-hidden="true"
+        initial={reduce ? false : { opacity: 0, scale: 0.985 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.44,
+          ease: HIRING_REVEAL_EASE,
+        }}
+      />
+      <motion.div
+        className={styles.reportHeader}
+        initial={revealFrom}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.38,
+          delay: reduce ? 0 : 0.08,
+          ease: HIRING_REVEAL_EASE,
+        }}
+      >
         <span className={styles.reportIcon}>
           <Image src="/images/workers/ai-generate.svg" alt="" width={27} height={27} />
         </span>
         <p className={styles.reportTitle}>{r.cardTitle}</p>
-        <button
-          type="button"
-          className={styles.reportBack}
-          onClick={onBack}
-          aria-label={r.backLabel}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path
-              d="M3 3l10 10M13 3L3 13"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-      </div>
+      </motion.div>
       <div className={styles.reportCandidateWrap}>
-        <button
-          type="button"
-          className={styles.reportCandidate}
-          onClick={onBack}
-          aria-label={r.backLabel}
-        >
-          <Image
-            src={top.avatar}
-            alt=""
-            width={80}
-            height={80}
-            className={styles.avatar}
+        <div className={styles.reportCandidate}>
+          <motion.span
+            layoutId="hiring-selected-shell"
+            className={styles.reportCandidateShell}
+            initial={
+              reduce
+                ? false
+                : {
+                    backgroundColor: "#ffffff",
+                    borderColor: "rgba(130, 140, 154, 0.35)",
+                    boxShadow: "0 8px 10px rgba(0, 0, 0, 0.1)",
+                  }
+            }
+            animate={{
+              backgroundColor: "#fafaf8",
+              borderColor: "#0165d0",
+              boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+            }}
+            transition={
+              reduce
+                ? { duration: 0 }
+                : {
+                    layout: HIRING_LAYOUT_SPRING,
+                    backgroundColor: {
+                      duration: 0.46,
+                      delay: 0.06,
+                      ease: HIRING_REVEAL_EASE,
+                    },
+                    borderColor: {
+                      duration: 0.5,
+                      delay: 0.04,
+                      ease: HIRING_REVEAL_EASE,
+                    },
+                    boxShadow: {
+                      duration: 0.4,
+                      ease: HIRING_REVEAL_EASE,
+                    },
+                  }
+            }
           />
-          <div className={styles.candidateInfo}>
+          <motion.span
+            layoutId="hiring-selected-avatar"
+            className={`${styles.sharedAvatar} ${styles.sharedAvatarReport}`}
+            initial={
+              reduce
+                ? false
+                : {
+                    filter: "grayscale(0.8)",
+                  }
+            }
+            animate={{ filter: "grayscale(0)" }}
+            transition={
+              reduce
+                ? { duration: 0 }
+                : {
+                    layout: HIRING_LAYOUT_SPRING,
+                    filter: {
+                      duration: 0.5,
+                      delay: 0.04,
+                      ease: HIRING_REVEAL_EASE,
+                    },
+                  }
+            }
+          >
+            <Image
+              src={top.avatar}
+              alt=""
+              width={80}
+              height={80}
+              className={styles.sharedAvatarImage}
+            />
+          </motion.span>
+          <motion.div
+            className={styles.candidateInfo}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              duration: 0.4,
+              delay: reduce ? 0 : 0.14,
+              ease: HIRING_REVEAL_EASE,
+            }}
+          >
             <p className={styles.reportName}>{top.name}</p>
             <p className={styles.candidateRole}>{top.role}</p>
             <p className={styles.candidateLocation}>
               <LocationIcon />
               {top.location}
             </p>
-          </div>
-          <span className={styles.matchBadge} style={{ background: top.badge }}>
+          </motion.div>
+          <motion.span
+            className={styles.matchBadge}
+            style={{ background: top.badge }}
+            initial={reduce ? false : { opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.44,
+              delay: reduce ? 0 : 0.2,
+              ease: HIRING_REVEAL_EASE,
+            }}
+          >
             {top.match}
-          </span>
-        </button>
+          </motion.span>
+        </div>
       </div>
       <div className={styles.reportBody}>
-        <div className={styles.scoreSection}>
+        <motion.div
+          className={styles.scoreSection}
+          initial={reduce ? false : { opacity: 0, scale: 0.985 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            delay: reduce ? 0 : 0.24,
+            ease: HIRING_REVEAL_EASE,
+          }}
+        >
           <ScoreGauge value={r.score} total={r.scoreTotal} />
           <div className={styles.scoreCaptionBlock}>
             <p className={styles.scoreCaption}>{r.overallLabel}</p>
             <p className={styles.scoreVerdict}>{r.overallVerdict}</p>
           </div>
-        </div>
+        </motion.div>
         {[
           { title: r.criteriaTitle, rows: r.criteria },
           { title: r.riskTitle, rows: r.risks },
-        ].map((column) => (
-          <div key={column.title} className={styles.reportColumn}>
+        ].map((column, index) => (
+          <motion.div
+            key={column.title}
+            className={styles.reportColumn}
+            initial={reduce ? false : { opacity: 0, scale: 0.985 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.48,
+              delay: reduce ? 0 : 0.32 + index * 0.08,
+              ease: HIRING_REVEAL_EASE,
+            }}
+          >
             <p className={styles.reportColumnTitle}>{column.title}</p>
             <ul className={styles.reportList}>
               {column.rows.map((row) => (
@@ -317,7 +443,7 @@ function ResumeMatchCard({ onBack }: { onBack: () => void }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -325,84 +451,56 @@ function ResumeMatchCard({ onBack }: { onBack: () => void }) {
 }
 
 /**
- * Hiring panel visual: candidate shortlist ⇄ AI match report.
- * Auto-plays in a loop while in view — a cursor clicks the top candidate,
- * the match report shows, then it returns to the shortlist. Hovering pauses
- * the loop so real clicks take over; reduced motion disables auto-play.
+ * Hiring panel visual: candidate shortlist → AI match report.
+ * The two-step story plays once as soon as the panel enters view. There are
+ * no simulated clicks, manual controls, hover states, or repeating loops.
  */
 function HiringVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const [showReport, setShowReport] = useState(false);
-  const [pressing, setPressing] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [phase, setPhase] = useState<"shortlist" | "focus" | "report">(
+    "shortlist",
+  );
   const reduce = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.4 });
-  const autoPlay = inView && !paused && !reduce;
+  const inView = useInView(ref, ACTIVE_FLOW_VIEW);
+  const showReport = phase === "report";
 
   useEffect(() => {
-    if (!autoPlay) {
-      setPressing(false);
-      return;
-    }
-    if (!showReport) {
-      const press = setTimeout(() => setPressing(true), PRESS_AT_MS);
-      const flip = setTimeout(() => {
-        setPressing(false);
-        setShowReport(true);
-      }, PRESS_AT_MS + PRESS_MS);
-      return () => {
-        clearTimeout(press);
-        clearTimeout(flip);
-      };
-    }
-    const back = setTimeout(() => setShowReport(false), REPORT_HOLD_MS);
-    return () => clearTimeout(back);
-  }, [autoPlay, showReport]);
+    if (!inView) return;
 
-  const hidden = reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.97 };
-  const visible = reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 };
+    if (reduce) {
+      const reveal = window.setTimeout(() => setPhase("report"), 0);
+      return () => window.clearTimeout(reveal);
+    }
+
+    const focus = window.setTimeout(() => setPhase("focus"), FOCUS_DELAY_MS);
+    const reveal = window.setTimeout(() => setPhase("report"), REPORT_DELAY_MS);
+
+    return () => {
+      window.clearTimeout(focus);
+      window.clearTimeout(reveal);
+    };
+  }, [inView, reduce]);
 
   return (
-    <div
-      ref={ref}
-      className={styles.hiringVisual}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <AnimatePresence mode="wait" initial={false}>
+    <div ref={ref} className={styles.hiringVisual}>
+      <AnimatePresence mode="sync" initial={false}>
         {showReport ? (
-          <motion.div
-            key="report"
-            initial={hidden}
-            animate={visible}
-            exit={hidden}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <ResumeMatchCard onBack={() => setShowReport(false)} />
+          <motion.div key="report" initial={false}>
+            <ResumeMatchCard />
           </motion.div>
         ) : (
           <motion.div
             key="stack"
-            initial={hidden}
-            animate={visible}
-            exit={hidden}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.44, ease: HIRING_EASE }}
           >
-            <CandidateStack
-              onSelectTop={() => setShowReport(true)}
-              pressing={pressing}
-              showCursor={autoPlay}
-            />
+            <CandidateStack active={inView} focusTop={phase === "focus"} />
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  );
-}
-
-function Mockup({ src, alt }: { src: string; alt: string }) {
-  return (
-    <Image src={src} alt={alt} width={720} height={720} className={styles.mockup} />
   );
 }
 

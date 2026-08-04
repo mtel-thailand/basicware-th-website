@@ -7,10 +7,14 @@ import styles from "./MarketingFlow.module.css";
 
 const t = content.aiWorkers.marketingFlow;
 
-/* Auto-play loop timing (ms): each step lights up, then results hold */
-const STEP_MS = 900;
-const RESULTS_HOLD_MS = 4500;
+/* One-pass timing: five quick steps, then the completed results remain visible. */
+const STEP_MS = 140;
 const RESULTS_PHASE = t.steps.length;
+const ACTIVE_FLOW_VIEW = {
+  once: true,
+  amount: 0.45,
+  margin: "0px 0px -25% 0px",
+} as const;
 
 function DatabaseIcon() {
   return (
@@ -115,7 +119,7 @@ function Sparkline({ tone, active }: { tone: "blue" | "green"; active: boolean }
         strokeLinecap="round"
         initial={false}
         animate={{ pathLength: active ? 1 : 0.25, opacity: active ? 1 : 0.4 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       />
       {tone === "green" && (
         <motion.circle
@@ -125,7 +129,7 @@ function Sparkline({ tone, active }: { tone: "blue" | "green"; active: boolean }
           fill={stroke}
           initial={false}
           animate={{ scale: active ? 1 : 0, opacity: active ? 1 : 0 }}
-          transition={{ delay: active ? 0.8 : 0, duration: 0.25 }}
+          transition={{ delay: active ? 0.3 : 0, duration: 0.15 }}
         />
       )}
     </svg>
@@ -134,34 +138,32 @@ function Sparkline({ tone, active }: { tone: "blue" | "green"; active: boolean }
 
 /**
  * Marketing Assistant panel visual: a five-step campaign pipeline that
- * auto-plays step 1 → 5 in a loop, then reveals the A/B test results.
- * Hover pauses the loop; reduced motion shows everything statically.
+ * plays step 1 → 5 once, then reveals and holds the A/B test results.
+ * Reduced motion skips directly to the completed state.
  */
 export default function MarketingFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState(0);
-  const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
-  const inView = useInView(ref, { amount: 0.4 });
-  const autoPlay = inView && !paused && !reduce;
+  const inView = useInView(ref, ACTIVE_FLOW_VIEW);
 
   useEffect(() => {
-    if (!autoPlay) return;
-    const ms = phase < RESULTS_PHASE ? STEP_MS : RESULTS_HOLD_MS;
-    const id = setTimeout(() => setPhase((p) => (p + 1) % (RESULTS_PHASE + 1)), ms);
-    return () => clearTimeout(id);
-  }, [autoPlay, phase]);
+    if (!inView) return;
+
+    if (reduce) return;
+
+    const timers = Array.from({ length: RESULTS_PHASE }, (_, index) =>
+      window.setTimeout(() => setPhase(index + 1), STEP_MS * (index + 1)),
+    );
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [inView, reduce]);
 
   const view = reduce ? RESULTS_PHASE : phase;
   const showResults = view === RESULTS_PHASE;
 
   return (
-    <div
-      ref={ref}
-      className={styles.flowCard}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div ref={ref} className={styles.flowCard}>
       <div className={styles.steps}>
         {t.steps.map((step, i) => {
           const Icon = STEP_ICONS[i];
@@ -205,9 +207,13 @@ export default function MarketingFlow() {
               animate={
                 showResults
                   ? { opacity: 1, y: 0 }
-                  : { opacity: reduce ? 1 : 0.45, y: reduce ? 0 : 10 }
+                  : { opacity: reduce ? 1 : 0.25, y: reduce ? 0 : 10 }
               }
-              transition={{ duration: 0.5, delay: showResults ? 0.15 * i : 0, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.28,
+                delay: showResults ? 0.05 * i : 0,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <div className={styles.resultTop}>
                 <span className={`${styles.resultIcon} ${win ? styles.resultIconWin : ""}`}>
@@ -225,7 +231,11 @@ export default function MarketingFlow() {
                     className={styles.winBadge}
                     initial={false}
                     animate={showResults ? { scale: 1, opacity: 1 } : { scale: 0.6, opacity: 0 }}
-                    transition={{ delay: showResults ? 0.6 : 0, duration: 0.3, ease: "backOut" }}
+                    transition={{
+                      delay: showResults ? 0.22 : 0,
+                      duration: 0.18,
+                      ease: "backOut",
+                    }}
                   >
                     {result.badge}
                   </motion.span>

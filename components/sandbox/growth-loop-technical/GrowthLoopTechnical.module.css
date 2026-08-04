@@ -1,0 +1,1328 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(1, 101, 208, 0.09), transparent 28rem),
+    var(--color-bg-page);
+  color: var(--color-text-primary);
+}
+
+.reviewHeader {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: 12px clamp(20px, 4vw, 56px);
+  border-bottom: 1px solid var(--color-black-a10);
+  background: rgba(250, 250, 248, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.reviewBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewBrand > div {
+  display: grid;
+}
+
+.brandMark {
+  display: grid;
+  width: 42px;
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.reviewBrand div > span,
+.intro > div > span {
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.reviewBrand strong {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.reviewActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.reviewActions nav {
+  display: flex;
+  gap: 6px;
+}
+
+.reviewActions nav a {
+  display: grid;
+  width: 32px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--color-black-a10);
+  border-radius: 50%;
+  background: white;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  transition: border-color var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+}
+
+.reviewActions nav a:hover,
+.reviewActions nav a:focus-visible {
+  border-color: var(--color-brand-cta);
+  color: var(--color-brand-cta);
+  transform: translateY(-2px);
+}
+
+.reviewActions > a {
+  padding: 9px 14px;
+  border: 1px solid var(--color-black-a10);
+  border-radius: var(--radius-pill);
+  background: white;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  transition: border-color var(--duration-fast), color var(--duration-fast);
+}
+
+.reviewActions > a:hover,
+.reviewActions > a:focus-visible {
+  border-color: var(--color-brand-cta);
+  color: var(--color-brand-cta);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.65fr);
+  align-items: end;
+  gap: clamp(40px, 8vw, 120px);
+  max-width: 1320px;
+  margin-inline: auto;
+  padding: clamp(72px, 10vw, 144px) clamp(20px, 4vw, 56px) clamp(72px, 9vw, 120px);
+}
+
+.intro h1 {
+  max-width: 900px;
+  margin-top: 16px;
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+.intro p {
+  max-width: 450px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-lg-size);
+  line-height: 1.55;
+}
+
+.option {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 clamp(20px, 3vw, 44px) clamp(104px, 12vw, 180px);
+  scroll-margin-top: 92px;
+}
+
+.optionHeading {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 52px);
+  max-width: 1200px;
+  margin: 0 auto 34px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-black-a20);
+}
+
+.optionNumber {
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.optionTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.optionTitleRow h2 {
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.verdict {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-brand-subtle);
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.optionHeading p {
+  max-width: 760px;
+  margin-top: 16px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-lg-size);
+  line-height: 1.55;
+}
+
+.sequence {
+  display: block;
+  margin-top: 14px;
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sectionPreview {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(56px, 7vw, 88px);
+  overflow: hidden;
+  padding: clamp(64px, 8vw, 108px) clamp(20px, 4vw, 56px) clamp(54px, 7vw, 92px);
+  border: 1px solid rgba(1, 101, 208, 0.1);
+  border-radius: clamp(26px, 4vw, 48px);
+  background:
+    linear-gradient(rgba(1, 101, 208, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(1, 101, 208, 0.025) 1px, transparent 1px),
+    #fdfdfc;
+  background-size: 40px 40px;
+  box-shadow: 0 28px 90px rgba(17, 17, 16, 0.06);
+}
+
+.stage {
+  position: relative;
+}
+
+.loopTrack {
+  position: absolute;
+  inset: 37px 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.loopBase,
+.loopSignal {
+  vector-effect: non-scaling-stroke;
+}
+
+.loopBase {
+  stroke: rgba(1, 101, 208, 0.14);
+  stroke-width: 2;
+  stroke-dasharray: 4 8;
+}
+
+.loopSignal {
+  stroke: var(--color-brand-cta);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 92;
+  filter: drop-shadow(0 0 6px rgba(1, 101, 208, 0.85));
+  animation: travelLoop 7s linear infinite;
+}
+
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 24px);
+  align-items: start;
+}
+
+.cardSlot {
+  min-width: 0;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+
+.cardSlot:nth-child(1),
+.cardSlot:nth-child(5) {
+  margin-top: 120px;
+}
+
+.cardSlot:nth-child(2),
+.cardSlot:nth-child(4) {
+  margin-top: 40px;
+}
+
+.cardSlot:nth-child(1) { transform: rotate(-6deg); }
+.cardSlot:nth-child(2) { transform: rotate(-3deg); }
+.cardSlot:nth-child(4) { transform: rotate(3deg); }
+.cardSlot:nth-child(5) { transform: rotate(6deg); }
+
+.cardSlot:hover {
+  z-index: 4;
+  transform: translateY(-10px) rotate(0);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  min-height: 425px;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  padding: clamp(18px, 2vw, 25px);
+  border: 1px solid rgba(1, 101, 208, 0.09);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 26px rgba(16, 46, 88, 0.09);
+  transition: border-color var(--duration-base), box-shadow var(--duration-base);
+}
+
+.cardSlot:hover .card {
+  border-color: rgba(1, 101, 208, 0.28);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-brand-cta), transparent);
+  content: "";
+  opacity: 0.65;
+}
+
+.cardText {
+  display: flex;
+  min-height: 148px;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.cardMeta i {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(1, 101, 208, 0.35), transparent);
+}
+
+.cardText h3 {
+  color: var(--color-accent-light);
+  font-size: clamp(1.65rem, 2.25vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: var(--text-h3-tracking);
+}
+
+.cardText p {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.technicalVisual {
+  position: relative;
+  display: grid;
+  width: 100%;
+  aspect-ratio: 1.25;
+  margin-top: auto;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(1, 101, 208, 0.1);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(1, 101, 208, 0.14), transparent 58%),
+    linear-gradient(145deg, #f7faff, #eef5ff);
+  color: var(--color-brand-cta);
+}
+
+.technicalVisual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.72) 50%, transparent 65%);
+  content: "";
+  transform: translateX(-140%);
+  animation: surfaceScan 5.5s ease-in-out infinite;
+}
+
+.technicalVisual svg {
+  position: relative;
+  z-index: 1;
+  width: 94%;
+  overflow: visible;
+}
+
+.visualGlow {
+  position: absolute;
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(1, 101, 208, 0.16);
+  filter: blur(22px);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.orbitLayer {
+  display: none;
+}
+
+.portLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  color: var(--color-brand-cta);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.portDot {
+  width: 7px;
+  aspect-ratio: 1;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--color-brand-cta);
+  box-shadow: 0 0 0 3px rgba(1, 101, 208, 0.14), 0 0 12px rgba(1, 101, 208, 0.65);
+  animation: portPulse 1.8s ease-in-out infinite;
+}
+
+.gridLines path,
+.chartGrid path {
+  fill: none;
+  stroke: rgba(1, 101, 208, 0.13);
+  stroke-width: 1;
+}
+
+.signalPath path,
+.chartLine,
+.networkLinks path,
+.routeLinks path,
+.flowArrows,
+.routerMark,
+.corePins path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signalPath path,
+.chartLine,
+.networkLinks path,
+.routeLinks path {
+  stroke-dasharray: 6 5;
+  animation: signalDash 2.2s linear infinite;
+}
+
+.nodeSet circle,
+.chartDots circle,
+.networkNodes circle {
+  fill: white;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+.nodeSet .activeNode,
+.chartDots .activeNode,
+.networkNodes .activeNode {
+  fill: currentColor;
+  stroke: white;
+  filter: drop-shadow(0 0 6px rgba(1, 101, 208, 0.8));
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+
+.scanLine,
+.livePulse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 18 120;
+  animation: scan 2.8s linear infinite;
+}
+
+.flowBlocks rect,
+.outputFrames rect,
+.channelNodes rect {
+  fill: white;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.flowBlocks rect:nth-child(2),
+.outputFrames rect:nth-child(2),
+.channelNodes rect:nth-child(2) {
+  animation: blockPulse 2.1s ease-in-out infinite;
+}
+
+.engineBody,
+.routerBody {
+  fill: rgba(1, 101, 208, 0.08);
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.engineCore {
+  fill: currentColor;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.spark {
+  fill: white;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sparkSpin 5s linear infinite;
+}
+
+.screenFrame {
+  fill: rgba(255, 255, 255, 0.68);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.chartArea {
+  fill: rgba(1, 101, 208, 0.11);
+}
+
+.inputPulse {
+  fill: currentColor;
+  filter: drop-shadow(0 0 6px rgba(1, 101, 208, 0.8));
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+
+.channelMarks path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Option 02 — enterprise operations control plane */
+
+.controlPlane .sectionPreview {
+  border-color: rgba(97, 200, 255, 0.2);
+  background:
+    linear-gradient(rgba(106, 199, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106, 199, 255, 0.055) 1px, transparent 1px),
+    radial-gradient(circle at 50% 0%, #12345e, transparent 48%),
+    #061426;
+  background-size: 36px 36px, 36px 36px, auto, auto;
+  box-shadow: 0 32px 100px rgba(4, 22, 43, 0.2);
+}
+
+.controlPlane :global(.accent) {
+  color: #6ec7ff;
+}
+
+.controlPlane .loopBase {
+  stroke: rgba(99, 204, 255, 0.3);
+}
+
+.controlPlane .loopSignal {
+  stroke: #62d8ff;
+  filter: drop-shadow(0 0 7px rgba(65, 207, 255, 0.95));
+}
+
+.controlPlane .card {
+  border-color: rgba(109, 202, 255, 0.22);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(18, 48, 82, 0.98), rgba(7, 25, 47, 0.98));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.controlPlane .card::before {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #62d8ff, transparent);
+  opacity: 1;
+}
+
+.controlPlane .cardSlot:hover .card {
+  border-color: rgba(98, 216, 255, 0.7);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38), 0 0 26px rgba(54, 183, 255, 0.12);
+}
+
+.controlPlane .cardMeta,
+.controlPlane .portLabel {
+  color: #67d6ff;
+}
+
+.controlPlane .cardMeta i {
+  background: linear-gradient(90deg, rgba(103, 214, 255, 0.6), transparent);
+}
+
+.controlPlane .cardText h3 {
+  color: #f4fbff;
+}
+
+.controlPlane .cardText p,
+.controlPlane .footer > p {
+  color: rgba(222, 239, 250, 0.66);
+}
+
+.controlPlane .technicalVisual {
+  border-color: rgba(104, 208, 255, 0.24);
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(105, 211, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(105, 211, 255, 0.06) 1px, transparent 1px),
+    #07182d;
+  background-size: 16px 16px;
+  color: #69d4ff;
+  box-shadow: inset 0 0 28px rgba(33, 146, 213, 0.08);
+}
+
+.controlPlane .technicalVisual::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(106, 216, 255, 0.15) 50%, transparent 60%);
+}
+
+.controlPlane .visualGlow {
+  background: rgba(45, 176, 255, 0.22);
+}
+
+.controlPlane .gridLines path,
+.controlPlane .chartGrid path {
+  stroke: rgba(102, 210, 255, 0.18);
+}
+
+.controlPlane .nodeSet circle,
+.controlPlane .chartDots circle,
+.controlPlane .networkNodes circle,
+.controlPlane .flowBlocks rect,
+.controlPlane .outputFrames rect,
+.controlPlane .channelNodes rect,
+.controlPlane .screenFrame {
+  fill: #081d36;
+  stroke: currentColor;
+}
+
+.controlPlane .engineBody,
+.controlPlane .routerBody {
+  fill: rgba(101, 213, 255, 0.11);
+}
+
+.controlPlane .chartArea {
+  fill: rgba(89, 203, 255, 0.15);
+}
+
+.controlPlane .indicator {
+  color: #67d6ff;
+}
+
+.controlPlane .portDot {
+  border-color: #09203c;
+  background: #65dbff;
+  box-shadow: 0 0 0 3px rgba(91, 207, 255, 0.16), 0 0 14px rgba(91, 207, 255, 0.85);
+}
+
+/* Option 03 — circular AI system modules */
+
+.orbitTheme .sectionPreview {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(1, 101, 208, 0.07), transparent 34%),
+    repeating-radial-gradient(circle at 50% 46%, rgba(1, 101, 208, 0.045) 0 1px, transparent 1px 58px),
+    #fcfcfa;
+}
+
+.orbitTheme .loopBase {
+  stroke: rgba(1, 101, 208, 0.22);
+  stroke-dasharray: 1 10;
+  stroke-linecap: round;
+}
+
+.orbitTheme .loopSignal {
+  stroke-width: 4;
+  stroke-dasharray: 2 120;
+}
+
+.orbitTheme .card {
+  border-color: rgba(1, 101, 208, 0.12);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 36px rgba(20, 62, 112, 0.08);
+}
+
+.orbitTheme .card::before {
+  inset: 14px auto auto 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-brand-cta);
+  box-shadow: 0 0 0 5px rgba(1, 101, 208, 0.08), 0 0 16px rgba(1, 101, 208, 0.5);
+  transform: translateX(-50%);
+}
+
+.orbitTheme .technicalVisual {
+  width: 92%;
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.98) 0 42%, rgba(234, 245, 255, 0.92) 43% 60%, rgba(1, 101, 208, 0.07) 61% 100%);
+}
+
+.orbitTheme .technicalVisual::after {
+  display: none;
+}
+
+.orbitTheme .technicalVisual svg {
+  width: 76%;
+}
+
+.orbitTheme .visualGlow {
+  width: 72%;
+  border: 1px solid rgba(1, 101, 208, 0.16);
+  background: transparent;
+  filter: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.orbitTheme .orbitLayer {
+  position: absolute;
+  inset: 7%;
+  z-index: 0;
+  display: block;
+  border: 1px solid rgba(1, 101, 208, 0.08);
+  border-radius: 50%;
+  animation: orbitSpin 12s linear infinite;
+}
+
+.orbitTheme .orbitLayer i {
+  position: absolute;
+  width: 6px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-brand-cta);
+  box-shadow: 0 0 8px rgba(1, 101, 208, 0.6);
+}
+
+.orbitTheme .orbitLayer i:nth-child(1) { top: 4%; left: 48%; }
+.orbitTheme .orbitLayer i:nth-child(2) { top: 67%; left: 5%; }
+.orbitTheme .orbitLayer i:nth-child(3) { top: 74%; right: 8%; }
+
+.orbitTheme .portLabel {
+  align-self: center;
+}
+
+.orbitTheme .portDot {
+  width: 6px;
+  box-shadow: 0 0 0 4px rgba(1, 101, 208, 0.1);
+}
+
+/* Option 04 — one data token transforming through the entire loop */
+
+.tokenRelay .sectionPreview {
+  background:
+    linear-gradient(120deg, rgba(1, 39, 91, 0.035), transparent 35%),
+    linear-gradient(300deg, rgba(1, 101, 208, 0.07), transparent 42%),
+    #f8fbff;
+}
+
+.tokenRelay .loopBase {
+  stroke: rgba(1, 77, 165, 0.22);
+  stroke-dasharray: 12 8;
+}
+
+.tokenRelay .loopSignal {
+  stroke: #4a8eff;
+  stroke-width: 4;
+  stroke-dasharray: 2 108;
+}
+
+.tokenRelay .card {
+  border-color: rgba(1, 64, 145, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 34px rgba(1, 39, 91, 0.1);
+}
+
+.tokenRelay .card::before {
+  background: linear-gradient(90deg, #01275b, #3b93ff, #01275b);
+}
+
+.tokenRelay .technicalVisual {
+  border: 0;
+  background:
+    radial-gradient(circle at 66% 28%, rgba(99, 184, 255, 0.42), transparent 28%),
+    linear-gradient(145deg, #031a3b, #014eab 64%, #087ee7);
+  color: white;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.18), 0 16px 30px rgba(1, 48, 105, 0.2);
+}
+
+.tokenRelay .technicalVisual::after {
+  background: linear-gradient(105deg, transparent 37%, rgba(132, 213, 255, 0.24) 50%, transparent 63%);
+}
+
+.tokenRelay .technicalVisual svg {
+  width: 100%;
+}
+
+.tokenRelay .portLabel {
+  color: #023e91;
+}
+
+.tokenRelay .portDot {
+  background: #176fda;
+}
+
+.tokenInputs rect,
+.tokenOutputs rect,
+.modelLayers rect {
+  fill: rgba(255, 255, 255, 0.08);
+  stroke: rgba(220, 244, 255, 0.78);
+  stroke-width: 1.5;
+}
+
+.tokenPaths path,
+.tokenArrow,
+.layerSignal,
+.tokenCheck,
+.tokenOutputs path {
+  fill: none;
+  stroke: rgba(229, 248, 255, 0.88);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tokenPaths path {
+  stroke-dasharray: 5 5;
+  animation: tokenFlow 2s linear infinite;
+}
+
+.tokenCore {
+  fill: rgba(255, 255, 255, 0.94);
+  stroke: #8bd8ff;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 10px rgba(134, 218, 255, 0.85));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tokenBreathe 2.4s ease-in-out infinite;
+}
+
+.tokenSpark {
+  fill: #0165d0;
+}
+
+.scoreOuter {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 8;
+}
+
+.scoreProgress {
+  fill: none;
+  stroke: #9be2ff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 185 54;
+  transform: rotate(-90deg);
+  transform-origin: 72px 70px;
+}
+
+.tokenScore {
+  fill: #0165d0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scoreBars rect {
+  fill: rgba(182, 229, 255, 0.78);
+}
+
+.scoreBars rect:nth-child(2) { opacity: 0.58; }
+.scoreBars rect:nth-child(4) { opacity: 0.42; }
+
+.modelLayers rect:nth-child(2) { opacity: 0.72; }
+.modelLayers rect:nth-child(3) { opacity: 0.46; }
+
+.layerSignal {
+  stroke: #a9e5ff;
+  stroke-width: 3;
+}
+
+.tokenCheck {
+  stroke: #0165d0;
+  stroke-width: 3;
+}
+
+.outputTokens polygon {
+  fill: rgba(255, 255, 255, 0.88);
+  stroke: #9fe2ff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(134, 218, 255, 0.5));
+}
+
+.outputTokens polygon:nth-child(2) { animation: outputPulse 1.8s ease-in-out infinite; }
+
+/* Option 05 — operational UI instead of illustration */
+
+.ledgerTheme .sectionPreview {
+  background:
+    linear-gradient(90deg, rgba(17, 17, 16, 0.028) 1px, transparent 1px),
+    #f4f3ef;
+  background-size: 64px 100%;
+}
+
+.ledgerTheme .loopBase {
+  stroke: rgba(17, 17, 16, 0.24);
+  stroke-dasharray: 2 7;
+}
+
+.ledgerTheme .loopSignal {
+  stroke: #111110;
+  stroke-width: 3;
+  stroke-dasharray: 2 78;
+  filter: none;
+}
+
+.ledgerTheme .card {
+  border: 1px solid rgba(17, 17, 16, 0.18);
+  border-radius: 12px;
+  background: #fbfbf8;
+  box-shadow: 5px 7px 0 rgba(17, 17, 16, 0.08);
+}
+
+.ledgerTheme .card::before {
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #111110 0 10px, transparent 10px 15px);
+  opacity: 0.88;
+}
+
+.ledgerTheme .cardSlot:hover .card {
+  border-color: #111110;
+  box-shadow: 8px 11px 0 rgba(1, 101, 208, 0.14);
+}
+
+.ledgerTheme .cardText h3 {
+  color: #111110;
+}
+
+.ledgerTheme .cardMeta,
+.ledgerTheme .portLabel {
+  color: #111110;
+}
+
+.ledgerTheme .cardMeta i {
+  background: repeating-linear-gradient(90deg, rgba(17, 17, 16, 0.3) 0 5px, transparent 5px 9px);
+}
+
+.ledgerTheme .ledgerShell {
+  display: block;
+  aspect-ratio: 1.1;
+  padding: 0;
+  border: 1px solid #111110;
+  border-radius: 8px;
+  background: #101312;
+  color: #f4f7f5;
+  box-shadow: none;
+}
+
+.ledgerTheme .ledgerShell::after {
+  display: none;
+}
+
+.ledgerWindow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 11px;
+  font-family: var(--font-mono);
+}
+
+.ledgerTop {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 6px;
+  letter-spacing: 0.07em;
+}
+
+.ledgerTop > span {
+  display: flex;
+  gap: 3px;
+}
+
+.ledgerTop > span i {
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.ledgerTop b {
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 500;
+}
+
+.ledgerTop em {
+  justify-self: end;
+  color: #65e59a;
+  font-style: normal;
+}
+
+.ledgerWindow code {
+  min-height: 42px;
+  padding: 10px 0 8px;
+  color: #d7e0dc;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.ledgerWindow code span {
+  color: #5da8ff;
+}
+
+.ledgerRows {
+  display: grid;
+  gap: 8px;
+}
+
+.ledgerRow {
+  display: grid;
+  gap: 4px;
+}
+
+.ledgerRow > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 6px;
+}
+
+.ledgerRow strong {
+  color: #f5f8f6;
+  font-size: 7px;
+  font-weight: 500;
+}
+
+.ledgerBar {
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ledgerBar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #126bcf, #63c6ff);
+  transform-origin: left;
+  animation: ledgerLoad 2.4s var(--ease-out-expo) both;
+}
+
+.ledgerStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 6px;
+  letter-spacing: 0.08em;
+}
+
+.ledgerStatus strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #65e59a;
+  font-weight: 500;
+}
+
+.ledgerStatus strong i {
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 7px currentColor;
+  animation: portPulse 1.8s ease-in-out infinite;
+}
+
+.ledgerTheme .portDot {
+  border-color: #f4f3ef;
+  background: #111110;
+  box-shadow: 0 0 0 3px rgba(17, 17, 16, 0.1);
+}
+
+.ledgerTheme .indicator {
+  color: #111110;
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-9);
+  text-align: center;
+}
+
+.footer > p {
+  max-width: 590px;
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-sm-size);
+  line-height: var(--text-body-sm-line);
+}
+
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-accent-light);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow-size);
+  font-weight: 500;
+  letter-spacing: var(--text-eyebrow-tracking);
+  text-transform: uppercase;
+}
+
+.indicator svg {
+  animation: indicatorSpin 6s linear infinite;
+}
+
+.reviewFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px clamp(20px, 4vw, 56px);
+  border-top: 1px solid var(--color-black-a10);
+  color: var(--color-text-secondary);
+  font-size: var(--text-caption-size);
+}
+
+.reviewFooter span {
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+@keyframes travelLoop {
+  to { stroke-dashoffset: -465; }
+}
+
+@keyframes signalDash {
+  to { stroke-dashoffset: -22; }
+}
+
+@keyframes scan {
+  to { stroke-dashoffset: -138; }
+}
+
+@keyframes surfaceScan {
+  0%, 45% { transform: translateX(-140%); }
+  70%, 100% { transform: translateX(140%); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.48; transform: scale(0.9); }
+  50% { opacity: 0.85; transform: scale(1.12); }
+}
+
+@keyframes portPulse {
+  0%, 100% { opacity: 0.62; }
+  50% { opacity: 1; }
+}
+
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+@keyframes blockPulse {
+  0%, 100% { fill: white; }
+  50% { fill: rgba(1, 101, 208, 0.18); }
+}
+
+@keyframes sparkSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes indicatorSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes tokenFlow {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes tokenBreathe {
+  0%, 100% { transform: scale(0.94); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes outputPulse {
+  0%, 100% { opacity: 0.52; }
+  50% { opacity: 1; }
+}
+
+@keyframes ledgerLoad {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 1100px) {
+  .cardSlot:nth-child(1),
+  .cardSlot:nth-child(5) { margin-top: 86px; }
+
+  .cardSlot:nth-child(2),
+  .cardSlot:nth-child(4) { margin-top: 28px; }
+
+  .card {
+    min-height: 390px;
+    padding: 18px;
+  }
+
+  .cardText { min-height: 138px; }
+  .cardText p { font-size: 14px; }
+}
+
+@media (max-width: 900px) {
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .loopTrack {
+    top: 30px;
+    bottom: 130px;
+    left: 50%;
+    width: 2px;
+    height: auto;
+    background: repeating-linear-gradient(to bottom, rgba(1, 101, 208, 0.25) 0 5px, transparent 5px 12px);
+  }
+
+  .loopTrack path { display: none; }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  .cardSlot:nth-child(n) {
+    margin-top: 0;
+    transform: none;
+  }
+
+  .cardSlot:hover { transform: translateY(-8px); }
+
+  .cardSlot:nth-child(5) {
+    grid-column: 1 / -1;
+    width: calc(50% - 8px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 620px) {
+  .reviewHeader { min-height: 68px; }
+  .reviewBrand strong { font-size: 14px; }
+  .reviewBrand div > span { font-size: 9px; }
+  .brandMark { width: 36px; }
+  .reviewActions nav { display: none; }
+
+  .intro h1 { font-size: clamp(3rem, 15vw, 4.8rem); }
+
+  .optionHeading {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .optionTitleRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sectionPreview {
+    padding-inline: 16px;
+    border-radius: 26px;
+  }
+
+  .loopTrack { left: 15px; }
+
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+  }
+
+  .cardSlot:nth-child(5) {
+    grid-column: auto;
+    width: auto;
+  }
+
+  .card {
+    min-height: 410px;
+  }
+
+  .reviewFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loopSignal,
+  .technicalVisual::after,
+  .visualGlow,
+  .portDot,
+  .signalPath path,
+  .chartLine,
+  .networkLinks path,
+  .routeLinks path,
+  .scanLine,
+  .livePulse,
+  .flowBlocks rect,
+  .outputFrames rect,
+  .channelNodes rect,
+  .spark,
+  .inputPulse,
+  .orbitLayer,
+  .tokenPaths path,
+  .tokenCore,
+  .outputTokens polygon,
+  .ledgerBar i,
+  .ledgerStatus strong i,
+  .indicator svg {
+    animation: none;
+  }
+}
