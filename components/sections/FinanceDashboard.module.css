@@ -57,7 +57,7 @@
 .aiBrief header p {
   color: #6f7b8c;
   font-family: var(--font-mono);
-  font-size: 8.5px;
+  font-size: 9.5px;
   letter-spacing: 0.08em;
 }
 
@@ -78,7 +78,7 @@
   padding: 3px 7px;
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 8.5px;
+  font-size: 9.5px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -122,8 +122,8 @@
   background: radial-gradient(circle at 100% 0%, rgba(31, 125, 232, 0.11), transparent 55%), white;
 }
 
-.cardTopline { justify-content: space-between; gap: 6px; color: #6e7988; font-size: 9px; }
-.qualityBadge { padding: 3px 6px; color: #0967ce; background: #edf6ff; font-size: 8.5px; }
+.cardTopline { justify-content: space-between; gap: 6px; color: #6e7988; font-size: 10px; }
+.qualityBadge { padding: 3px 6px; color: #0967ce; background: #edf6ff; font-size: 9px; }
 
 .revenueBody {
   display: grid;
@@ -141,7 +141,7 @@
   align-items: center;
   gap: 2px;
   color: #1a8a51;
-  font-size: 8.2px;
+  font-size: 9px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -154,14 +154,14 @@
 .targetMeter span,
 .regionTrack i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #7cb7f3, #0e6dd1); }
 
-.revenueFootnote { overflow: hidden; margin-top: 4px; color: #7b8796; font-size: 8px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.revenueFootnote { overflow: hidden; margin-top: 4px; color: #7b8796; font-size: 9px; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
 .revenueFootnote b { color: #314053; }
 
 .kpiCard { display: flex; flex-direction: column; justify-content: center; padding: 7px 9px; }
-.kpiLabel { overflow: hidden; color: #727e8d; font-size: 9.5px; text-overflow: ellipsis; white-space: nowrap; }
+.kpiLabel { overflow: hidden; color: #727e8d; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .kpiValueRow { justify-content: space-between; gap: 5px; margin: 1px 0 2px; }
 .kpiValueRow strong { font-family: var(--font-heading); font-size: 17px; line-height: 1.15; letter-spacing: -0.03em; }
-.kpiContext { overflow: hidden; color: #8995a4; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.kpiContext { overflow: hidden; color: #8995a4; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
 
 .dashboardBody {
   display: grid;
@@ -179,28 +179,28 @@
 .cardHeader h3,
 .aiBrief h3 { margin-top: 1px; font-size: 12.5px; line-height: 1.1; }
 
-.legend { gap: 9px; color: #778394; font-size: 8.5px; }
+.legend { gap: 9px; color: #778394; font-size: 9.5px; }
 .legend span { gap: 4px; }
 .legend i { display: block; width: 7px; aspect-ratio: 1; border-radius: 2px; }
 .actualKey { background: #0d6dd8; }
 .planKey { border: 1px dashed #9aabc0; background: #edf1f5; }
 
 .chartArea { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 4px; flex: 1; min-height: 0; margin-top: 6px; }
-.axisLabels { display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 15px; color: #9aa5b3; font-family: var(--font-mono); font-size: 8px; text-align: right; }
+.axisLabels { display: flex; flex-direction: column; justify-content: space-between; padding: 0 0 15px; color: #9aa5b3; font-family: var(--font-mono); font-size: 9px; text-align: right; }
 .plot { position: relative; min-height: 0; }
 .gridLines { position: absolute; inset: 0 0 15px; display: flex; flex-direction: column; justify-content: space-between; }
 .gridLines i { display: block; width: 100%; border-top: 1px dashed rgba(129, 150, 173, 0.16); }
 .columns { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 9px; }
 .monthColumn { display: flex; min-width: 0; flex-direction: column; }
-.monthColumn > span { height: 16px; padding-top: 4px; color: #7e8998; font-size: 8.2px; text-align: center; }
+.monthColumn > span { height: 16px; padding-top: 4px; color: #7e8998; font-size: 9px; text-align: center; }
 .barPair { display: flex; align-items: flex-end; justify-content: center; gap: 2px; flex: 1; min-height: 0; }
 .barPair > span { position: relative; display: block; width: 35%; min-height: 3px; border-radius: 3px 3px 1px 1px; transform-origin: bottom; animation: growBar 700ms var(--ease-out-expo) both; }
 .planBar { border: 1px dashed #bfccd9; background: rgba(236, 241, 246, 0.58); }
 .actualBar { background: linear-gradient(180deg, #2790fa, #0754ad); box-shadow: 0 4px 8px rgba(9, 103, 206, 0.12); }
-.actualBar b { position: absolute; bottom: calc(100% + 3px); left: 50%; translate: -50%; color: #0866ca; font-family: var(--font-mono); font-size: 8px; }
+.actualBar b { position: absolute; bottom: calc(100% + 3px); left: 50%; translate: -50%; color: #0866ca; font-family: var(--font-mono); font-size: 9px; }
 
-.chartFooter { display: grid; grid-template-columns: auto auto 1fr; gap: 7px; align-items: center; margin-top: 4px; padding: 5px 7px; border-radius: 7px; background: #f4f7fa; color: #778392; font-size: 8px; }
-.chartFooter strong { color: #28374a; font-size: 9px; }
+.chartFooter { display: grid; grid-template-columns: auto auto 1fr; gap: 7px; align-items: center; margin-top: 4px; padding: 5px 7px; border-radius: 7px; background: #f4f7fa; color: #778392; font-size: 9px; }
+.chartFooter strong { color: #28374a; font-size: 9.5px; }
 .chartFooter span:last-child { justify-self: end; color: #19814c; font-weight: 600; }
 
 .insightRail { display: grid; grid-template-rows: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 8px; min-height: 0; }
@@ -210,16 +210,23 @@
 .aiMark { display: grid; width: 21px; aspect-ratio: 1; place-items: center; border-radius: 7px; background: #0b68cc; color: white; font-size: 10px; }
 .aiBrief ol { display: grid; flex: 1; align-content: space-evenly; gap: 0; padding: 4px 9px 5px; list-style: none; }
 .aiBrief li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 4px; align-items: baseline; padding: 2px 0; }
-.aiBrief li > span { color: #1170d3; font-family: var(--font-mono); font-size: 8.5px; }
-.aiBrief li p { color: #5c6b7d; font-size: 8.5px; line-height: 1.25; }
+.aiBrief li > span { color: #1170d3; font-family: var(--font-mono); font-size: 9.5px; }
+.aiBrief li p { color: #5c6b7d; font-size: 9.5px; line-height: 1.25; }
 .aiBrief li b { color: #25364a; }
 
 .regionCard { display: flex; overflow: hidden; flex-direction: column; padding: 7px 8px; }
-.regionRows { display: grid; flex: 1; align-content: center; gap: 9px; margin-top: 4px; }
-.regionRow { display: grid; grid-template-columns: 57px minmax(30px, 1fr) 76px; gap: 6px; align-items: center; color: #667487; font-size: 8.5px; }
+.regionRows {
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  flex: 1;
+  min-height: 0;
+  margin-top: 2px;
+  padding-block: 3px 1px;
+}
+.regionRow { display: grid; grid-template-columns: 61px minmax(30px, 1fr) 76px; gap: 6px; align-items: center; color: #667487; font-size: 9.5px; line-height: 1.1; }
 .regionTrack { height: 4px; }
-.regionRow b { display: flex; justify-content: flex-end; gap: 5px; color: #344458; font-family: var(--font-mono); font-size: 8.5px; text-align: right; white-space: nowrap; }
-.regionRow b em { color: #0b6dd7; font-size: 8px; font-style: normal; font-weight: 500; }
+.regionRow b { display: flex; justify-content: flex-end; gap: 5px; color: #344458; font-family: var(--font-mono); font-size: 9px; text-align: right; white-space: nowrap; }
+.regionRow b em { color: #0b6dd7; font-size: 9px; font-style: normal; font-weight: 500; }
 
 
 @keyframes growBar {
@@ -233,10 +240,13 @@
   .dashboardIdentity p { font-size: 6px; }
   .dashboardIdentity h2 { font-size: 12px; }
   .syncStatus { display: none; }
-  .kpiGrid { grid-template-columns: repeat(2, 1fr); }
+  .kpiGrid { grid-template-columns: 1fr; }
   .revenueCard { grid-column: 1 / -1; }
-  .dashboardBody { grid-template-columns: 1fr; grid-template-rows: minmax(210px, 1fr) 170px; }
-  .insightRail { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
+  .kpiCard { display: none; }
+  .dashboardBody { grid-template-columns: 1fr; grid-template-rows: minmax(210px, 1fr) 150px; }
+  .insightRail { display: block; }
+  .aiBrief { display: none; }
+  .regionCard { height: 100%; }
   .dashboardFooter { display: none; }
 }
 

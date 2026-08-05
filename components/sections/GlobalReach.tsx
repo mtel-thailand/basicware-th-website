@@ -10,8 +10,8 @@ import styles from "./GlobalReach.module.css";
 
 const t = content.globalReach;
 
-/* Pin positions are pointed-tip percentages of globe-v2.png. The anchor keeps
-   that geographic point stable when the pin size changes responsively. */
+/* Pin positions are pointed-tip percentages tuned to globe-pastel.png. The anchor
+   keeps that geographic point stable when the pin size changes responsively. */
 const PINS: {
   key: keyof typeof t.locations;
   x: number;
@@ -19,14 +19,14 @@ const PINS: {
   spriteLeft: string;
   spriteTop: string;
 }[] = [
-  { key: "malaysia", x: 21.2, y: 71.5, spriteLeft: "-428.96%", spriteTop: "-66.28%" },
-  { key: "thailand", x: 22.0, y: 52.5, spriteLeft: "-420.44%", spriteTop: "-196.8%" },
-  { key: "nanjing", x: 47.5, y: 35.0, spriteLeft: "-167.42%", spriteTop: "-196.8%" },
-  { key: "japan", x: 73.5, y: 27.5, spriteLeft: "-36.66%", spriteTop: "-196.87%" },
-  { key: "cambodia", x: 26.2, y: 57.0, spriteLeft: "-298.64%", spriteTop: "-196.8%" },
-  { key: "vietnam", x: 29.7, y: 54.5, spriteLeft: "-298.64%", spriteTop: "-66.28%" },
-  { key: "indonesia", x: 58.0, y: 86.0, spriteLeft: "-167.42%", spriteTop: "-66.28%" },
-  { key: "hongkong", x: 45.0, y: 41.0, spriteLeft: "-36.65%", spriteTop: "-66.28%" },
+  { key: "malaysia", x: 21.5, y: 73.5, spriteLeft: "-428.96%", spriteTop: "-66.28%" },
+  { key: "thailand", x: 21.6, y: 55.7, spriteLeft: "-428.96%", spriteTop: "-196.8%" },
+  { key: "nanjing", x: 48.8, y: 33.0, spriteLeft: "-167.42%", spriteTop: "-196.8%" },
+  { key: "japan", x: 75.7, y: 24.5, spriteLeft: "-36.66%", spriteTop: "-196.87%" },
+  { key: "cambodia", x: 27.0, y: 59.2, spriteLeft: "-298.64%", spriteTop: "-196.8%" },
+  { key: "vietnam", x: 31.5, y: 60.5, spriteLeft: "-298.64%", spriteTop: "-66.28%" },
+  { key: "indonesia", x: 31.5, y: 93.5, spriteLeft: "-167.42%", spriteTop: "-66.28%" },
+  { key: "hongkong", x: 44.3, y: 42.0, spriteLeft: "-36.65%", spriteTop: "-66.28%" },
 ];
 
 export default function GlobalReach() {
@@ -42,7 +42,7 @@ export default function GlobalReach() {
         <Reveal className={styles.mapWrap} scale={0.96}>
           <div className={styles.map}>
             <Image
-              src="/images/map/globe-v2.png"
+              src="/images/map/globe-pastel.png"
               alt={t.mapAlt}
               fill
               sizes="(max-width: 900px) 100vw, 1200px"

@@ -202,6 +202,10 @@
     aspect-ratio: 640 / 520;
   }
 
+  .board {
+    gap: var(--space-2);
+  }
+
   .tileLabel {
     padding: 4px 8px;
   }
@@ -212,5 +216,10 @@
 
   .player {
     width: 94%;
+  }
+
+  .playerBar,
+  .playerControls {
+    padding-inline: 10px;
   }
 }
