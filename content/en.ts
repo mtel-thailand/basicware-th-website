@@ -40,7 +40,7 @@ export const en = {
 
   aigc: {
     eyebrow: "AIGC Content Production",
-    speedTitle: "Create at the speed of",
+    speedTitle: "Create with the quality of",
     partnerAvailable: "Available through",
     partnerPromise: "Built for enterprise creative production",
     title: {
