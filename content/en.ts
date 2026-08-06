@@ -66,7 +66,13 @@ export const en = {
 
   growthLoop: {
     eyebrow: "AI Marketing Growth Services",
-    title: { pre: "A growth ", accent: "loop", post: " that runs on autopilot" },
+    title: {
+      pre: "A growth ",
+      accent: "loop",
+      post: " with consumer",
+    },
+    titleTail: "intelligence analytics",
+    partnerLabel: "Powered By",
     steps: [
       { number: "01", title: "Plan", caption: "Map content to every platform and goal" },
       { number: "02", title: "Produce", caption: "Create short-form assets, ready to publish" },

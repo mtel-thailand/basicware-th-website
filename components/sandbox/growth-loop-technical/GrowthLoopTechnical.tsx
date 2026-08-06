@@ -344,7 +344,7 @@ function OptionPreview({ option }: { option: (typeof OPTIONS)[number] }) {
       <div className={styles.sectionPreview}>
         <SectionTitle
           eyebrow={t.eyebrow}
-          title={<AccentText segments={t.title} />}
+          title={<><AccentText segments={t.title} /> {t.titleTail}</>}
           tone={option.tone}
         />
 

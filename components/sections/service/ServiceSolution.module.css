@@ -53,7 +53,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  width: min(880px, 100%);
+  width: min(800px, 100%);
   align-self: center;
   min-height: 88px;
   padding: 18px 26px;
@@ -73,7 +73,7 @@
 .featureBrand {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   flex: none;
 }
 
@@ -88,8 +88,20 @@
 }
 
 .featureLogo {
-  width: 183px;
+  width: 136px;
   height: auto;
+}
+
+.featureLogoDivider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-black-a20);
+}
+
+.featureCompanionLogo {
+  width: 150px;
+  height: auto;
+  padding-bottom: 3px;
 }
 
 .featurePoweredLabel {
@@ -111,9 +123,15 @@
 }
 
 .featureTitle {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.25;
   color: var(--color-text-primary);
+}
+
+.featureSubtitle {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .featureSummary {
@@ -237,6 +255,14 @@
   .featureBrand {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .featureLogoDivider {
+    display: none;
+  }
+
+  .featureCompanionLogo {
+    width: 160px;
   }
 
   .featureItems {

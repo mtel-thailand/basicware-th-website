@@ -130,11 +130,19 @@ export type ServiceContent = {
       label?: string;
       /** Optional brand lockup displayed beside the label. */
       logo?: string;
+      /** Accessible label for the primary brand lockup. */
+      logoAlt?: string;
+      /** Optional second brand lockup displayed alongside the primary logo. */
+      companionLogo?: string;
+      /** Accessible label for the companion brand lockup. */
+      companionLogoAlt?: string;
       /** Optional technology/platform name displayed beside the logo. */
       suffix?: string;
       /** Optional attribution displayed before the brand lockup. */
       poweredLabel?: string;
       title?: string;
+      /** Supporting copy displayed directly below the feature title. */
+      subtitle?: string;
       summary?: string;
       items?: string[];
     };

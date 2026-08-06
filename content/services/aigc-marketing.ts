@@ -53,9 +53,11 @@ export const aigcMarketing: ServiceContent = {
     intro:
       "Deeply integrated with ByteDance's TikTok and VolcEngine, we use AI-generated content to produce marketing assets at scale — copy, images, short videos, and virtual livestreams.",
     featureBanner: {
-      logo: "/logos/byteplus-volcengine.svg",
+      companionLogo: "/logos/volcano-engine.png",
+      companionLogoAlt: "Volcano Engine",
       poweredLabel: "Powered by",
-      title: "Customer Data & Audience Insights",
+      title: "Customer data platform",
+      subtitle: "Segmentation · Intelligence · Sentiment",
     },
     points: [
       {

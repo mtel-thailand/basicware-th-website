@@ -99,6 +99,9 @@ export default function ServiceSolution({
               {content.featureBanner.title && (
                 <h3 className={styles.featureTitle}>{content.featureBanner.title}</h3>
               )}
+              {content.featureBanner.subtitle && (
+                <p className={styles.featureSubtitle}>{content.featureBanner.subtitle}</p>
+              )}
             </div>
             <div className={styles.featureBrand}>
               {content.featureBanner.poweredLabel && (
@@ -110,9 +113,22 @@ export default function ServiceSolution({
                 <Image
                   className={styles.featureLogo}
                   src={content.featureBanner.logo}
-                  alt="BytePlus VolcEngine"
-                  width={183}
-                  height={31}
+                  alt={content.featureBanner.logoAlt ?? "Partner logo"}
+                  width={136}
+                  height={28}
+                />
+              )}
+              {content.featureBanner.logo && content.featureBanner.companionLogo && (
+                <span className={styles.featureLogoDivider} aria-hidden="true" />
+              )}
+              {content.featureBanner.companionLogo && (
+                <Image
+                  className={styles.featureCompanionLogo}
+                  src={content.featureBanner.companionLogo}
+                  alt={content.featureBanner.companionLogoAlt ?? "Partner logo"}
+                  width={2392}
+                  height={456}
+                  sizes="(max-width: 760px) 160px, 150px"
                 />
               )}
               {content.featureBanner.suffix && (

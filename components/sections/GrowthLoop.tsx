@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import SectionTitle from "../ui/SectionTitle";
 import Reveal from "../motion/Reveal";
 import AccentText from "../ui/AccentText";
@@ -50,10 +51,29 @@ export default function GrowthLoop() {
   return (
     <section className={styles.section}>
       <div className="container">
-        <SectionTitle
-          eyebrow={t.eyebrow}
-          title={<AccentText segments={t.title} />}
-        />
+        <div className={styles.header}>
+          <SectionTitle
+            eyebrow={t.eyebrow}
+            className={styles.sectionTitle}
+            title={
+              <>
+                <span className={styles.headline}><AccentText segments={t.title} /></span>
+                <span className={styles.titleTail}>{t.titleTail}</span>
+              </>
+            }
+          />
+          <Reveal className={styles.partnerLine} delay={0.1}>
+            <span className={styles.partnerLabel}>{t.partnerLabel}</span>
+            <Image
+              className={styles.partnerLogo}
+              src="/logos/volcano-engine.png"
+              alt="Volcano Engine"
+              width={2392}
+              height={456}
+              sizes="(max-width: 600px) 189px, 210px"
+            />
+          </Reveal>
+        </div>
 
         <div
           ref={stageRef}
